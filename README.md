@@ -1,5 +1,44 @@
-# Project Starter 
+# Caloría
 A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Stack
 
@@ -8,9 +47,9 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 - express.js
 - sequelize.js
 
-*React client*
+*React Client*
 
-- Built using `create-react-app` and configured to work with the api.
+- Built using `create-react-app` and configured to work with the API.
 - Bootstrap 4.x added to `/client/public/index.html`
 - React Router
 
@@ -61,32 +100,6 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 └── package.json
 </pre>
 
-
-## Dev Setup
-
-Each team member will need to do this on their local machine.
-
-### Create a postgres db
-
-Create a user in postgres named `ctp_user` with the password `ctp_pass`:
-
-> This only needs to be done one time on your machine
-> You can create additional users if you want to.
-
-```
-createuser -P -s -e ctp_user
-```
-
-Create a separate db for this project:
-
-```
-createdb -h localhost -U ctp_user app2019_development
-```
-
-> You will create a DB for each project you start based on this repo. For other projects change `app2019_development` to the new apps database name.
-
-*For more details see this [installing postgres guide](https://github.com/CUNYTechPrep/ctp2019/blob/master/guides/installing-postgresql.md)*
-
 ### Running the app
 
 For local development you will need two terminals open, one for the api-backend and another for the react-client.
@@ -116,9 +129,9 @@ npm start
 
 ### Setting up Heroku
 
-Install the heroku cli if you don't already have it. 
+Install the Heroku CLI if you don't already have it. 
 
-> You will also need a heroku account
+> You will also need a Heroku account
 > And this will only be done once on your machine
 
 ```bash
