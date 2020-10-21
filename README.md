@@ -1,5 +1,5 @@
 # Caloría
-A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
+Calorie counter and recipe finder for alternatives to healthy eating.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
