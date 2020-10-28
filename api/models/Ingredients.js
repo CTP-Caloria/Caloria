@@ -41,12 +41,12 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         sequelize,
-        modelName: 'ingredients'
+        modelName: 'Ingredients'
     });
-    Ingredients.associate = (models) => {
+    // Ingredients.associate = (models) => {
 
-        models.Ingredients.belongsToMany(models.MyRecipes,{through: 'User'});
-    }
+    //     models.Ingredients.belongsToMany(models.MyRecipes,{through: 'User'});
+    // }
 
     return Ingredients;
 };

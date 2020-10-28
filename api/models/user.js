@@ -33,7 +33,7 @@ module.exports =(sequelize, DataTypes) => {
 
     },{
         sequelize, 
-        modelName: 'user'
+        modelName: 'User'
     });
 
     User.associate = (models) => {
