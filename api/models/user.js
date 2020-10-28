@@ -35,5 +35,13 @@ module.exports =(sequelize, DataTypes) => {
         sequelize, 
         modelName: 'user'
     });
+
+    User.associate = (models) => {
+
+
+        models.User.hasMany(models.MyRecipes)
+
+    }
+
     return User;
 };
