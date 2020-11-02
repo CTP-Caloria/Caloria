@@ -19,7 +19,7 @@ import React from 'react';
 function SearchField(props) {
     return (
       <div className="text-center mt-4">
-        <input type="text" onChange={ props.changed } value={ props.value } />
+        <input type="text" onChange={ props.changed } value={ props.value } placeholder="Search..." />
         {/* <p>You entered: { props.value }</p> */}
       </div>);
   }
@@ -108,7 +108,6 @@ class SearchPage extends React.Component {
                     changed={ (e) => this.SearchPost(e) }
                     
                 /> */}
-                <button className="btn btn-primary">Search</button>
                 <div>
                     {this.state.content.map((meal)=>{
                         return <DisplayMeal meal={meal}/>
