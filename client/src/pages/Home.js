@@ -1,5 +1,7 @@
 import React from 'react';
-import {Modal,Button} from 'react-bootstrap';
+import {Modal,Button, Form, FormControl} from 'react-bootstrap';
+import RegisterModal from '../components/RegisterModal';
+
 
 
 
@@ -28,26 +30,49 @@ class Home extends React.Component {
     render() {
     
         return (
-            <>
+      <div>
+   
       <Button variant="primary" onClick={this.handleShow}>
-        Hello
+        Login
       </Button>
-
+      
+    
+    
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Login</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="col-12">
+              <Form.Label>Username</Form.Label>
+              <FormControl 
+               aria-label="Default"
+               aria-describedby="inputGroup-sizing-default"
+               />
+            </Form.Group>
+            <Form.Group className="col-12">
+              <Form.Label>Password</Form.Label>
+              <FormControl 
+               aria-label="Default"
+               aria-describedby="inputGroup-sizing-default"
+               />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={this.handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={this.handleClose}>
-            Save Changes
+            Login
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+      <RegisterModal/>
+    </div>
+
+    
 
         )
     }
