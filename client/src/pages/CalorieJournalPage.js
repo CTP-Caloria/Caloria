@@ -25,11 +25,7 @@
                 show: true
             })
         }
-        handlePreventDedault= (e) => {
-            e.preventDefault();
-            console.log('button was clicked');
-            
-        }
+        
 
         render() {
             return (
