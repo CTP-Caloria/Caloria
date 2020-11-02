@@ -84,14 +84,15 @@ class App extends React.Component {
           <div className="row justify-content-center">
             <Switch>
               <Route path="/posts/new" component={CreatePage} />
-              <Route path="/posts/:id" component={RecipePage} />
+              <Route path="/Recipe/:id" component={RecipePage} />
               <Route path="/about-us" component={AboutUsPage} />
               <Route path="/calorie-journal" component={CalorieJournalPage} />
               <Route path="/search" component={SearchPage} />
               <Route path="/home" component={Home} />
               <Route path="/recipe-box" component={RecipeBoxPage}/>
               <Route path="/posts/:id" component={FoodPage}/>
-              <Route paht="/profile" component={Profile} />
+              <Route path="/profile" component={Profile} />
+              
 
             </Switch>
           </div>
