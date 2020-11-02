@@ -57,7 +57,9 @@ class SearchPage extends React.Component {
     //     console.log(this.state.content);
     // }
 
-    SearchPost =(e) => {
+       SearchPost =(e) => {
+
+        
         this.setState({
             userInput: e.target.value
         })
@@ -66,15 +68,25 @@ class SearchPage extends React.Component {
         .then(response => response.json())
         .then(json => {
             console.log(json);
-            this.setState({
-                content: json.meals
-            })
+            if(json.meals!==null)
+            {
+                this.setState({
+                    content: json.meals
+                })
+            }else{
+
+                this.setState({
+                    content: []
+                }) 
+            }
         })
         .catch(error => {console.log(error)
             // this.setState({
             //     content: []
             // })
         });
+
+     
     }
 
 
