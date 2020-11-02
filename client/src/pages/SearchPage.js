@@ -28,16 +28,15 @@ function DisplayMeal(props){
     return (
         <div className="card w-50 center my-3 mx-auto">
             <div className="card-header">
-                { props.meal.strMeal }
+                <strong>{ props.meal.strMeal }</strong>
             </div>
             <div className="card-body">
-                <img className="rounded float-left w-50" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
-                <br />
-                <span className="text-left">Category: { props.meal.strCategory }</span>
-                <br />
-                <span>Area: { props.meal.strArea }</span>
-                <br />
-                <span>Tags: { props.meal.strTags }</span>
+                <img className="rounded float-left w-50 mr-3" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
+                <ul className="list-unstyled text-left">
+                    <li><strong>Category:</strong> { props.meal.strCategory }</li>
+                    <li><strong>Area:</strong> { props.meal.strArea }</li>
+                    <li><strong>Tags:</strong> { props.meal.strTags }</li>
+                </ul>
             </div>
         </div>
     );
