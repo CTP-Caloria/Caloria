@@ -19,20 +19,26 @@ import React from 'react';
 function SearchField(props) {
     return (
       <div className="text-center mt-4">
-        <input type="text" onChange={ props.changed } value={ props.value } />
+        <input type="text" onChange={ props.changed } value={ props.value } placeholder="Search..." />
         {/* <p>You entered: { props.value }</p> */}
       </div>);
   }
 
 function DisplayMeal(props){
- 
     return (
-  
-        <div className="Meal">
-            <h1>Title: {props.meal.strMeal}</h1>
-            <h2>Instructions: {props.meal.strInstructions}</h2>
+        <div className="card w-50 center my-3 mx-auto">
+            <div className="card-header">
+                <strong>{ props.meal.strMeal }</strong>
+            </div>
+            <div className="card-body">
+                <img className="rounded float-left w-50 mr-3" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
+                <ul className="list-unstyled text-left">
+                    <li><strong>Category:</strong> { props.meal.strCategory }</li>
+                    <li><strong>Area:</strong> { props.meal.strArea }</li>
+                    <li><strong>Tags:</strong> { props.meal.strTags }</li>
+                </ul>
+            </div>
         </div>
-  
     );
 }
 
@@ -101,7 +107,6 @@ class SearchPage extends React.Component {
                     changed={ (e) => this.SearchPost(e) }
                     
                 /> */}
-                <button className="btn btn-primary">Search</button>
                 <div>
                     {this.state.content.map((meal)=>{
                         return <DisplayMeal meal={meal}/>
