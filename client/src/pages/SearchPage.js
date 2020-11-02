@@ -26,12 +26,12 @@ function SearchField(props) {
 
 function DisplayMeal(props){
     return (
-        <div className="card w-50 center my-3">
+        <div className="card w-50 center my-3 mx-auto">
             <div className="card-header">
                 { props.meal.strMeal }
             </div>
             <div className="card-body">
-                <img className="rounded float-left h-50 w-50" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
+                <img className="rounded float-left w-50" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
                 <br />
                 <span className="text-left">Category: { props.meal.strCategory }</span>
                 <br />
