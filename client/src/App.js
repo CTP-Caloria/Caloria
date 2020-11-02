@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  NavLink
 } from 'react-router-dom';
 import RecipePage from './pages/RecipePage';
 import AboutUsPage from './pages/AboutUsPage';
@@ -15,65 +13,66 @@ import Home from './pages/Home';
 import RecipeBoxPage from './pages/RecipeBoxPage';
 import FoodPage from './pages/FoodPage';
 import Profile from './pages/Profile';
+import Navigation from './components/Navigation';
 
 import './App.css';
 
 
 
-function Navigation(props) {
-  return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
-      <Link className="navbar-brand" to="/">Logo</Link>
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/home">
-            Home
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/search">
-            Search
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/calorie-journal">
-            Calorie Journal
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/recipe-box">
-            Recipe Box 
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/create-recipe">
-            Create Recipe
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/about-us">
-            About Us
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/recipe">
-            Recipe
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/food">
-            Food
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" exact to="/profile">
-            Profile
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
-}
+// function Navigation(props) {
+//   return (
+//     <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
+//       <Link className="navbar-brand" to="/">Logo</Link>
+//       <ul className="navbar-nav mr-auto">
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/home">
+//             Home
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/search">
+//             Search
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/calorie-journal">
+//             Calorie Journal
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/recipe-box">
+//             Recipe Box 
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/create-recipe">
+//             Create Recipe
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/about-us">
+//             About Us
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/recipe">
+//             Recipe
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/food">
+//             Food
+//           </NavLink>
+//         </li>
+//         <li className="nav-item">
+//           <NavLink className="nav-link" exact to="/profile">
+//             Profile
+//           </NavLink>
+//         </li>
+//       </ul>
+//     </nav>
+//   );
+// }
 
 
 class App extends React.Component {
