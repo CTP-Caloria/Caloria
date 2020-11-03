@@ -64,5 +64,8 @@ passport.deserializeUser((id, done) => {
 // passport.redirectIfNotLoggedIn = (route) =>
 //   (req, res, next) => (req.user ? next() : res.redirect(route));
 
+passport.isAuthenticated = () => 
+  (req, res, next) => (req.user ? next() : res.sendStatus(401));
+
 
 module.exports = passport; 
