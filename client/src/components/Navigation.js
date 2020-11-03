@@ -1,7 +1,7 @@
 import  React  from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import AuthButton from './componenets/AuthButton';
+import AuthButton from '../components/AuthButton';
 //import Image from 'react-bootstrap/Image'
 
 export default class Navigation extends React.Component {
@@ -24,6 +24,8 @@ export default class Navigation extends React.Component {
                         <Nav.Link href="recipe-box"> Recipe Box</Nav.Link>
                         <Nav.Link href="create-recipe">Create Recipe</Nav.Link>
                         <Nav.Link href="profile"> Profile</Nav.Link>
+                        <Nav.Link href="signup">Register</Nav.Link>
+                        <AuthButton />
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

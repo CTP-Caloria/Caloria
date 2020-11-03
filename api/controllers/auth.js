@@ -10,12 +10,13 @@ router.post('/signup', (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
+    password2: req.body.password2
   })
     .then((user) => {
       req.login(user, () => res.status(201).json(user));
     })
     .catch((err) => {
-      res.status(400).json({ msg: 'Failed Signup', err });
+      res.status(400).json({ msg: 'Signup failed', err });
     });
 });
 
