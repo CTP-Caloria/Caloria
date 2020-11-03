@@ -1,6 +1,7 @@
 import  React  from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import AuthButton from './componenets/AuthButton';
 //import Image from 'react-bootstrap/Image'
 
 export default class Navigation extends React.Component {

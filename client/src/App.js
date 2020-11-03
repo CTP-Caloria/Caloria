@@ -14,6 +14,7 @@ import RecipeBoxPage from './pages/RecipeBoxPage';
 import FoodPage from './pages/FoodPage';
 import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
+import PrivateRoute from './components/PrivateRoute';
 
 import './App.css';
 
