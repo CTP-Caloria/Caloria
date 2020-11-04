@@ -21,3 +21,71 @@
   color: #09d3ac;
 }
 */
+
+#Recepie{
+  position: absolute;
+left: 0%;
+right: 0%;
+background: #FFFFFF;
+border: 1px solid #C4C4C4;
+box-sizing: border-box;
+}
+
+#rName{
+  position: absolute;
+/* h1/Regular 38px */
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 38px;
+line-height: 45px;
+/* identical to box height */
+
+/* #333333 - Dark Grey */
+color: #333333;
+
+}
+
+#foodFacts{
+
+margin-top: 60px;
+/* margin-right: 60em; */
+border: 1px solid #D4D4D4;
+box-sizing: border-box;
+box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+border-radius: 4px;
+display: inline-block;
+float: left;
+
+}
+
+#ingredients{
+ margin-top: 60px;
+ display: inline-block;
+ float: left;
+}
+#ingredients ul{
+
+   -moz-column-count: 2;
+   -moz-column-gap: 30px;
+   -webkit-column-count: 2;
+   -webkit-column-gap: 30px;
+   column-count: 2;
+   column-gap: 30px;
+
+    border: 1px solid #D4D4D4;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+#instructions{
+  margin-top: 60px;
+border: 1px solid #D4D4D4;
+box-sizing: border-box;
+box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+border-radius: 4px;
+display: inline-block;
+
+}
