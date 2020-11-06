@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
+      allowNull: true,
       validate: {
         isEmail: true,
       },
@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'User'
+    modelName: 'user'
   });
 
   User.associate = (models) => {

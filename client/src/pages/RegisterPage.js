@@ -1,4 +1,5 @@
 import React from 'react';
+const axios = require('axios');
 
 // email check char
 const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -27,13 +28,14 @@ class RegisterPage extends React.Component {
              lastName: "",
              email: "",
              password: "",
-             //password2: "",
+             password2: "",
 
              formErrors:{
                  firstName: "",
                  lastName: "",
                  email: "",
                  password: "",
+                 password2: "",
              }
          }
 
@@ -41,14 +43,31 @@ class RegisterPage extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+       
 
         if(formValid(this.state)){
+            
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/api/auth/signup',
+                headers: { "Access-Control-Allow-Origin": "*"
+
+             },
+                data: {
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    email: this.state.email,
+                    password: this.state.password,
+                    password2: this.state.password2
+                }
+            });
             console.log(`
             --SUBMITTING--
             First Name: ${this.state.firstName}
             Last Name: ${this.state.lastName}
             Email: ${this.state.email}
             Password: ${this.state.password}
+            Password: ${this.state.password2}
            
             `);
         } else{
@@ -96,7 +115,8 @@ class RegisterPage extends React.Component {
         this.setState({
             formErrors,[name]:value
         },()=>console.log(this.state));
-
+        
+        // console.log(this.state);
     }
 
     render() {
@@ -164,17 +184,21 @@ class RegisterPage extends React.Component {
                                 <span className="errorMessage">{formErrors.password}</span>
                             )}
                         </div>
-                        {/* <div className="form-group">
-                    <label for="password">Confirm password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        name="password2"
-                        placeholder="Password"
-                        noValidate
-                        onChange={this.handleChange}
-                    />
-                </div> */}
+
+                        <div className="password">
+                            <label for="password2">Password2</label>
+                            <input
+                                type="password"
+                                className={formErrors.password.length > 0 ? "error" : null} name="password2"
+                                placeholder="Password2"
+                                noValidate
+                                onChange={this.handleChange}
+                            />
+                            {formErrors.password.length > 0 && (
+                                <span className="errorMessage">{formErrors.password2}</span>
+                            )}
+                        </div>
+                        
                     <div className="createAccount">
                     <button type="submit">Create Account</button>
                     <small>Already have an account?</small>

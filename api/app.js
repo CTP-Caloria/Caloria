@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const morgan = require('morgan');
@@ -6,8 +7,9 @@ const path = require('path');
 const db = require('./models');
 const passport = require('./middlewares/authentication');
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
+app.use(cors());
 
 // this lets us parse 'application/json' content in http requests
 app.use(bodyParser.json())
@@ -40,6 +42,7 @@ if(process.env.NODE_ENV==='production') {
 // update DB tables based on model updates. Does not handle renaming tables/columns
 // NOTE: toggling this to true drops all tables (including data)
 db.sequelize.sync({ force: false });
+
 
 // start up the server
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
