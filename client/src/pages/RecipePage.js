@@ -55,6 +55,7 @@ class RecipePage extends React.Component {
 
         
         console.log(post.meals[0]);
+        console.log(post);
 
     
         console.log(this.state.mealName);
@@ -95,7 +96,7 @@ class RecipePage extends React.Component {
         });
        
         let res = meal.strInstructions.split(".");
-        console.log(res);
+       
         this.setState({
           mealName: meal.strMeal,
           instructions: res,
@@ -112,6 +113,7 @@ class RecipePage extends React.Component {
 
       })
       .catch(err => {
+        console.log(err);
         this.setState({
           notFound: true,
         });
