@@ -6,8 +6,9 @@ class RegisterPage extends React.Component {
         lastName: "",
         email: "",
         password: "",
-        password2: ""
+        password2: "",
     }
+    
 
     submit = (e) => {
 

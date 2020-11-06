@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         sequelize,
-        modelName: 'MyRecipes'
+        modelName: 'myRecipes'
     });
     MyRecipies.associate = (models)=>{
 
