@@ -4,6 +4,7 @@ const passport = require('../middlewares/authentication');
 
 
 router.post('/signup', (req, res) => {
+
   console.log("POST body: ", req.body);
   User.create({
     firstName: req.body.firstName,
