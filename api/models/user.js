@@ -1,5 +1,5 @@
 'use strict';
-const { Model} = require('sequelize'); 
+const { Model } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 // module.exports =(sequelize, DataTypes) => {
@@ -48,48 +48,65 @@ const bcrypt = require('bcryptjs');
 // };
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    getFullname() {
-      return [this.firstName, this.lastName].join(' ');
+    class User extends Model {
+        getFullname() {
+            return [this.firstName, this.lastName].join(' ');
+        }
     }
-  }
 
-  User.init({
-    firstName: { type: DataTypes.STRING },
-    lastName: { type: DataTypes.STRING },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    passwordHash: { type: DataTypes.STRING },
-    password: { 
-      type: DataTypes.VIRTUAL,
-      validate: {
-        isLongEnough: (val) => {
-          if (val.length < 7) {
-            throw new Error("Please choose a longer password");
-          }
+    User.init({
+        userID: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
         },
-      },
-    },
-  }, {
-    sequelize,
-    modelName: 'user'
-  });
+        firstName: { type: DataTypes.STRING },
+        lastName: { type: DataTypes.STRING },
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+            validate: {
+                isEmail: true,
+            },
+        },
+        passwordHash: { type: DataTypes.STRING },
+        password: {
+            type: DataTypes.VIRTUAL,
+            validate: {
+                isLongEnough: (val) => {
+                    if (val.length < 7) {
+                        throw new Error("Please choose a longer password");
+                    }
+                },
+            },
+        },
+    }, {
+        sequelize,
+        modelName: 'user'
+    });
 
-  User.associate = (models) => {
-    models.User.hasMany(models.MyRecipes);
-  };
+    //   User.associate = (models) => {
+    //     models.User.belongs(models.MyRecipes);
+    //   };
+    //   User.associate = (models) => {
+    //       User.belongsTo(models.entry, {
 
-  User.beforeSave((user, options) => {
-    if(user.password) {
-      user.passwordHash = bcrypt.hashSync(user.password, 10);
+    //           foreignKey: 'requesterName'
+    //       });
+
+      
+    User.associate = (models) => {
+        User.hasMany(models.Entry, {
+            as: 'entries',
+            foreignKey: 'requesterID'
+        });
     }
-  });
+    User.beforeSave((user, options) => {
+        if (user.password) {
+            user.passwordHash = bcrypt.hashSync(user.password, 10);
+        }
+    });
 
-  return User;
+    return User;
 }; 
