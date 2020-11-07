@@ -40,12 +40,13 @@ passport.use(new LocalStrategy({
   })
 );
 
+
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.userID);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findByPk(id)
+passport.deserializeUser((userID, done) => {
+  User.findByPk(userID)
     .then((user) => {
       if (!user) {
         done(null, false);
@@ -58,11 +59,33 @@ passport.deserializeUser((id, done) => {
     .catch(err => done(err, null));
 });
 
-// passport.redirectIfLoggedIn = (route) =>
-//   (req, res, next) => (req.user ? res.redirect(route) : next());
+// passport.serializeUser((user, done) => {
+//   done(null, user);
+// });
 
-// passport.redirectIfNotLoggedIn = (route) =>
-//   (req, res, next) => (req.user ? next() : res.redirect(route));
+// passport.deserializeUser((user, done) => {
+//   done(null, user);
+// });
+
+// passport.deserializeUser((id, done) => {
+//   User.findByPk(id)
+//     .then((user) => {
+//       if (!user) {
+//         done(null, false);
+//         return;
+//       }
+
+//       done(null, user);
+//       return;
+//     })
+//     .catch(err => done(err, null));
+// });
+
+//  passport.redirectIfLoggedIn = (route) =>
+//    (req, res, next) => (req.user ? res.redirect(route) : next());
+
+//  passport.redirectIfNotLoggedIn = (route) =>
+//    (req, res, next) => (req.user ? next() : res.redirect(route));
 
 passport.isAuthenticated = () => 
   (req, res, next) => (req.user ? next() : res.sendStatus(401));
