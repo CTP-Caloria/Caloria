@@ -46,7 +46,7 @@ class RegisterPage extends React.Component {
        
 
         if(formValid(this.state)){
-            
+
             axios({
                 method: 'post',
                 url: 'http://localhost:8080/api/auth/signup',
@@ -130,7 +130,7 @@ class RegisterPage extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         {/* { err } */}
                         <div className="firstName">
-                            <label for="firstName">First name</label>
+                            <label htmlFor="firstName">First name</label>
                             <input
                                 type="text"
                                 className={formErrors.firstName.length > 0 ? "error" : null}
@@ -144,7 +144,7 @@ class RegisterPage extends React.Component {
                             )}
                         </div>
                         <div className="lastName">
-                            <label for="lastName">Last name</label>
+                            <label htmlFor="lastName">Last name</label>
                             <input
                                 type="text"
                                 className={formErrors.lastName.length > 0 ? "error" : null}
@@ -159,7 +159,7 @@ class RegisterPage extends React.Component {
 
                         </div>
                         <div className="email">
-                            <label for="email">Email</label>
+                            <label htmlFor="email">Email</label>
                             <input
                                 type="email"
                                 className={formErrors.email.length > 0 ? "error" : null} name="email"
@@ -172,7 +172,7 @@ class RegisterPage extends React.Component {
                             )}
                         </div>
                         <div className="password">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input
                                 type="password"
                                 className={formErrors.password.length > 0 ? "error" : null} name="password"
@@ -186,7 +186,7 @@ class RegisterPage extends React.Component {
                         </div>
 
                         <div className="password">
-                            <label for="password2">Password2</label>
+                            <label htmlFor="password2">Password2</label>
                             <input
                                 type="password"
                                 className={formErrors.password.length > 0 ? "error" : null} name="password2"
