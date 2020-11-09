@@ -111,6 +111,15 @@ light green: #A3C4BC
   align-items: center;
   background-color: #258ea6;
 }
+.meal {
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #258ea6;
+}
 
 .form-wrapper {
   width: 400px;
@@ -120,6 +129,21 @@ light green: #A3C4BC
   border-radius: 10px;
   box-shadow: 0px 10px 50px #555;
   background-color: #ffffff;
+}
+
+.food-wrapper {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 50px #555;
+  background-color: #ffffff;
+}
+#image{
+    width: 35%;
+    height: auto;
+    float:right;
 }
 
 form {
