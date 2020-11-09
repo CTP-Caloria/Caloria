@@ -28,6 +28,7 @@ class RecipePage extends React.Component {
     protien:0,
     sugar:0,
     cholesterol:0,
+    image:""
     
   }
 
@@ -101,6 +102,7 @@ class RecipePage extends React.Component {
           mealName: meal.strMeal,
           instructions: res,
           ingredients: ing,
+          image: meal.strMealThumb,
           post: <Post {...post} />,
           loading: false,
         });
@@ -130,13 +132,18 @@ class RecipePage extends React.Component {
     // return <h1>HELLO</h1>
     return(
       
-        <div id="Recepie"> 
-            <div id="rName">
-              <h1>{this.state.mealName}</h1>
+      <div className="meal">
+        <div className="food-wrapper">
+
+      
+        <div id=""> 
+            <div id="">
+              <h1><b>{this.state.mealName}</b></h1>
+              <img id="image" src={this.state.image} alt="food"></img>
             </div>
 
 
-        <div id="ingredients">
+        <div id="">
           <h2>Ingredients</h2>
           <ul>
             {this.state.ingredients.map((ingredient) => {
@@ -145,9 +152,11 @@ class RecipePage extends React.Component {
 
             })}
           </ul>
+
+          
         </div>
             
-            <div id="foodFacts">
+            <div id="">
               <h3>Nutrtition Facts</h3>
               <ul>
                 <li>Total Calories: {this.state.calories}</li>
@@ -161,7 +170,8 @@ class RecipePage extends React.Component {
         
        
 
-            <div id="instructions">
+            <div >
+              <h3>Instructions</h3>
               <ol>
                   {this.state.instructions.map((instruction) => {
                     if(instruction!=="")
@@ -173,6 +183,8 @@ class RecipePage extends React.Component {
             </div>
             
         </div>
+        </div>
+      </div>
 
     );
   }
