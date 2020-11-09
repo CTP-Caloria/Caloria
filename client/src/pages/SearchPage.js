@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 // import { Redirect } from 'react-router-dom';
 
 // function Post(props) {
@@ -28,7 +29,8 @@ function DisplayMeal(props){
     return (
         <div className="card w-50 center my-3 mx-auto">
             <div className="card-header">
-                <strong>{ props.meal.strMeal }</strong>
+                <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a>
+                {/* <strong>{ props.meal.strMeal }</strong> */}
             </div>
             <div className="card-body">
                 <img className="rounded float-left w-50 mr-3" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
