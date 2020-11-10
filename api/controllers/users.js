@@ -12,14 +12,14 @@ const { User } = db;
 //   });
 
 
-router.get('/:userID', (req, res) => {
-    const {userID} = req.params;
-    User.findByPk(userID)
-        .then(users => {
-            if(!users) {
+router.get('/:id', (req, res) => {
+    const {id} = req.params;
+    User.findByPk(id)
+        .then(user => {
+            if(!user) {
                 return res.sendStatus(404);
             }
-            res.json(users);
+            res.json(user);
         });
 });
 

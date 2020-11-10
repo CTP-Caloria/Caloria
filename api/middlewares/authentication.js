@@ -40,13 +40,12 @@ passport.use(new LocalStrategy({
   })
 );
 
-
 passport.serializeUser((user, done) => {
-  done(null, user.userID);
+  done(null, user.id);
 });
 
-passport.deserializeUser((userID, done) => {
-  User.findByPk(userID)
+passport.deserializeUser((id, done) => {
+  User.findByPk(id)
     .then((user) => {
       if (!user) {
         done(null, false);
@@ -58,6 +57,25 @@ passport.deserializeUser((userID, done) => {
     })
     .catch(err => done(err, null));
 });
+
+
+// passport.serializeUser((user, done) => {
+//   done(null, user.userID);
+// });
+
+// passport.deserializeUser((userID, done) => {
+//   User.findByPk(userID)
+//     .then((user) => {
+//       if (!user) {
+//         done(null, false);
+//         return;
+//       }
+
+//       done(null, user);
+//       return;
+//     })
+//     .catch(err => done(err, null));
+// });
 
 // passport.serializeUser((user, done) => {
 //   done(null, user);

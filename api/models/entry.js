@@ -5,11 +5,11 @@ module.exports= (sequelize, DataTypes) => {
     class Entry extends Model {}
 
 Entry.init({
-    entryID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
+    // entryID: {
+    //     type: DataTypes.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true
+    // },
     Food: {
         type: DataTypes.STRING,
         allowNull: false 
