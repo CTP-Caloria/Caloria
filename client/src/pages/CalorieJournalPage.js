@@ -4,7 +4,7 @@
 
     function todayInString() {
         let today = new Date();
-        const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Friday', 'Saturday'];
+        const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday'];
 
         return weekday[today.getDay()];
     }
