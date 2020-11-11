@@ -1,6 +1,8 @@
 # Caloría
 Calorie counter and recipe finder for alternatives to healthy eating.
 
+Wireframe and prototype [here](https://www.figma.com/file/jSym1J7RTKrEVnEE3KCx2X/Wireframe).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
