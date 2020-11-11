@@ -9,6 +9,7 @@ const authController = require('./auth');
 const journalsController = require('./journals');
 const usersController = require('./users');
 const entriesController = require('./entries');
+const profilesController = require('./profiles');
 
 
 // Mount each controller under a specific route. These
@@ -19,5 +20,6 @@ router.use('/auth', authController);
 router.use('/journals', journalsController);
 router.use('/users', usersController);
 router.use('/entries', entriesController);
+router.use('/profiles', profilesController);
 
 module.exports = router;
