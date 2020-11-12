@@ -2,6 +2,14 @@ import  React  from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import AuthButton from '../components/AuthButton';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    NavLink,
+    Link
+} from 'react-router-dom';
+
 //import Image from 'react-bootstrap/Image'
 
 export default class Navigation extends React.Component {
@@ -14,17 +22,44 @@ export default class Navigation extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="search">Search</Nav.Link>
-                        <Nav.Link href="about-us">About Us</Nav.Link>
-                        <Nav.Link href="recipe">Recipe</Nav.Link>
-                        <Nav.Link href="food">Food</Nav.Link>
+                        <NavLink className="nav-link" exact to="/search">
+                            Search
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/about-us">
+                            About Us
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/recipe">
+                            Recipe
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/food">
+                            Food
+                        </NavLink>
+
                     </Nav>
                     <Nav>
-                        <Nav.Link href="calorie-journal">Calorie Journal</Nav.Link>
-                        <Nav.Link href="recipe-box"> Recipe Box</Nav.Link>
-                        <Nav.Link href="create-recipe">Create Recipe</Nav.Link>
-                        <Nav.Link href="profile"> Profile</Nav.Link>
-                        <Nav.Link href="signup">Register</Nav.Link>
+                        <NavLink className="nav-link" exact to="/calorie-journal">
+                            Calorie Journal
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/recipe-box">
+                            Recipe Box
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/create-recipe">
+                            Create Recipe
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/profile">
+                            Profile
+                        </NavLink>
+
+                        <NavLink className="nav-link" exact to="/signup">
+                            Register
+                        </NavLink>
+                        
                         <AuthButton />
                     </Nav>
                 </Navbar.Collapse>

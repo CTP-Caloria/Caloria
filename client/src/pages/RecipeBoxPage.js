@@ -9,17 +9,17 @@ class RecipeBoxPage extends React.Component {
     loading: true,
   }
 
-  componentDidMount() {
-    fetch("/api/posts")
-      .then(res => res.json())
-      .then(posts => {
-        this.setState({
-          loading: false,
-          posts: posts.map((p,ii) => <Post {...p} key={ii} />),
-        });
-      })
-      .catch(err => console.log("API ERROR: ", err));
-  }
+  // componentDidMount() {
+  //   fetch("/api/posts")
+  //     .then(res => res.json())
+  //     .then(posts => {
+  //       this.setState({
+  //         loading: false,
+  //         posts: posts.map((p,ii) => <Post {...p} key={ii} />),
+  //       });
+  //     })
+  //     .catch(err => console.log("API ERROR: ", err));
+  // }
 
   render() {
     if(this.state.loading) {

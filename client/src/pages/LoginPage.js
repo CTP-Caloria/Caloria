@@ -1,3 +1,4 @@
+import { token } from 'morgan';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ class LoginPage extends React.Component {
     auth.authenticate(email, password)
       .then((user) => {
         this.setState({ redirectToReferrer: true });
+        console.log(token.decode());
       })
       .catch((err) => {
         this.setState({ failed: true });
@@ -44,6 +46,9 @@ class LoginPage extends React.Component {
     }
 
     return (
+      <div className="wrapper">
+        <div className="form-wrapper">
+          <h2>LOGIN</h2>
         <form onSubmit={this.login}>
             { err }
             <div className="form-group">
@@ -69,9 +74,12 @@ class LoginPage extends React.Component {
         
             <button 
                 type="submit"
-                className="btn btn-primary ml-auto"
+                // className="btn btn-primary ml-auto"
+              className="createAccount"
             >Login</button>
         </form>
+        </div>
+      </div>
     );
   }
 }
