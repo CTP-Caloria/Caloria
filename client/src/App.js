@@ -3,6 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  NavLink,
+  Link
 } from 'react-router-dom';
 import RecipePage from './pages/RecipePage';
 import AboutUsPage from './pages/AboutUsPage';
@@ -16,6 +18,9 @@ import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import jwt_decode from "jwt-decode";
+import API from "./utils/api";
+import AuthButton from './components/AuthButton';
 
 import './App.css';
 
@@ -24,60 +29,100 @@ import './App.css';
 // function Navigation(props) {
 //   return (
 //     <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
-//       <Link className="navbar-brand" to="/">Logo</Link>
-//       <ul className="navbar-nav mr-auto">
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/home">
-//             Home
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/search">
-//             Search
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/calorie-journal">
-//             Calorie Journal
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/recipe-box">
-//             Recipe Box 
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/create-recipe">
-//             Create Recipe
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/about-us">
-//             About Us
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/recipe">
-//             Recipe
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/food">
-//             Food
-//           </NavLink>
-//         </li>
-//         <li className="nav-item">
-//           <NavLink className="nav-link" exact to="/profile">
-//             Profile
-//           </NavLink>
-//         </li>
-//       </ul>
+//         <Link className="navbar-brand" to="/">Logo</Link>
+
+//       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="responsive-navbar-nav">
+//           <span className="navbar-toggler-icon"></span>
+//         </button>
+
+//       <div id="navbar" className="collapse navbar-collapse">
+//           <ul className="navbar-nav mr-auto">
+            
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/home">
+//                 Home
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/search">
+//                 Search
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/calorie-journal">
+//                 Calorie Journal
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/recipe-box">
+//                 Recipe Box 
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/create-recipe">
+//                 Create Recipe
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/about-us">
+//                 About Us
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/recipe">
+//                 Recipe
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/food">
+//                 Food
+//               </NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" exact to="/profile">
+//                 Profile
+//               </NavLink>
+
+//             </li>
+//             <li className="nav-item"><AuthButton /></li>
+//           </ul>
+//         </div>
 //     </nav>
 //   );
 // }
 
 
 class App extends React.Component {
+  componentDidMount() {
+    const token = localStorage.getItem("jwtToken");
+    console.log(token);
+    if (token) {
+      this.setAuthToken(token)
+      const decoded = jwt_decode(token)
+      this.setState({
+        id: decoded.id,
+        email: decoded.email,
+        isAuthenticated: true
+      })
+      API.findUser(decoded.id)
+        .then((res) => {
+          this.setState({ email: res.data.email })
+        })
+    }
+  }
+
+
+    state = {
+      id: null,
+      email: "",
+      isAuthenticated: false,
+    };
+
+
+    handleUserLogin =(email,password)=>{
+
+    }
+
   render() {
     return (
       <Router>
