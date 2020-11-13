@@ -16,9 +16,6 @@ import {
 export default class Navigation extends React.Component {
     render() {
         return (
-
-              
-           
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
                 <Navbar.Brand href="/">Logo</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
