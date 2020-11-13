@@ -8,10 +8,9 @@ import {
 } from 'react-icons/bs';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+//import Redirect from 'react-router-dom';
 
 const axios = require('axios');
-    
-    //import Redirect from 'react-router-dom';
 
 const formValid = ({...rest }) => {
     let valid = true;
@@ -52,7 +51,7 @@ class CalorieJournalPage extends React.Component {
         food:"",
         servingSize:"",
         units:"",
-        selectedDay: "",
+        // selectedDay: "",
         show: false
     }
 
@@ -61,6 +60,7 @@ class CalorieJournalPage extends React.Component {
             show: false
         })
     }
+
     handleShow = () => {
         console.log("Hello");
         this.setState({
@@ -68,23 +68,20 @@ class CalorieJournalPage extends React.Component {
         })
     }
 
-    handleChange=e =>{
+    handleChange = (e) =>{
         e.preventDefault();
         const { name, value } = e.target;
         console.log(name,value);
 
-
         this.setState({
-        [name]: value
+            [name]: value
         }, () => console.log(this.state));
 
-    // console.log(this.state);
-
+        // console.log(this.state);
     }
 
-    handleSubmit=(e)=>{
+    handleSubmit = (e) => {
         e.preventDefault();
-
 
         if (formValid(this.state)) {
 
@@ -110,31 +107,24 @@ class CalorieJournalPage extends React.Component {
                     mealID: this.state.mealType
                 }
             });
-            
-            
 
             console.log(`
-        --SUBMITTING--
-        Meal Type: ${this.state.mealType}
-        Food: ${this.state.food}
-        Serving Size: ${this.state.servingSize}
-        Units: ${this.state.units}
-        Date: ${dateOnly}
-        
-        
-        
-        `);
-        
+                --SUBMITTING--
+                Meal Type: ${this.state.mealType}
+                Food: ${this.state.food}
+                Serving Size: ${this.state.servingSize}
+                Units: ${this.state.units}
+                Date: ${dateOnly}
+        `   );
         } else {
             console.error(`FROM INVALID -DISPLAY ERROR MESSAGE`);
         }
-
         this.setState({ show: false });
     }
 
-    handleCalendar(day) {
-        this.setState({ selectedDay: day });
-    }
+    // handleCalendar(day) {
+    //     this.setState({ selectedDay: day });
+    // }
 
     render() {
         return (
@@ -158,7 +148,8 @@ class CalorieJournalPage extends React.Component {
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>   
                                 <div className="col-auto ml-auto mr-3 my-3">
-                                    <DayPickerInput onDayChange={() => this.handleCalendar()} />
+                                    <DayPickerInput  />
+                                    {/* onDayChange={() => this.handleCalendar()} */}
                                 </div>    
                                 
                                 {/* <BsCalendar
@@ -176,7 +167,6 @@ class CalorieJournalPage extends React.Component {
                     <div className="col mb-4"><MealCard /></div>
                     <div className="col mb-4"><MealCard /></div>
                     <div className="col mb-4"><MealCard /></div>
-
                 </div>
                 
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -186,24 +176,23 @@ class CalorieJournalPage extends React.Component {
                     <Modal.Body>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group className="col-12">
-                                <Form.Label htmlFor="inlineFormCustomSelectPref">
+                                <Form.Label htmlFor="mealType">
                                     Meal
                                 </Form.Label>
                                 <Form.Control
                                     as="select"
                                     className="ml-2 w-auto"
-                                    id="inlineFormCustomSelectPref"
+                                    id="mealType"
                                     custom
                                     name="mealType"
                                     onChange={this.handleChange.bind(this)}
-                                    
                                 >
                                     <option value="0">Meal Type</option>
                                     <option value="1">Breakfast</option>
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
                                     <option value="4">Snack</option>
-                                    
+    
                                 </Form.Control>
                             </Form.Group>
 
@@ -232,12 +221,12 @@ class CalorieJournalPage extends React.Component {
                                 </Form.Group>
                 
                                 <Form.Group className="col-4">
-                                    <Form.Label htmlFor="inlineFormCustomSelectPref">
+                                    <Form.Label htmlFor="unit">
                                         Unit
                                     </Form.Label>
                                     <Form.Control
                                         as="select"
-                                        id="inlineFormCustomSelectPref"
+                                        id="unit"
                                         custom
                                         name="units"
                                         onChange={this.handleChange.bind(this)}
@@ -248,8 +237,7 @@ class CalorieJournalPage extends React.Component {
                                         <option value="Ounces">Ounces</option>
                                         <option value="Teaspoons">Teaspoons</option>
                                         <option value="Tablespoons">Tablespoons</option>
-                        
-                                        
+
                                     </Form.Control>
                                 </Form.Group>
                             </div>
@@ -265,10 +253,8 @@ class CalorieJournalPage extends React.Component {
                     </Modal.Footer>
                 </Modal>
             </div>
-
         )
     }
 }
-
 
 export default CalorieJournalPage;
