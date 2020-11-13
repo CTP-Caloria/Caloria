@@ -18,8 +18,8 @@ import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import jwt_decode from "jwt-decode";
-import API from "./utils/api";
+// import jwt_decode from "jwt-decode";
+// import API from "./utils/api";
 import AuthButton from './components/AuthButton';
 
 import './App.css';
@@ -93,35 +93,9 @@ import './App.css';
 
 
 class App extends React.Component {
-  componentDidMount() {
-    const token = localStorage.getItem("jwtToken");
-    console.log(token);
-    if (token) {
-      this.setAuthToken(token)
-      const decoded = jwt_decode(token)
-      this.setState({
-        id: decoded.id,
-        email: decoded.email,
-        isAuthenticated: true
-      })
-      API.findUser(decoded.id)
-        .then((res) => {
-          this.setState({ email: res.data.email })
-        })
-    }
-  }
 
 
-    state = {
-      id: null,
-      email: "",
-      isAuthenticated: false,
-    };
 
-
-    handleUserLogin =(email,password)=>{
-
-    }
 
   render() {
     return (
