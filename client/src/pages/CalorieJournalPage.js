@@ -1,6 +1,9 @@
 import React from 'react';
 import {Button, Modal, FormControl, Form} from 'react-bootstrap';
+import auth from '../services/auth';
 const axios = require('axios');
+
+
     
     //import Redirect from 'react-router-dom';
 
@@ -63,7 +66,7 @@ const formValid = ({...rest }) => {
         handleSubmit=(e)=>{
             e.preventDefault();
 
-
+if(auth.isAuthenticated){
             if (formValid(this.state)) {
 
                 let today = new Date();
@@ -75,6 +78,7 @@ const formValid = ({...rest }) => {
                 axios({
                     method: 'post',
                     url: 'http://localhost:8080/api/entries/create/',
+                    credentials:'include',
                     headers: {
                         "Access-Control-Allow-Origin": "*"
 
@@ -84,7 +88,7 @@ const formValid = ({...rest }) => {
                         Food: this.state.food,
                         totalCalories: "200",
                         dateOnly: dateOnly,
-                        requesterID: "3",
+                        requesterID: auth.userID,
                         mealID: this.state.mealType
                     }
                 });
@@ -106,10 +110,20 @@ const formValid = ({...rest }) => {
             } else {
                 console.error(`FROM INVALID -DISPLAY ERROR MESSAGE`);
             }
+        }else{
+            alert("Please Log In To Use This Feature!");
         }
+    }
+        
         
 
         render() {
+            if(auth.isAuthenticated){
+                console.log("authecated");
+                console.log(auth.userID);
+            }else{
+                console.log("Not logged in");
+            }
             return (
                 <div>
                     <h1 className="display-2 mt-5 mb-3">Hello, { todayInString() }!</h1>
