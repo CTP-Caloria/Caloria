@@ -51,7 +51,7 @@ class LoginPage extends React.Component {
         <form onSubmit={this.login}>
             { err }
             <div className="form-group">
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input 
                     type="email"
                     className="form-control"
@@ -61,7 +61,7 @@ class LoginPage extends React.Component {
                 />
             </div>
             <div className="form-group">
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input 
                     type="password"
                     className="form-control"
