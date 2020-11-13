@@ -33,6 +33,18 @@ function todayInString() {
     return weekday[today.getDay()];
 }
 
+function MealCard(props) {
+    return (
+        <div className="card">
+            
+            <div className="card-body">
+                <h5 className="card-title" id="mealType">Meal Type</h5>
+            </div>
+
+        </div>
+    )
+}
+
 class CalorieJournalPage extends React.Component {
 
     state = {
@@ -132,7 +144,7 @@ class CalorieJournalPage extends React.Component {
                 <div className="container my-5">
                     <div className="card">
                         <div className="card-header">
-                            Summary
+                            <h5>Summary</h5>
                         </div>
                         <div>
                             <div className="row">
@@ -157,6 +169,14 @@ class CalorieJournalPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div className="row row-cols-1 row-cols-md-2">
+                    <div className="col mb-4"><MealCard /></div>
+                    <div className="col mb-4"><MealCard /></div>
+                    <div className="col mb-4"><MealCard /></div>
+                    <div className="col mb-4"><MealCard /></div>
+
                 </div>
                 
                 <Modal show={this.state.show} onHide={this.handleClose}>
