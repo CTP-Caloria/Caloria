@@ -2,12 +2,13 @@ import  React  from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import AuthButton from '../components/AuthButton';
+// import auth from '../services/auth';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    // BrowserRouter as Router,
+    // Switch,
+    // Route,
     NavLink,
-    Link
+    // Link
 } from 'react-router-dom';
 
 //import Image from 'react-bootstrap/Image'
@@ -16,7 +17,8 @@ export default class Navigation extends React.Component {
     render() {
         return (
 
-
+              
+           
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
                 <Navbar.Brand href="/home">Logo</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -29,9 +31,6 @@ export default class Navigation extends React.Component {
                         <NavLink className="nav-link" exact to="/about-us">
                             About Us
                         </NavLink>
-
-    
-
                     </Nav>
                     <Nav>
                         <NavLink className="nav-link" exact to="/calorie-journal">

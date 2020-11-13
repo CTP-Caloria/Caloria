@@ -8,9 +8,11 @@ import {
 } from 'react-icons/bs';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+import auth from '../services/auth';
 //import Redirect from 'react-router-dom';
 
 const axios = require('axios');
+
 
 const formValid = ({...rest }) => {
     let valid = true;
@@ -82,51 +84,62 @@ class CalorieJournalPage extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        
+        if(auth.isAuthenticated) {
+            if (formValid(this.state)) {
 
-        if (formValid(this.state)) {
-
-            let today = new Date();
-            let year = today.getFullYear();
-            let month = (today.getMonth() + 1);
-            let date = (today.getDate());
-            let dateOnly = `${year}-${month}-${date}`
-
-            axios({
-                method: 'post',
-                url: 'http://localhost:8080/api/entries/create',
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-
-                },
-                
-                data: {
-                    Food: this.state.food,
-                    totalCalories: "200",
-                    dateOnly: dateOnly,
-                    requesterID: "1",
-                    mealID: this.state.mealType
-                }
-            });
-
-            console.log(`
-                --SUBMITTING--
-                Meal Type: ${this.state.mealType}
-                Food: ${this.state.food}
-                Serving Size: ${this.state.servingSize}
-                Units: ${this.state.units}
-                Date: ${dateOnly}
-        `   );
+                let today = new Date();
+                let year = today.getFullYear();
+                let month = (today.getMonth() + 1);
+                let date = (today.getDate());
+                let dateOnly = `${year}-${month}-${date}`
+    
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8080/api/entries/create',
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+    
+                    },
+                    
+                    data: {
+                        Food: this.state.food,
+                        totalCalories: "200",
+                        dateOnly: dateOnly,
+                        requesterID: "1",
+                        mealID: this.state.mealType
+                    }
+                });
+    
+                console.log(`
+                    --SUBMITTING--
+                    Meal Type: ${this.state.mealType}
+                    Food: ${this.state.food}
+                    Serving Size: ${this.state.servingSize}
+                    Units: ${this.state.units}
+                    Date: ${dateOnly}
+            `   );
+            } else {
+                console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
+            }
+            this.setState({ show: false });
         } else {
-            console.error(`FROM INVALID -DISPLAY ERROR MESSAGE`);
-        }
-        this.setState({ show: false });
+            alert("Please log in to use this feature!");
+        }  
     }
 
     // handleCalendar(day) {
     //     this.setState({ selectedDay: day });
-    // }
+    // }    
 
     render() {
+        if(auth.isAuthenticated) {
+            console.log("Authenticated");
+            console.log(auth.userID);
+        } else {
+            console.log("Not logged in");
+        }
+        
         return (
             <div>
                 <h1 className="display-2 mt-5 mb-3">Hello, { todayInString() }!</h1>
