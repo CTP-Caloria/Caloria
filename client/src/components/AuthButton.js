@@ -15,10 +15,7 @@ const AuthButton = withRouter(({ history }) => {
   }
 
   return (
-    <div>
-      Welcome!
-      <button className={classes} onClick={logout}>Logout</button>
-    </div>
+    <button className={classes} onClick={logout}>Logout</button>
   );
 });
 

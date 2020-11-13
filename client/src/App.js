@@ -3,8 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink,
-  Link
+  // NavLink,
+  // Link
 } from 'react-router-dom';
 import RecipePage from './pages/RecipePage';
 import AboutUsPage from './pages/AboutUsPage';
@@ -20,7 +20,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 // import jwt_decode from "jwt-decode";
 // import API from "./utils/api";
-import AuthButton from './components/AuthButton';
+// import AuthButton from './components/AuthButton';
 
 import './App.css';
 
@@ -44,7 +44,7 @@ class App extends React.Component {
               <Route path="/about-us" component={AboutUsPage} />
               <Route path="/calorie-journal" component={CalorieJournalPage} />
               <Route path="/search" component={SearchPage} />
-              <Route path="/home" component={Home} />
+              <Route path="/" exact={true} component={Home} />
               <Route path="/recipe-box" component={RecipeBoxPage}/>
               <Route path="/posts/:id" component={FoodPage}/>
               <Route path="/profile" component={Profile} />
