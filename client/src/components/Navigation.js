@@ -18,7 +18,7 @@ export default class Navigation extends React.Component {
 
 
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-                <Navbar.Brand href="home">Logo</Navbar.Brand>
+                <Navbar.Brand href="/home">Logo</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
@@ -30,13 +30,7 @@ export default class Navigation extends React.Component {
                             About Us
                         </NavLink>
 
-                        <NavLink className="nav-link" exact to="/recipe">
-                            Recipe
-                        </NavLink>
-
-                        <NavLink className="nav-link" exact to="/food">
-                            Food
-                        </NavLink>
+    
 
                     </Nav>
                     <Nav>
