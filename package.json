@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm install && npm run build"
   },
-  "author": "Edgardo Molina",
+  "author": "sneak-e",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -19,7 +19,7 @@
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.4.1", 
+    "pg": "^8.4.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.22.3",
     "sqlite3": "^4.2.0"
