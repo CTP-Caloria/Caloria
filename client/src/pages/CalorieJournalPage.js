@@ -1,5 +1,14 @@
 import React from 'react';
-import {Button, Modal, FormControl, Form} from 'react-bootstrap';
+import { Button, Modal, FormControl, Form } from 'react-bootstrap';
+import { 
+    // BsCalendar, 
+    // BsCalendarFill, 
+    BsPlusSquare, 
+    // BsPlusSquareFill 
+} from 'react-icons/bs';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+
 const axios = require('axios');
     
     //import Redirect from 'react-router-dom';
@@ -31,11 +40,11 @@ class CalorieJournalPage extends React.Component {
         food:"",
         servingSize:"",
         units:"",
+        selectedDay: "",
         show: false
     }
 
     handleClose = () => {
-        console.log("submit");
         this.setState({
             show: false
         })
@@ -110,14 +119,45 @@ class CalorieJournalPage extends React.Component {
 
         this.setState({ show: false });
     }
-    
+
+    handleCalendar(day) {
+        this.setState({ selectedDay: day });
+    }
 
     render() {
         return (
             <div>
                 <h1 className="display-2 mt-5 mb-3">Hello, { todayInString() }!</h1>
-                
-                <Button variant="dark" onClick={this.handleShow}>+</Button>
+
+                <div className="container my-5">
+                    <div className="card">
+                        <div className="card-header">
+                            Summary
+                        </div>
+                        <div>
+                            <div className="row">
+                                <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
+                                <BsPlusSquare 
+                                    type="button" 
+                                    className="col-auto ml-auto mr-3 mt-4" 
+                                    onClick={this.handleShow}
+                                /> 
+                            </div>
+                            <div className="row">
+                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>   
+                                <div className="col-auto ml-auto mr-3 my-3">
+                                    <DayPickerInput onDayChange={() => this.handleCalendar()} />
+                                </div>    
+                                
+                                {/* <BsCalendar
+                                    type="button"
+                                    className="col-auto ml-auto mr-3 mt-3"
+                                    // onClick={  } 
+                                /> */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
