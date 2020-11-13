@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
     auth.authenticate(email, password)
       .then((user) => {
         this.setState({ redirectToReferrer: true });
-        console.log(token.decode);
+  
       }).catch((err) => {
         this.setState({ failed: true });
       });

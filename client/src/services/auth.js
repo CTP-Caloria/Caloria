@@ -5,8 +5,14 @@
 // in the backend api. It was also modified to return promises instead
 // of using callbacks `cb`.
 
+  
+
+
+
 const auth = {
+    userID:null,
     isAuthenticated: false,
+
     authenticate(email, password) {
       return fetch('/api/auth/login', { 
         method: 'POST',
@@ -24,6 +30,7 @@ const auth = {
         })
         .then((body) => {
           this.isAuthenticated = true;
+          this.userID = body.id
           return body;
         });
     },
@@ -43,6 +50,7 @@ const auth = {
         })
         .then((body) => {
           this.isAuthenticated = false;
+          this.userID = null;
           return body;
         });
     }

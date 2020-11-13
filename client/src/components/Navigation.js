@@ -2,6 +2,7 @@ import  React  from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import AuthButton from '../components/AuthButton';
+import auth from '../services/auth';
 import {
     BrowserRouter as Router,
     Switch,
@@ -16,7 +17,8 @@ export default class Navigation extends React.Component {
     render() {
         return (
 
-
+              
+           
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
                 <Navbar.Brand href="/home">Logo</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
