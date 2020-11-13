@@ -20,7 +20,7 @@ export default class Navigation extends React.Component {
               
            
             <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-                <Navbar.Brand href="/home">Logo</Navbar.Brand>
+                <Navbar.Brand href="/">Logo</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
