@@ -2,9 +2,9 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class MyRecipies extends Model { }
+    class MyRecipes extends Model { }
 
-    MyRecipies.init({
+    MyRecipes.init({
 
         name: {
             type: DataTypes.STRING,
@@ -41,19 +41,28 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true
             }
         },
+        img: {
+            type:DataTypes.BLOB('long'),
+            allowNull:true
+
+        }
 
     }, {
         sequelize,
         modelName: 'myRecipes'
     });
-    MyRecipies.associate = (models)=>{
+    MyRecipes.associate = (models)=>{
+        MyRecipes.belongsTo(models.User, {
+            as:'owner',
+            foreignKey: 'requesterID',
+        })
+       
 
 
-        models.MyRecipes.hasMany(models.Ingredients)
+        // models.MyRecipes.hasMany(models.Ingredients)
             
 
-        models.MyRecipes.belongsTo(models.User)
     }
 
-    return MyRecipies;
+    return MyRecipes;
 };

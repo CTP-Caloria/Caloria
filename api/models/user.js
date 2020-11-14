@@ -101,6 +101,10 @@ module.exports = (sequelize, DataTypes) => {
             as: 'entries',
             foreignKey: 'requesterID'
         });
+        User.hasMany(models.MyRecipes, {
+            as:'recipes',
+            foreignKey: 'requesterID',
+        });
     }
     User.beforeSave((user, options) => {
         if (user.password) {

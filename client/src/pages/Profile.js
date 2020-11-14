@@ -1,6 +1,8 @@
 import React from 'react';
 import {Button,Container,Card} from 'react-bootstrap';
+import auth from '../services/auth';
 const axios = require('axios');
+
 
 // function myRecipes(props) {
 //   return (
@@ -21,11 +23,15 @@ const axios = require('axios');
 //}
 
 class Profile extends React.Component {
-  // state={ 
-  //   title: "",
-  //   info: "",
-  //   img: [],
-  // }
+  state={ 
+    title: "",
+    info: "",
+    img: [],
+    firstName: "",
+    lastName: "",
+    email: "",
+  }
+  
 
   // handleSearch = (e) => {
   //   e.preventDefault();
@@ -36,18 +42,46 @@ class Profile extends React.Component {
   //       {this.setState})
   // }
 
+componentDidMount(){
+  if(auth.isAuthenticated) {
+    let id = auth.userID;
+    axios({
+      method: 'get',
+      url: `http://localhost:8080/api/profiles/${id}`,
+      headers: { 
+        "Access-Control-Allow-Origin": "*"
+      },
+      data: {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+      }
+    })
+    .then(getReq => {
+      console.log(getReq.data);
+      this.setState({ 
+        firstName: getReq.data.firstName,
+        lastName: getReq.data.lastName,
+        email: getReq.data.email,
+      })
+    })
 
+  }
+
+}
 
   render(){
     return(
+
       <div>
         <div>
           <h3> My Profile</h3>
         </div>
         <div>
-          <p>First Name Last Name</p>
-          <p>email</p>
+          <p>{this.state.firstName} {this.state.lastName}</p>
+          <p>{this.state.email}</p>
         </div>
+      
         <div>
           <h4>My Recipes</h4>
         </div>

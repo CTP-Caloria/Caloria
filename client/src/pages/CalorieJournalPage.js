@@ -46,10 +46,11 @@ function MealCard(props) {
         </div>
     )
 }
-function displayEntry(props){
+function DisplayEntry(props){
     return (
-        <div>{props.foodData.Food},{props.foodData.totalCalories}
-         </div>
+        <div>
+            {props.todayEntry.Food},{props.todayEntry.totalCalories}
+        </div>
     )
 }
 
@@ -171,6 +172,11 @@ class CalorieJournalPage extends React.Component {
         } else {
             console.log("Not logged in");
         }
+        {this.state.todayEntry.map((item) => {
+            console.log(item);
+            // return <displayEntry todayEntry = {item} />
+        })}
+
 
         
         return (
@@ -208,7 +214,7 @@ class CalorieJournalPage extends React.Component {
                     </div>
                 </div>
                 {this.state.todayEntry.map((item) => {
-                    return <displayEntry  />
+                    return <DisplayEntry todayEntry = {item} />
                 })}
 
                 <div className="row row-cols-1 row-cols-md-2">
