@@ -9,6 +9,7 @@ import {
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import auth from '../services/auth';
+// import { get } from '../../../api/controllers/entries';
 //import Redirect from 'react-router-dom';
 
 const axios = require('axios');
@@ -39,9 +40,16 @@ function MealCard(props) {
         <div className="card">
             
             <div className="card-body">
-                <h5 className="card-title" id="mealType">Meal Type</h5>
+                <h5 className="card-title" id="mealType">{props.mealType}</h5>
             </div>
 
+        </div>
+    )
+}
+function DisplayEntry(props){
+    return (
+        <div>
+            {props.todayEntry.Food},{props.todayEntry.totalCalories}
         </div>
     )
 }
@@ -54,7 +62,8 @@ class CalorieJournalPage extends React.Component {
         servingSize:"",
         units:"",
         // selectedDay: "",
-        show: false
+        show: false,
+        todayEntry:[]
     }
 
     handleClose = () => {
@@ -106,10 +115,34 @@ class CalorieJournalPage extends React.Component {
                         Food: this.state.food,
                         totalCalories: "200",
                         dateOnly: dateOnly,
-                        requesterID: "1",
+                        requesterID: auth.userID,
                         mealID: this.state.mealType
                     }
-                });
+                })  
+                    .then(data => {
+                        let account = data.data;
+                        console.log(account);
+                        axios({
+                            method: 'get',
+                            url: `http://localhost:8080/api/entries/getEntry/${account.requesterID}/${account.dateOnly}`,
+                            headers: {
+                                "Access-Control-Allow-Origin": "*"
+            
+                            },
+
+
+                        })
+                        .then(getReq => {
+                            console.log(getReq.data);
+                            this.setState({
+                                todayEntry:getReq.data,
+
+                            })
+                        
+                        })
+
+                    } )
+                    
     
                 console.log(`
                     --SUBMITTING--
@@ -139,6 +172,12 @@ class CalorieJournalPage extends React.Component {
         } else {
             console.log("Not logged in");
         }
+        {this.state.todayEntry.map((item) => {
+            console.log(item);
+            // return <displayEntry todayEntry = {item} />
+        })}
+
+
         
         return (
             <div>
@@ -174,12 +213,15 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                 </div>
+                {this.state.todayEntry.map((item) => {
+                    return <DisplayEntry todayEntry = {item} />
+                })}
 
                 <div className="row row-cols-1 row-cols-md-2">
-                    <div className="col mb-4"><MealCard /></div>
-                    <div className="col mb-4"><MealCard /></div>
-                    <div className="col mb-4"><MealCard /></div>
-                    <div className="col mb-4"><MealCard /></div>
+                    <div className="col mb-4"><MealCard mealType ="Breakfast" value="1"/></div>
+                    <div className="col mb-4"><MealCard mealType ="Lunch" value="2"/></div>
+                    <div className="col mb-4"><MealCard mealType ="Dinner" value="3"/></div>
+                    <div className="col mb-4"><MealCard mealType ="Snack" value="4"/></div>
                 </div>
                 
                 <Modal show={this.state.show} onHide={this.handleClose}>

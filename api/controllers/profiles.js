@@ -16,18 +16,18 @@ router.get('/:id',(req,res ) => {
             res.json(user);
         });
 });
-router.get('/findEmail/:email', (req,res) => {
-    const address = req.params.email;
-    User.findOne({where : {
-        email: address
-    }})
-    .then(entry =>
-        {
-           if(!entry){
-               return res.sendStatus(404);
-           };
-           res.json(entry);
-        });
-});
+// router.get('/findEmail/:email', (req,res) => {
+//     const address = req.params.email;
+//     User.findOne({where : {
+//         email: address
+//     }})
+//     .then(entry =>
+//         {
+//            if(!entry){
+//                return res.sendStatus(404);
+//            };
+//            res.json(entry);
+//         });
+// });
 
 module.exports = router;
