@@ -10,6 +10,7 @@ const journalsController = require('./journals');
 const usersController = require('./users');
 const entriesController = require('./entries');
 const profilesController = require('./profiles');
+const myRecipesController = require('./myRecipes');
 
 
 // Mount each controller under a specific route. These
@@ -21,5 +22,6 @@ router.use('/journals', journalsController);
 router.use('/users', usersController);
 router.use('/entries', entriesController);
 router.use('/profiles', profilesController);
+router.use('/myRecipes',myRecipesController);
 
 module.exports = router;
