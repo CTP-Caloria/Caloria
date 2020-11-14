@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Modal, FormControl, Form } from 'react-bootstrap';
-import { 
+import {
     // BsCalendar, 
     // BsCalendarFill, 
-    BsPlusSquare, 
+    BsPlusSquare,
     // BsPlusSquareFill 
 } from 'react-icons/bs';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -15,9 +15,9 @@ import auth from '../services/auth';
 const axios = require('axios');
 
 
-const formValid = ({...rest }) => {
+const formValid = ({ ...rest }) => {
     let valid = true;
-  
+
     // check to see if form fields are empty
     Object.values(rest).forEach(val => {
 
@@ -30,23 +30,28 @@ const formValid = ({...rest }) => {
 function todayInString() {
     let today = new Date();
 
-    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday'];
+    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     return weekday[today.getDay()];
 }
 
 function MealCard(props) {
+    if(props.breakfast)
+        console.log(props.breakfast);
     return (
         <div className="card">
-            
+
             <div className="card-body">
                 <h5 className="card-title" id="mealType">{props.mealType}</h5>
+               
             </div>
+
+             
 
         </div>
     )
 }
-function DisplayEntry(props){
+function DisplayEntry(props) {
     return (
         <div>
             {props.todayEntry.Food},{props.todayEntry.totalCalories}
@@ -57,13 +62,17 @@ function DisplayEntry(props){
 class CalorieJournalPage extends React.Component {
 
     state = {
-        mealType:"",
-        food:"",
-        servingSize:"",
-        units:"",
+        mealType: "",
+        food: "",
+        servingSize: "",
+        units: "",
         // selectedDay: "",
         show: false,
-        todayEntry:[]
+        breakfastArray: [],
+        lunchArray: [],
+        dinnerArray: [],
+        snackArray: [],
+        todayEntry: []
     }
 
     handleClose = () => {
@@ -79,10 +88,10 @@ class CalorieJournalPage extends React.Component {
         })
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
-        console.log(name,value);
+        console.log(name, value);
 
         this.setState({
             [name]: value
@@ -93,8 +102,8 @@ class CalorieJournalPage extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        
-        if(auth.isAuthenticated) {
+
+        if (auth.isAuthenticated) {
             if (formValid(this.state)) {
 
                 let today = new Date();
@@ -102,15 +111,15 @@ class CalorieJournalPage extends React.Component {
                 let month = (today.getMonth() + 1);
                 let date = (today.getDate());
                 let dateOnly = `${year}-${month}-${date}`
-    
+
                 axios({
                     method: 'post',
                     url: 'http://localhost:8080/api/entries/create',
                     headers: {
                         "Access-Control-Allow-Origin": "*"
-    
+
                     },
-                    
+
                     data: {
                         Food: this.state.food,
                         totalCalories: "200",
@@ -118,7 +127,7 @@ class CalorieJournalPage extends React.Component {
                         requesterID: auth.userID,
                         mealID: this.state.mealType
                     }
-                })  
+                })
                     .then(data => {
                         let account = data.data;
                         console.log(account);
@@ -127,23 +136,63 @@ class CalorieJournalPage extends React.Component {
                             url: `http://localhost:8080/api/entries/getEntry/${account.requesterID}/${account.dateOnly}`,
                             headers: {
                                 "Access-Control-Allow-Origin": "*"
-            
+
                             },
 
 
                         })
-                        .then(getReq => {
-                            console.log(getReq.data);
-                            this.setState({
-                                todayEntry:getReq.data,
+                            .then(getReq => {
+                                console.log(getReq.data);
+
+
+
+                                this.setState({
+                                    todayEntry: getReq.data,
+
+                                })
+
+                                let lunch = [];
+                                let dinner = [];
+                                let snack = [];
+                                let breakfast = [];
+
+                                this.state.todayEntry.forEach((item) => {
+
+                                    // console.log(item.mealID);
+                                    // let mealID=item.mealID
+                                    switch (item.mealID) {
+                                        case 1:
+                                            breakfast.push(item);
+                                            break;
+                                        case 2:
+                                            lunch.push(item);
+                                            break;
+                                        case 3:
+                                            dinner.push(item);
+                                            break;
+                                        case 4:
+                                            snack.push(item);
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+
+                                })
+
+                                this.setState({
+                                    lunchArray: lunch,
+                                    dinnerArray: dinner,
+                                    snackArray: snack,
+                                    breakfast: breakfast
+
+                                })
 
                             })
-                        
-                        })
 
-                    } )
-                    
-    
+                    })
+
+
                 console.log(`
                     --SUBMITTING--
                     Meal Type: ${this.state.mealType}
@@ -158,7 +207,7 @@ class CalorieJournalPage extends React.Component {
             this.setState({ show: false });
         } else {
             alert("Please log in to use this feature!");
-        }  
+        }
     }
 
     // handleCalendar(day) {
@@ -166,22 +215,22 @@ class CalorieJournalPage extends React.Component {
     // }    
 
     render() {
-        if(auth.isAuthenticated) {
+        if (auth.isAuthenticated) {
             console.log("Authenticated");
             console.log(auth.userID);
         } else {
             console.log("Not logged in");
         }
-        {this.state.todayEntry.map((item) => {
-            console.log(item);
-            // return <displayEntry todayEntry = {item} />
-        })}
+        // {this.state.todayEntry.map((item) => {
+        //     console.log(item);
+        //     // return <displayEntry todayEntry = {item} />
+        // })}
 
 
-        
+
         return (
             <div>
-                <h1 className="display-2 mt-5 mb-3">Hello, { todayInString() }!</h1>
+                <h1 className="display-2 mt-5 mb-3">Hello, {todayInString()}!</h1>
 
                 <div className="container my-5">
                     <div className="card">
@@ -191,19 +240,19 @@ class CalorieJournalPage extends React.Component {
                         <div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
-                                <BsPlusSquare 
-                                    type="button" 
-                                    className="col-auto ml-auto mr-3 mt-4" 
+                                <BsPlusSquare
+                                    type="button"
+                                    className="col-auto ml-auto mr-3 mt-4"
                                     onClick={this.handleShow}
-                                /> 
+                                />
                             </div>
                             <div className="row">
-                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>   
+                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>
                                 <div className="col-auto ml-auto mr-3 my-3">
-                                    <DayPickerInput  />
+                                    <DayPickerInput />
                                     {/* onDayChange={() => this.handleCalendar()} */}
-                                </div>    
-                                
+                                </div>
+
                                 {/* <BsCalendar
                                     type="button"
                                     className="col-auto ml-auto mr-3 mt-3"
@@ -213,17 +262,17 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.todayEntry.map((item) => {
-                    return <DisplayEntry todayEntry = {item} />
-                })}
+                {/* {this.state.todayEntry.map((item) => {
+                    return <DisplayEntry todayEntry={item} />
+                })} */}
 
                 <div className="row row-cols-1 row-cols-md-2">
-                    <div className="col mb-4"><MealCard mealType ="Breakfast" value="1"/></div>
-                    <div className="col mb-4"><MealCard mealType ="Lunch" value="2"/></div>
-                    <div className="col mb-4"><MealCard mealType ="Dinner" value="3"/></div>
-                    <div className="col mb-4"><MealCard mealType ="Snack" value="4"/></div>
+                    <div className="col mb-4"><MealCard breakfast={this.state.breakfastArray} mealType="Breakfast" value="1" /></div>
+                    <div className="col mb-4"><MealCard mealType="Lunch" value="2" /></div>
+                    <div className="col mb-4"><MealCard mealType="Dinner" value="3" /></div>
+                    <div className="col mb-4"><MealCard mealType="Snack" value="4" /></div>
                 </div>
-                
+
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Entry</Modal.Title>
@@ -247,7 +296,7 @@ class CalorieJournalPage extends React.Component {
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
                                     <option value="4">Snack</option>
-    
+
                                 </Form.Control>
                             </Form.Group>
 
@@ -255,18 +304,18 @@ class CalorieJournalPage extends React.Component {
                                 <Form.Label>Food</Form.Label>
 
                                 <FormControl
-                                        aria-label="Default"
-                                        aria-describedby="inputGroup-sizing-default"
-                                        name="food"
-                                        onChange={this.handleChange}
+                                    aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default"
+                                    name="food"
+                                    onChange={this.handleChange}
                                 />
-                                
+
                             </Form.Group>
-                            
+
                             <div className="row ml-0">
                                 <Form.Group className="col-4">
                                     <Form.Label>Serving Size</Form.Label>
-                                    <FormControl 
+                                    <FormControl
                                         type="number"
                                         aria-label="Default"
                                         aria-describedby="inputGroup-sizing-default"
@@ -274,7 +323,7 @@ class CalorieJournalPage extends React.Component {
                                         onChange={this.handleChange}
                                     />
                                 </Form.Group>
-                
+
                                 <Form.Group className="col-4">
                                     <Form.Label htmlFor="unit">
                                         Unit
@@ -302,7 +351,7 @@ class CalorieJournalPage extends React.Component {
                         <Button variant="secondary" onClick={this.handleClose}>
                             Close
                             </Button>
-                        <Button variant="primary" type ="submit"onClick={this.handleSubmit}>
+                        <Button variant="primary" type="submit" onClick={this.handleSubmit}>
                             Submit
                         </Button>
                     </Modal.Footer>
