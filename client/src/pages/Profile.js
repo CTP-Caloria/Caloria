@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button,Container,Card} from 'react-bootstrap';
+// import { get } from '../../../api/controllers';
 import auth from '../services/auth';
 const axios = require('axios');
 
@@ -30,6 +31,8 @@ class Profile extends React.Component {
     firstName: "",
     lastName: "",
     email: "",
+    name:"",
+    description:""
   }
   
 
@@ -47,7 +50,7 @@ componentDidMount(){
     let id = auth.userID;
     axios({
       method: 'get',
-      url: `http://localhost:8080/api/profiles/${id}`,
+      url: `http://localhost:8080/api/profiles/${id}`, 
       headers: { 
         "Access-Control-Allow-Origin": "*"
       },
@@ -55,6 +58,8 @@ componentDidMount(){
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
+        description: this.state.description,
+        name: this.state.name
       }
     })
     .then(getReq => {
@@ -63,6 +68,24 @@ componentDidMount(){
         firstName: getReq.data.firstName,
         lastName: getReq.data.lastName,
         email: getReq.data.email,
+        name: getReq.data.name,
+        description: getReq.data.description,
+      })
+    })
+    .then(() => {
+      axios({
+        method: 'get',
+        url: `http://localhost:8080/api/myRecipes/getRecipe/${id}`,
+        hearder: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        data: {
+          name: this.state.name, 
+          description: this.state.description,
+        }
+      })
+      .then(getReq => {
+        console.log(getReq.data);
       })
     })
 
