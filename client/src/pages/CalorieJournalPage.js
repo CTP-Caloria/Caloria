@@ -103,6 +103,44 @@ class CalorieJournalPage extends React.Component {
                         mealID: this.state.mealType
                     }
                 })
+                .then(getData => {
+                    console.log(getData.data);
+
+                    let item = getData.data;
+
+                    let breakfast = this.state.breakfastArray;
+                    let lunch = this.state.lunchArray;
+                    let dinner = this.state.dinnerArray;
+                    let snack = this.state.snackArray;
+
+                    // console.log(item.mealID);
+                    switch (item.mealID) {
+                        case 1:
+                            breakfast.push(item);
+                            break;
+                        case 2:
+                            lunch.push(item);
+                            break;
+                        case 3:
+                            dinner.push(item);
+                            break;
+                        case 4:
+                            snack.push(item);
+                            break;
+    
+                        default:
+                            break;
+                    }
+    
+                    this.setState({
+                        breakfastArray: breakfast,
+                        lunchArray: lunch,
+                        dinnerArray: dinner,
+                        snackArray: snack,         
+        
+                    })
+
+                })
 
                 console.log(`
                     --SUBMITTING--
@@ -116,6 +154,7 @@ class CalorieJournalPage extends React.Component {
                 console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
             }
             this.setState({ show: false });
+            // window.location.reload();
         } else {
             alert("Please log in to use this feature!");
         }
@@ -186,10 +225,10 @@ class CalorieJournalPage extends React.Component {
                 })
     
                 this.setState({
+                    breakfastArray: breakfast,
                     lunchArray: lunch,
                     dinnerArray: dinner,
-                    snackArray: snack,
-                    breakfast: breakfast
+                    snackArray: snack,         
     
                 })
             })
@@ -311,7 +350,7 @@ class CalorieJournalPage extends React.Component {
                                     name="mealType"
                                     onChange={this.handleChange.bind(this)}
                                 >
-                                    <option value="0">Meal Type</option>
+                                    <option value="0"></option>
                                     <option value="1">Breakfast</option>
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
