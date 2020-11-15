@@ -35,30 +35,6 @@ function todayInString() {
     return weekday[today.getDay()];
 }
 
-function MealCard(props) {
-    if(props.breakfast)
-        console.log(props.breakfast);
-    return (
-        <div className="card">
-
-            <div className="card-body">
-                <h5 className="card-title" id="mealType">{props.mealType}</h5>
-               
-            </div>
-
-             
-
-        </div>
-    )
-}
-function DisplayEntry(props) {
-    return (
-        <div>
-            {props.todayEntry.Food},{props.todayEntry.totalCalories}
-        </div>
-    )
-}
-
 class CalorieJournalPage extends React.Component {
 
     state = {
@@ -117,7 +93,6 @@ class CalorieJournalPage extends React.Component {
                     url: 'http://localhost:8080/api/entries/create',
                     headers: {
                         "Access-Control-Allow-Origin": "*"
-
                     },
 
                     data: {
@@ -128,70 +103,44 @@ class CalorieJournalPage extends React.Component {
                         mealID: this.state.mealType
                     }
                 })
-                    .then(data => {
-                        let account = data.data;
-                        console.log(account);
-                        axios({
-                            method: 'get',
-                            url: `http://localhost:8080/api/entries/getEntry/${account.requesterID}/${account.dateOnly}`,
-                            headers: {
-                                "Access-Control-Allow-Origin": "*"
+                .then(getData => {
+                    console.log(getData.data);
 
-                            },
+                    let item = getData.data;
 
+                    let breakfast = this.state.breakfastArray;
+                    let lunch = this.state.lunchArray;
+                    let dinner = this.state.dinnerArray;
+                    let snack = this.state.snackArray;
 
-                        })
-                            .then(getReq => {
-                                console.log(getReq.data);
-
-
-
-                                this.setState({
-                                    todayEntry: getReq.data,
-
-                                })
-
-                                let lunch = [];
-                                let dinner = [];
-                                let snack = [];
-                                let breakfast = [];
-
-                                this.state.todayEntry.forEach((item) => {
-
-                                    // console.log(item.mealID);
-                                    // let mealID=item.mealID
-                                    switch (item.mealID) {
-                                        case 1:
-                                            breakfast.push(item);
-                                            break;
-                                        case 2:
-                                            lunch.push(item);
-                                            break;
-                                        case 3:
-                                            dinner.push(item);
-                                            break;
-                                        case 4:
-                                            snack.push(item);
-                                            break;
-
-                                        default:
-                                            break;
-                                    }
-
-                                })
-
-                                this.setState({
-                                    lunchArray: lunch,
-                                    dinnerArray: dinner,
-                                    snackArray: snack,
-                                    breakfast: breakfast
-
-                                })
-
-                            })
-
+                    // console.log(item.mealID);
+                    switch (item.mealID) {
+                        case 1:
+                            breakfast.push(item);
+                            break;
+                        case 2:
+                            lunch.push(item);
+                            break;
+                        case 3:
+                            dinner.push(item);
+                            break;
+                        case 4:
+                            snack.push(item);
+                            break;
+    
+                        default:
+                            break;
+                    }
+    
+                    this.setState({
+                        breakfastArray: breakfast,
+                        lunchArray: lunch,
+                        dinnerArray: dinner,
+                        snackArray: snack,         
+        
                     })
 
+                })
 
                 console.log(`
                     --SUBMITTING--
@@ -205,6 +154,7 @@ class CalorieJournalPage extends React.Component {
                 console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
             }
             this.setState({ show: false });
+            // window.location.reload();
         } else {
             alert("Please log in to use this feature!");
         }
@@ -214,19 +164,83 @@ class CalorieJournalPage extends React.Component {
     //     this.setState({ selectedDay: day });
     // }    
 
+    componentDidMount() {
+        if(auth.isAuthenticated) {
+            let id = auth.userID;
+
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = (today.getMonth() + 1);
+            let date = (today.getDate());
+            let dateOnly = `${year}-${month}-${date}`
+            
+            axios({
+                method: 'get',
+                url: `http://localhost:8080/api/entries/getEntry/${id}/${dateOnly}`,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                },
+                data: {
+                    Food: this.state.food,
+                    totalCalories: "200",
+                    dateOnly: dateOnly,
+                    requesterID: auth.userID,
+                    mealID: this.state.mealType
+                }
+            })
+            .then(getReq => {
+                console.log(getReq.data);
+    
+                this.setState({
+                    todayEntry: getReq.data,
+    
+                })
+    
+                let lunch = [];
+                let dinner = [];
+                let snack = [];
+                let breakfast = [];
+    
+                this.state.todayEntry.forEach((item) => {
+    
+                    // console.log(item.mealID);
+                    // let mealID=item.mealID
+                    switch (item.mealID) {
+                        case 1:
+                            breakfast.push(item);
+                            break;
+                        case 2:
+                            lunch.push(item);
+                            break;
+                        case 3:
+                            dinner.push(item);
+                            break;
+                        case 4:
+                            snack.push(item);
+                            break;
+    
+                        default:
+                            break;
+                    }
+                })
+    
+                this.setState({
+                    breakfastArray: breakfast,
+                    lunchArray: lunch,
+                    dinnerArray: dinner,
+                    snackArray: snack,         
+    
+                })
+            })
+        }
+    }
+
     render() {
         if (auth.isAuthenticated) {
-            console.log("Authenticated");
-            console.log(auth.userID);
+            console.log("Authenticated: " + auth.userID);
         } else {
             console.log("Not logged in");
         }
-        // {this.state.todayEntry.map((item) => {
-        //     console.log(item);
-        //     // return <displayEntry todayEntry = {item} />
-        // })}
-
-
 
         return (
             <div>
@@ -262,15 +276,60 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                 </div>
-                {/* {this.state.todayEntry.map((item) => {
-                    return <DisplayEntry todayEntry={item} />
-                })} */}
 
                 <div className="row row-cols-1 row-cols-md-2">
-                    <div className="col mb-4"><MealCard breakfast={this.state.breakfastArray} mealType="Breakfast" value="1" /></div>
-                    <div className="col mb-4"><MealCard mealType="Lunch" value="2" /></div>
-                    <div className="col mb-4"><MealCard mealType="Dinner" value="3" /></div>
-                    <div className="col mb-4"><MealCard mealType="Snack" value="4" /></div>
+                    <div className="col mb-4">
+                        <div className="card" id="breakfast" value="1">
+                            <div className="card-body">
+                                <h5 className="card-title" id="mealType">Breakfast</h5>
+                                {this.state.breakfastArray.map((item) =>
+                                    <div className="row" key={item.id}>
+                                    <div className="col-auto mr-auto">{item.Food}</div>
+                                    <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col mb-4">
+                        <div className="card" id="lunch" value="2">
+                            <div className="card-body">
+                                <h5 className="card-title" id="mealType">Lunch</h5>
+                                {this.state.lunchArray.map((item) =>
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col mb-4">
+                        <div className="card" id="dinner" value="3">
+                            <div className="card-body">
+                                <h5 className="card-title" id="mealType">Dinner</h5>
+                                {this.state.dinnerArray.map((item) =>
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col mb-4">
+                        <div className="card" id="snack" value="4">
+                            <div className="card-body">
+                                <h5 className="card-title" id="mealType">Snack</h5>
+                                {this.state.snackArray.map((item) =>
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -291,7 +350,7 @@ class CalorieJournalPage extends React.Component {
                                     name="mealType"
                                     onChange={this.handleChange.bind(this)}
                                 >
-                                    <option value="0">Meal Type</option>
+                                    <option value="0"></option>
                                     <option value="1">Breakfast</option>
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
