@@ -245,7 +245,7 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
-                                    <div>
+                                    <div key={item.id}>
                                         {item.Food}, {item.totalCalories}
                                     </div>
                                 )}
@@ -257,7 +257,7 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Lunch</h5>
                                 {this.state.lunchArray.map((item) =>
-                                    <div>
+                                    <div key={item.id}>
                                         {item.Food}, {item.totalCalories}
                                     </div>
                                 )}
@@ -269,7 +269,7 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Dinner</h5>
                                 {this.state.dinnerArray.map((item) =>
-                                    <div>
+                                    <div key={item.id}>
                                         {item.Food}, {item.totalCalories}
                                     </div>
                                 )}
@@ -281,7 +281,7 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Snack</h5>
                                 {this.state.snackArray.map((item) =>
-                                    <div>
+                                    <div key={item.id}>
                                         {item.Food}, {item.totalCalories}
                                     </div>
                                 )}
