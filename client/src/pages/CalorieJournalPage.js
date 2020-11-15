@@ -198,8 +198,7 @@ class CalorieJournalPage extends React.Component {
 
     render() {
         if (auth.isAuthenticated) {
-            console.log("Authenticated");
-            console.log(auth.userID);
+            console.log("Authenticated: " + auth.userID);
         } else {
             console.log("Not logged in");
         }
@@ -245,9 +244,10 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
-                                    <div key={item.id}>
-                                        {item.Food}, {item.totalCalories}
-                                    </div>
+                                    <div className="row" key={item.id}>
+                                    <div className="col-auto mr-auto">{item.Food}</div>
+                                    <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                </div>
                                 )}
                             </div>
                         </div>
@@ -257,8 +257,9 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Lunch</h5>
                                 {this.state.lunchArray.map((item) =>
-                                    <div key={item.id}>
-                                        {item.Food}, {item.totalCalories}
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
@@ -269,8 +270,9 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Dinner</h5>
                                 {this.state.dinnerArray.map((item) =>
-                                    <div key={item.id}>
-                                        {item.Food}, {item.totalCalories}
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
@@ -281,8 +283,9 @@ class CalorieJournalPage extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Snack</h5>
                                 {this.state.snackArray.map((item) =>
-                                    <div key={item.id}>
-                                        {item.Food}, {item.totalCalories}
+                                    <div className="row" key={item.id}>
+                                        <div className="col-auto mr-auto">{item.Food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
