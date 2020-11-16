@@ -48,7 +48,7 @@ class CalorieJournalPage extends React.Component {
         lunchArray: [],
         dinnerArray: [],
         snackArray: [],
-        todayEntry: []
+        // todayEntry: []
     }
 
     handleClose = () => {
@@ -191,17 +191,19 @@ class CalorieJournalPage extends React.Component {
             .then(getReq => {
                 console.log(getReq.data);
     
-                this.setState({
-                    todayEntry: getReq.data,
+                // this.setState({
+                //     todayEntry: getReq.data,
     
-                })
+                // })
+
+                let todayEntry = getReq.data;
     
                 let lunch = [];
                 let dinner = [];
                 let snack = [];
                 let breakfast = [];
     
-                this.state.todayEntry.forEach((item) => {
+                todayEntry.forEach((item) => {
     
                     // console.log(item.mealID);
                     // let mealID=item.mealID
@@ -249,23 +251,30 @@ class CalorieJournalPage extends React.Component {
                 <div className="container my-5">
                     <div className="card">
                         <div className="card-header">
-                            <h5>Summary</h5>
+                            <div className="row">
+                                <div className="col-auto mr-auto">
+                                    <h5>Summary</h5>
+                                </div>
+                                <div className="col-auto ml-auto">
+                                    <DayPickerInput />
+                                    {/* onDayChange={() => this.handleCalendar()} */}
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
-                                <BsPlusSquare
+                                <span>
+                                    <BsPlusSquare
                                     type="button"
                                     className="col-auto ml-auto mr-3 mt-4"
                                     onClick={this.handleShow}
-                                />
+                                    />
+                                </span>
+                                
                             </div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>
-                                <div className="col-auto ml-auto mr-3 my-3">
-                                    <DayPickerInput />
-                                    {/* onDayChange={() => this.handleCalendar()} */}
-                                </div>
 
                                 {/* <BsCalendar
                                     type="button"
