@@ -105,7 +105,13 @@ module.exports = (sequelize, DataTypes) => {
             as:'recipes',
             foreignKey: 'requesterID',
         });
-    }
+        User.hasMany(models.Journal, {
+            as:'journals',
+            foreignKey: 'requesterID',
+
+        });
+        
+    };
     User.beforeSave((user, options) => {
         if (user.password) {
             user.passwordHash = bcrypt.hashSync(user.password, 10);
