@@ -1,26 +1,29 @@
 'use strict';
- const { Model } = require('sequelize');
- 
+const {Model, Datatypes, DataTypes} = require('sequelize');
+const { sequelize } = require('.');
 
- module.exports = (sequelize, DataTypes) => {
-     class Journal extends Model {}
+module.exports = (sequelize,DataTypes) => {
+    class Journal extends Model{}
 
-     Journal.init({
-         mealType: {
-             type: DataTypes.STRING,
-         }
-     }, {
-         sequelize,
-         modelName: 'journal'
+Journal.init({
+    dateOnly:{ 
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    totalCalories: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+}, {
+    sequelize,
+    modelName: 'journal'
+});
 
-     });
-     Journal.associate = (models) => {
-         Journal.hasMany(models.Entry, {
-             as: 'dailies',
-             foreignKey: 'mealID'
-         });
-     }
-
-
-     return Journal;
- };
+Journal.associate = (models) => {
+    Journal.belongsTo(models.User, {
+        as: 'requester',
+        foreignKey: 'requesterID',
+    });
+};
+return Journal;
+}

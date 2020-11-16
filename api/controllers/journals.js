@@ -4,40 +4,39 @@ const db = require('../models');
 const journal = require('../models/journal');
 const {Journal} = db;
 
+
 router.post('/create', (req,res) => {
-    let {mealType} = req.body;
-   
-    Journal.create({mealType})
-       .then(journal => {
-           res.status(201).json(journal);
-       })
-       .catch(err => {
-           res.status(400).json(err);
-       });
-   })
+    let {dateOnly} = req.body;
+    let {totalCalories} = req.body;
+    let {requesterID} =req.body;
+    Journal.create({dateOnly,totalCalories,requesterID})
+        .then(journal => {
+            res.status(201).json(journal);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
 
-router. get('/:id', (req,res) => {
-    const {id} =req.params;
-    Journal.findByPk(id)
+router.put('/update/:requesterID/:dateOnly', (req,res) => {
+    const id = req.params.requesterID;
+    const day = req.params.dateOnly;
+    Journal.findOne({where: {
+        requesterID: id,
+        dateOnly: day,
+    }})
         .then(journal => {
             if(!journal) {
                 return res.sendStatus(404);
             }
-            res.json(journal);
+            journal.totalCalories = req.body.totalCalories;
+            journal.save()
+                .then(journal => {
+                    res.json(journal);
+                })
+                .catch(err => {
+                    res.status(400).json(err);                
+                });
         });
 });
-   
-router.delete('/:id', (req, res) => {
-    const {id} = req.params;
-    Journal.findByPk(id)
-        .then(journal => {
-            if(!journal) {
-                return res.sendStatus(404);
-            }
-            journal.destroy();
-            res.sendStatus(204);
-        });
-});
-
-
-module.exports = router; 
+module.exports = router;
