@@ -6,10 +6,11 @@ const router = express.Router();
 const postsController = require('./posts.js');
 const appConfigController = require('./appConfig.js');
 const authController = require('./auth'); 
-const journalsController = require('./journals');
+const mealTypesController = require('./mealTypes');
 const usersController = require('./users');
 const entriesController = require('./entries');
 const profilesController = require('./profiles');
+const myRecipesController = require('./myRecipes');
 
 
 // Mount each controller under a specific route. These
@@ -17,9 +18,10 @@ const profilesController = require('./profiles');
 router.use('/posts', postsController);
 router.use('/application-configuration', appConfigController);
 router.use('/auth', authController);
-router.use('/journals', journalsController);
+router.use('/mealTypes', mealTypesController);
 router.use('/users', usersController);
 router.use('/entries', entriesController);
 router.use('/profiles', profilesController);
+router.use('/myRecipes',myRecipesController);
 
 module.exports = router;

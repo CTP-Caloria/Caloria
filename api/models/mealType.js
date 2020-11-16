@@ -3,24 +3,24 @@
  
 
  module.exports = (sequelize, DataTypes) => {
-     class Journal extends Model {}
+     class MealType extends Model {}
 
-     Journal.init({
+     MealType.init({
          mealType: {
              type: DataTypes.STRING,
          }
      }, {
          sequelize,
-         modelName: 'journal'
+         modelName: 'mealType'
 
      });
-     Journal.associate = (models) => {
-         Journal.hasMany(models.Entry, {
+     MealType.associate = (models) => {
+         MealType.hasMany(models.Entry, {
              as: 'dailies',
              foreignKey: 'mealID'
          });
      }
 
 
-     return Journal;
+     return MealType;
  };
