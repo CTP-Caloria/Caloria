@@ -359,7 +359,7 @@ class CalorieJournalPage extends React.Component {
                                     name="mealType"
                                     onChange={this.handleChange.bind(this)}
                                 >
-                                    <option value="0"></option>
+                                    <option value="0" selected disabled hidden>Choose one</option>
                                     <option value="1">Breakfast</option>
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
@@ -385,6 +385,7 @@ class CalorieJournalPage extends React.Component {
                                     <Form.Label>Serving Size</Form.Label>
                                     <FormControl
                                         type="number"
+                                        min="0"
                                         aria-label="Default"
                                         aria-describedby="inputGroup-sizing-default"
                                         name="servingSize"
