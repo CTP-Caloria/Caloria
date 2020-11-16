@@ -10,7 +10,7 @@ Entry.init({
     //     primaryKey: true,
     //     autoIncrement: true
     // },
-    Food: {
+    food: {
         type: DataTypes.STRING,
         allowNull: false 
     },
@@ -36,7 +36,7 @@ Entry.associate = (models) => {
         foreignKey: 'requesterID',
     
     });
-    Entry.belongsTo(models.Journal, {
+    Entry.belongsTo(models.MealType, {
         as: 'meal',
         foreignKey: 'mealID'
     });

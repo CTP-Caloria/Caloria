@@ -7,13 +7,13 @@ const {Entry} = db;
 // route: /api/entries/create
 router.post('/create', (req, res) => {
     // let {entryID} = req.body;
-    let {Food} = req.body;
+    let {food} = req.body;
     let {totalCalories} = req.body;
     let {dateOnly} = req.body;
     let {requesterID} = req.body;
     let {mealID} = req.body;
 
-    Entry.create({ Food, totalCalories,dateOnly, requesterID, mealID})
+    Entry.create({ food, totalCalories,dateOnly, requesterID, mealID})
         .then(entry => {
             res.status(201).json(entry);
         })

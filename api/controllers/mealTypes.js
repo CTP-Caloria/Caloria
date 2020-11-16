@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const journal = require('../models/journal');
-const {Journal} = db;
+const mealType = require('../models/mealType');
+const {MealType} = db;
 
 router.post('/create', (req,res) => {
     let {mealType} = req.body;
    
-    Journal.create({mealType})
-       .then(journal => {
-           res.status(201).json(journal);
+    MealType.create({mealType})
+       .then(meal => {
+           res.status(201).json(meal);
        })
        .catch(err => {
            res.status(400).json(err);
@@ -18,23 +18,23 @@ router.post('/create', (req,res) => {
 
 router. get('/:id', (req,res) => {
     const {id} =req.params;
-    Journal.findByPk(id)
-        .then(journal => {
-            if(!journal) {
+    MealType.findByPk(id)
+        .then(meal => {
+            if(!meal) {
                 return res.sendStatus(404);
             }
-            res.json(journal);
+            res.json(meal);
         });
 });
    
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
     Journal.findByPk(id)
-        .then(journal => {
-            if(!journal) {
+        .then(meal => {
+            if(!meal) {
                 return res.sendStatus(404);
             }
-            journal.destroy();
+            meal.destroy();
             res.sendStatus(204);
         });
 });
