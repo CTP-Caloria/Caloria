@@ -8,11 +8,12 @@ router.post('/create', (req,res) => {
     let {name} = req.body;
     let {totalCalories} = req.body;
     let {servingSize} = req.body;
-    let {description} = req.body;
-    let {img} = req.body;
+    let {unit} = req.body;
+    let {instructions} = req.body;
+    let {ingredients} = req.body;
     let {requesterID} =req.body;
     
-    MyRecipes.create({name, totalCalories, servingSize, description,img,requesterID})
+    MyRecipes.create({name, totalCalories, servingSize,unit,instructions,ingredients,requesterID})
         .then(entry => {
             res.status(201).json(entry);
         })
