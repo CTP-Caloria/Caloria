@@ -22,7 +22,13 @@ class CreatePage extends React.Component {
   state = {
     recipeName: "",
     ingredients: [{ food: "", servingSize: "", units: "" }],
-    instructions: [{ steps: "" }]
+    instructions: [{ steps: "" }],
+
+    // to hold tempoary values to be passed once "row" is complete
+    tempInstruction: "",
+    tempIngredient:"",
+    tempServingSize:"",
+    tempUnits:"",
   }
 
   addInstruction = () => {
@@ -38,6 +44,7 @@ class CreatePage extends React.Component {
   }
 
   instructionInput() {
+    let input;
     return this.state.instructions.map((x, i) => (
       <div className="row align-items-center" key={i}>
         <div className="form-group col">
@@ -45,27 +52,46 @@ class CreatePage extends React.Component {
             type="text" 
             className="form-control mt-1" 
             id="steps" 
-            value={x.steps}
-            onChange={this.handleInstructionsChange.bind(this, i)}/>
+            // value={x.steps}
+            
+            onChange={this.instructionChange.bind(this)}
+            //{this.handleInstructionsChange.bind(i, this)}
+            />
         </div>
-        <span className="col" type="button" value="remove" onClick={this.removeInstruction.bind(this, i)}><BsX /></span>
+        <button className="btn btn-primary mb-4" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instructions</button> 
+        {/* <button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button>  */}
+        <button className="btn btn-danger mb-4" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
+        {/* <span className="col" type="button" value="remove" onClick={this.removeInstruction.bind(this, i)}><BsX /></span> */}
       </div>
     ))
   }
-
-  handleInstructionsChange = (i, e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    console.log(name, value);
-
-    let instructions = [...this.state.instructions];
-    instructions[i] = {...instructions[i], [name]: value};
+  instructionChange =(e)=>{
+    console.log(e.target.value);
 
     this.setState({
-        instructions
+      tempInstruction:e.target.value
+    })
+  }
+
+  handleInstructionsChange = (i, input) => {
+   
+    // const { name, value } = e.target;
+  //  const value=input;
+    console.log(i);
+    console.log(input);
+    
+ 
+
+    let instructions = [...this.state.instructions];
+    instructions[i] = {...instructions[i], [i]: input};
+
+    this.setState({
+        instructions,
+        // tempInstruction: "",
     }, () => console.log(this.state));
 
-    // console.log(this.state);
+    console.log(this.state);
+
   }
 
   addIngredient = () => {
@@ -89,8 +115,10 @@ class CreatePage extends React.Component {
             type="text" 
             className="form-control mt-1" 
             id="food" 
-            value={x.food}
-            onChange={this.handleIngredientsChange.bind(this, i)}/>
+            // value={x.food}
+            onChange={this.ingredientChange.bind(this)}
+            // {this.handleIngredientsChange.bind(this, i)}
+            />
         </div>
         <div className="form-group col">
           <label className="form-label" htmlFor="servingSize">Serving Size</label>
@@ -99,15 +127,15 @@ class CreatePage extends React.Component {
             min="0" 
             className="form-control mt-1" 
             id="servingSize"
-            value={x.servingSize} 
-            onChange={this.handleIngredientsChange.bind(this, i)}/>
+            // value={x.servingSize} 
+            onChange={this.ingredientChange.bind(this)}/>
         </div>
         <div className="form-group col">
           <label className="form-label" htmlFor="unit">Unit</label>
           <select 
             className="form-control mt-1" 
-            value={x.units}
-            onChange={this.handleIngredientsChange.bind(this, i)}
+            // value={x.units}
+            onChange={this.ingredientChange.bind(this)}
           >
             <option selected disabled hidden>Choose one</option>
             <option>Cups</option>
@@ -117,24 +145,62 @@ class CreatePage extends React.Component {
             <option>Tablespoons</option>
           </select>
         </div>
-        <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX /></span>
+        <button className="btn btn-primary mb-4" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add Ingredient</button> 
+        <button className="btn btn-danger mb-4" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button> 
+        {/* <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX />X</span> */}
       </div>
     ))
   }
-
-  handleIngredientsChange = (i, e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    console.log(name, value);
-
-    let ingredients = [...this.state.ingredients];
-    ingredients[i] = {...ingredients[i], [name]: value};
+  ingredientChange = (e) => {
+    //console.log(e.target.id);
+    let tempIngredient = this.state.tempIngredient;
+    let tempServingSize = this.state.tempServingSize;
+    let tempUnits = this.state.tempUnits;
+    if(e.target.id==="food"){
+        tempIngredient=e.target.value;
+    }else if(e.target.id==="servingSize"){
+        tempServingSize=e.target.value;
+    }else{
+        tempUnits=e.target.value;
+    }
+        console.log("Ingredient: "+tempIngredient);
+        console.log("Serving Size: "+tempServingSize);
+        console.log("Units: " +tempUnits);
+   
 
     this.setState({
-        ingredients
+      tempIngredient: tempIngredient,
+      tempServingSize: tempServingSize,
+      tempUnits: tempUnits,
+    
+    })
+  }
+
+  handleChangeName =(e)=>{
+    e.preventDefault();
+    this.setState({
+      recipeName:e.target.value
+    })
+  }
+  handleIngredientsChange = (i, e) => {
+    e.preventDefault();
+    console.log(i);
+    console.log(this.state.tempIngredient);
+     let food=this.state.tempIngredient;
+     let servingSize=this.state.tempServingSize;
+     let units=this.state.tempUnits;
+
+    let ingredients = [...this.state.ingredients];
+    ingredients[i] = {...ingredients[i], food,servingSize,units};
+
+    this.setState({
+        ingredients,
+        // tempIngredient:"",
+        // tempServingSize: "",
+        // tempUnits: "",
     }, () => console.log(this.state));
 
-    // console.log(this.state);
+    console.log(this.state);
   }
 
   handleSubmit = (e) => {
@@ -191,16 +257,16 @@ class CreatePage extends React.Component {
             className="form-control mt-1" 
             id="recipeName" 
             placeholder="e.g. Banana bread"
-            onChange={this.handleIngredientsChange}/>
+            onChange={this.handleChangeName}/>
         </div>
 
         <div className="row h6">Ingredients</div>
         {this.ingredientInput()}
-        <button className="btn btn-secondary mb-4" value="add" onClick={this.addIngredient.bind(this)}>Add ingredients</button>
+        <button className="btn btn-secondary mb-4" value="add" onClick={this.addIngredient.bind(this)}>+</button>
           
         <div className="form-group row h6">Instructions</div>
         {this.instructionInput()}
-        <button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>Add instructions</button>  
+        <inline><button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button></inline>
           
         <div className="form-group row">
           <label className="form-label h6" htmlFor="recipe-pic">Choose a picture for your recipe: </label>
