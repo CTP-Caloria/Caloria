@@ -39,7 +39,7 @@ class App extends React.Component {
         <div className="container-fluid mt-4">
           <div className="row justify-content-center">
             <Switch>
-              <Route path="/posts/new" component={CreatePage} />
+              <Route path="/create-recipe" component={CreatePage} />
               <Route path="/recipe/:id" component={RecipePage} />
               <Route path="/about-us" component={AboutUsPage} />
               <Route path="/calorie-journal" component={CalorieJournalPage} />
