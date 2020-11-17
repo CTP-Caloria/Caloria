@@ -15,8 +15,11 @@ module.exports = (sequelize, DataTypes) => {
             }
 
         },
+        ingredients:{
+            type: DataTypes.STRING,
+            allowNull: false
 
-
+        },
         totalCalories: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -27,26 +30,21 @@ module.exports = (sequelize, DataTypes) => {
 
         servingSize: {
             type: DataTypes.DOUBLE,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
+            allowNull: true,
         },
 
-
-        description: {
+        unit:{
+            type:DataTypes.STRING,
+            allowNull:true,
+        },
+        instructions: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
         },
-        img: {
-            type:DataTypes.BLOB('long'),
-            allowNull:true
-
-        }
-
+        
     }, {
         sequelize,
         modelName: 'myRecipes'
