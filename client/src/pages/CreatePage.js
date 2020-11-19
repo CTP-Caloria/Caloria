@@ -207,7 +207,23 @@ class CreatePage extends React.Component {
     e.preventDefault();
 
     if (auth.isAuthenticated) {
+     let instructions="";
+     let i=0;
+      this.state.instructions.forEach((instruction=>{
+        console.log(instruction);
+          instructions+=(instruction[i]+",")
+          i++;
+      }))
+
+      let ingredients="";
+      this.state.ingredients.forEach((ingredient => {
+        console.log(ingredient.food);
+        ingredients += (ingredient.servingSize+" "+ingredient.units+" of "+ingredient.food+",")
+      }))
+      console.log(instructions);
         if (formValid(this.state)) {
+     
+ 
 
             axios({
                 method: 'post',
@@ -217,10 +233,21 @@ class CreatePage extends React.Component {
                 },
 
                 data: {
-                    recipeName: this.state.recipeName,
-                    ingredients: this.state.ingredients,
-                    servingSize: this.state.servingSize,
-                    units: this.state.units
+                  name  : this.state.recipeName,
+                  totalCalories  : 300,
+                  servingSize  : 2.0,
+                  unit: "CUP",
+                  instructions: instructions,
+                  // this.state.instructions,
+                  ingredients: ingredients,
+                  // "ingredients",
+                  //this.state.ingredients,
+                  requesterID  : auth.userID,
+                    // name: ,
+                    // totalCalories
+                    // ingredients: this.state.ingredients,
+                    // servingSize: this.state.servingSize,
+                    // units: this.state.units
                 }
             })
 
