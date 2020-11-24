@@ -27,6 +27,28 @@ const formValid = ({ ...rest }) => {
     return valid
 };
 
+
+//  calculateCalories(){
+
+//     let calories;
+//     let amount = this.state.servingSize + " " + this.state.units
+//     let food = this.state.food
+//     console.log(amount + food);
+//     fetch("https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + amount + " " + food, { headers: { "Access-Control-Allow-Origin": "*" } })
+//         .then(res => res.json())
+//         .then(post => {
+//             console.log(post);
+//             console.log(`Total Calories for ${amount} of ${food}`);
+//             console.log(post.totalNutrients.ENERC_KCAL.quantity);
+
+//             this.setState({
+//                 totalCalories: post.totalNutrients.ENERC_KCAL.quantity
+//             });
+
+
+//         }).catch(err => { console.log(err) });
+
+// }
 function todayInString() {
     let today = new Date();
 
@@ -48,7 +70,8 @@ class CalorieJournalPage extends React.Component {
         lunchArray: [],
         dinnerArray: [],
         snackArray: [],
-        // todayEntry: []
+        totalCalories: 0,
+
     }
 
     handleClose = () => {
@@ -76,83 +99,111 @@ class CalorieJournalPage extends React.Component {
         // console.log(this.state);
     }
 
+
     handleSubmit = (e) => {
         e.preventDefault();
-
+        //   this.calculateCalories();
         if (auth.isAuthenticated) {
+
+
             if (formValid(this.state)) {
+                // let calories;
+
+
+
+
+                console.log(this.state.totalCalories);
+
 
                 let today = new Date();
                 let year = today.getFullYear();
                 let month = (today.getMonth() + 1);
                 let date = (today.getDate());
                 let dateOnly = `${year}-${month}-${date}`
+                let amount = this.state.servingSize + " " + this.state.units
+                let food = this.state.food
 
                 axios({
-                    method: 'post',
-                    url: 'http://localhost:8080/api/entries/create',
+                    method: 'get',
+                    url: `https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
                     headers: {
                         "Access-Control-Allow-Origin": "*"
                     },
 
-                    data: {
-                        food: this.state.food,
-                        totalCalories: "200",
-                        dateOnly: dateOnly,
-                        requesterID: auth.userID,
-                        mealID: this.state.mealType
-                    }
-                })
-                .then(getData => {
-                    console.log(getData.data);
 
-                    let item = getData.data;
-
-                    let breakfast = this.state.breakfastArray;
-                    let lunch = this.state.lunchArray;
-                    let dinner = this.state.dinnerArray;
-                    let snack = this.state.snackArray;
-
-                    // console.log(item.mealID);
-                    switch (item.mealID) {
-                        case 1:
-                            breakfast.push(item);
-                            break;
-                        case 2:
-                            lunch.push(item);
-                            break;
-                        case 3:
-                            dinner.push(item);
-                            break;
-                        case 4:
-                            snack.push(item);
-                            break;
-    
-                        default:
-                            break;
-                    }
-    
+                }).then(calories => {
+                    console.log(calories.data);
                     this.setState({
-                        breakfastArray: breakfast,
-                        lunchArray: lunch,
-                        dinnerArray: dinner,
-                        snackArray: snack,         
-        
+                        totalCalories: calories.data.calories,
+                    });
+
+                }).then(() => {
+
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8080/api/entries/create',
+                        headers: {
+                            "Access-Control-Allow-Origin": "*"
+                        },
+
+                        data: {
+                            food: this.state.food,
+                            totalCalories: this.state.totalCalories,
+                            dateOnly: dateOnly,
+                            requesterID: auth.userID,
+                            mealID: this.state.mealType
+                        }
                     })
+                        .then(getData => {
+                            console.log(getData);
 
-                })
+                            let item = getData.data;
 
-                console.log(`
-                    --SUBMITTING--
-                    Meal Type: ${this.state.mealType}
-                    Food: ${this.state.food}
-                    Serving Size: ${this.state.servingSize}
-                    Units: ${this.state.units}
-                    Date: ${dateOnly}
-            `   );
-            } else {
-                console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
-            }
+                            let breakfast = this.state.breakfastArray;
+                            let lunch = this.state.lunchArray;
+                            let dinner = this.state.dinnerArray;
+                            let snack = this.state.snackArray;
+
+                            // console.log(item.mealID);
+                            switch (item.mealID) {
+                                case 1:
+                                    breakfast.push(item);
+                                    break;
+                                case 2:
+                                    lunch.push(item);
+                                    break;
+                                case 3:
+                                    dinner.push(item);
+                                    break;
+                                case 4:
+                                    snack.push(item);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                            this.setState({
+                                breakfastArray: breakfast,
+                                lunchArray: lunch,
+                                dinnerArray: dinner,
+                                snackArray: snack,
+
+                            })
+
+                        }).catch(err => { console.log(err) });
+
+                                console.log(`
+                                --SUBMITTING--
+                                Meal Type: ${this.state.mealType}
+                                Food: ${this.state.food}
+                                Serving Size: ${this.state.servingSize}
+                                Units: ${this.state.units}
+                                Date: ${dateOnly}`);
+            })
+                } else {
+                    console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
+                }
             this.setState({ show: false });
             // window.location.reload();
         } else {
@@ -165,7 +216,7 @@ class CalorieJournalPage extends React.Component {
     // }    
 
     componentDidMount() {
-        if(auth.isAuthenticated) {
+        if (auth.isAuthenticated) {
             let id = auth.userID;
 
             let today = new Date();
@@ -173,7 +224,9 @@ class CalorieJournalPage extends React.Component {
             let month = (today.getMonth() + 1);
             let date = (today.getDate());
             let dateOnly = `${year}-${month}-${date}`
-            
+
+
+
             axios({
                 method: 'get',
                 url: `http://localhost:8080/api/entries/getEntry/${id}/${dateOnly}`,
@@ -188,52 +241,52 @@ class CalorieJournalPage extends React.Component {
                     mealID: this.state.mealType
                 }
             })
-            .then(getReq => {
-                console.log(getReq.data);
-    
-                // this.setState({
-                //     todayEntry: getReq.data,
-    
-                // })
+                .then(getReq => {
+                    console.log(getReq.data);
 
-                let todayEntry = getReq.data;
-    
-                let lunch = [];
-                let dinner = [];
-                let snack = [];
-                let breakfast = [];
-    
-                todayEntry.forEach((item) => {
-    
-                    // console.log(item.mealID);
-                    // let mealID=item.mealID
-                    switch (item.mealID) {
-                        case 1:
-                            breakfast.push(item);
-                            break;
-                        case 2:
-                            lunch.push(item);
-                            break;
-                        case 3:
-                            dinner.push(item);
-                            break;
-                        case 4:
-                            snack.push(item);
-                            break;
-    
-                        default:
-                            break;
-                    }
+                    // this.setState({
+                    //     todayEntry: getReq.data,
+
+                    // })
+
+                    let todayEntry = getReq.data;
+
+                    let lunch = [];
+                    let dinner = [];
+                    let snack = [];
+                    let breakfast = [];
+
+                    todayEntry.forEach((item) => {
+
+                        // console.log(item.mealID);
+                        // let mealID=item.mealID
+                        switch (item.mealID) {
+                            case 1:
+                                breakfast.push(item);
+                                break;
+                            case 2:
+                                lunch.push(item);
+                                break;
+                            case 3:
+                                dinner.push(item);
+                                break;
+                            case 4:
+                                snack.push(item);
+                                break;
+
+                            default:
+                                break;
+                        }
+                    })
+
+                    this.setState({
+                        breakfastArray: breakfast,
+                        lunchArray: lunch,
+                        dinnerArray: dinner,
+                        snackArray: snack,
+
+                    })
                 })
-    
-                this.setState({
-                    breakfastArray: breakfast,
-                    lunchArray: lunch,
-                    dinnerArray: dinner,
-                    snackArray: snack,         
-    
-                })
-            })
         }
     }
 
@@ -266,12 +319,12 @@ class CalorieJournalPage extends React.Component {
                                 <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
                                 <span>
                                     <BsPlusSquare
-                                    type="button"
-                                    className="col-auto ml-auto mr-3 mt-4"
-                                    onClick={this.handleShow}
+                                        type="button"
+                                        className="col-auto ml-auto mr-3 mt-4"
+                                        onClick={this.handleShow}
                                     />
                                 </span>
-                                
+
                             </div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 my-3">Calories so far: </div>
@@ -293,9 +346,9 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                    <div className="col-auto mr-auto">{item.food}</div>
-                                    <div className="col-auto ml-auto">{item.totalCalories}</div>
-                                </div>
+                                        <div className="col-auto mr-auto">{item.food}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
+                                    </div>
                                 )}
                             </div>
                         </div>
