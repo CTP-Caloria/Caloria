@@ -191,7 +191,24 @@ class CalorieJournalPage extends React.Component {
 
                             })
 
-                        }).catch(err => { console.log(err) });
+                        }).then(req =>{
+                            axios({
+                                method: 'post',
+                                url: 'http://localhost:8080/api/journals/create',
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*"
+                                },
+
+                                data: {
+                                    dateOnly: dateOnly,
+                                    totalCalories: this.state.totalCalories,
+                                    requesterID: auth.userID,
+                                }
+                            })
+
+                        })
+                        
+                        .catch(err => { console.log(err) });
 
                                 console.log(`
                                 --SUBMITTING--
