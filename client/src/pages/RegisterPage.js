@@ -124,10 +124,9 @@ class RegisterPage extends React.Component {
         const {formErrors}=this.state;
         return (
 
-    
             <div className="wrapper">
-                <div className="form-wrapper">
-                    <h1>Create Account</h1>
+                <div className="form-wrapper p-5">
+                    <h1 className="mb-3">Register</h1>
                     <form onSubmit={this.handleSubmit}>
                         {/* { err } */}
                         <div className="firstName">
@@ -187,11 +186,11 @@ class RegisterPage extends React.Component {
                         </div>
 
                         <div className="password">
-                            <label htmlFor="password2">Password2</label>
+                            <label htmlFor="password2">Confirm password</label>
                             <input
                                 type="password"
                                 className={formErrors.password.length > 0 ? "error" : null} name="password2"
-                                placeholder="Password2"
+                                placeholder="Password"
                                 noValidate
                                 onChange={this.handleChange}
                             />
@@ -200,11 +199,7 @@ class RegisterPage extends React.Component {
                             )}
                         </div>
                         
-                    <div className="createAccount">
-                    <button type="submit">Create Account</button>
-                    <small>Already have an account?</small>
-
-                    </div>
+                        <button className="btn btn-success btn-block mt-2" type="submit">Register</button>
                         
                     </form>
 

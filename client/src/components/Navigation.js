@@ -16,8 +16,8 @@ import {
 export default class Navigation extends React.Component {
     render() {
         return (
-            <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
-                <Navbar.Brand href="/">Logo</Navbar.Brand>
+            <Navbar collapseOnSelect expand="sm" bg="light" variant="light">
+                <Navbar.Brand href="/">Caloría</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">

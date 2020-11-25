@@ -18,7 +18,7 @@ import React from 'react';
 
 function SearchField(props) {
     return (
-      <div className="text-center mt-4">
+      <div className="text-center my-4">
         <input type="text" onChange={ props.changed } value={ props.value } placeholder="Search..." />
         {/* <p>You entered: { props.value }</p> */}
       </div>);
@@ -26,16 +26,15 @@ function SearchField(props) {
 
 function DisplayMeal(props){
     return (
-        <div className="card w-50 center my-3 mx-auto">
+        <div className="card my-3 box col-sm-3 mx-3">
             <div className="card-header">
                 <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a>
-                {/* <strong>{ props.meal.strMeal }</strong> */}
             </div>
             <div className="card-body">
                 <img className="rounded float-left w-50 mr-3" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
                 <ul className="list-unstyled text-left">
                     <li><strong>Category:</strong> { props.meal.strCategory }</li>
-                    <li><strong>Area:</strong> { props.meal.strArea }</li>
+                    <li><strong>Cuisine:</strong> { props.meal.strArea }</li>
                     <li><strong>Tags:</strong> { props.meal.strTags }</li>
                 </ul>
             </div>
@@ -110,7 +109,7 @@ class SearchPage extends React.Component {
         // }
 
         return (
-            <div className="col-10 col-md-8 col-lg-7">
+            <div >
                 <SearchField changed={ (e) => this.SearchPost(e) } value={ this.state.userInput } />
                 {/* <input
                     type="text"
@@ -120,7 +119,7 @@ class SearchPage extends React.Component {
                     changed={ (e) => this.SearchPost(e) }
                     
                 /> */}
-                <div>
+                <div className="row justify-content-center">
                     {this.state.content.map((meal)=>{
                         return <DisplayMeal meal={meal}/>
                     })}

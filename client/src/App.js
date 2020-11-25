@@ -24,19 +24,12 @@ import RegisterPage from './pages/RegisterPage';
 
 import './App.css';
 
-
-
-
 class App extends React.Component {
-
-
-
-
   render() {
     return (
       <Router>
         <Navigation />
-        <div className="container-fluid mt-4">
+        <div>
           <div className="row justify-content-center">
             <Switch>
               <Route path="/create-recipe" component={CreatePage} />
