@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import auth from '../services/auth';
 import { Redirect } from 'react-router-dom';
-import { BsX } from 'react-icons/bs';
+// import { BsX } from 'react-icons/bs';
 
 const axios = require('axios');
 
