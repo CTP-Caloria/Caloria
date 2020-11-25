@@ -458,6 +458,7 @@ class CalorieJournalPage extends React.Component {
                                         onChange={this.handleChange.bind(this)}
                                     >
                                         <option selected disabled hidden>Choose...</option>
+                                        <option value="Serving" >Serving</option>
                                         <option value="Cups" >Cups</option>
                                         <option value="Grams">Grams</option>
                                         <option value="Ounces">Ounces</option>
