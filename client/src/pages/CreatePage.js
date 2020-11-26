@@ -29,6 +29,7 @@ class CreatePage extends React.Component {
     tempIngredient: "",
     tempServingSize: "",
     tempUnits: "",
+    redirect: false,
   }
 
   addInstruction = () => {
@@ -227,6 +228,7 @@ class CreatePage extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({redirect: true});
 
     if (auth.isAuthenticated) {
       let instructions = "";
@@ -289,7 +291,7 @@ class CreatePage extends React.Component {
                 Units: ${this.state.units}
                 Calories: ${this.state.totalCalories}
         `   );
-        <Redirect to="/profile" />
+        
       } else {
         console.error(`FORM INVALID - DISPLAY ERROR MESSAGE`);
       }
@@ -300,6 +302,11 @@ class CreatePage extends React.Component {
   }
 
   render() {
+    const {from } = this.props.location.state|| {from: {pathname:'/profile'}};
+    const {redirect} = this.state;
+    if(redirect) {
+      return <Redirect to ={from}/>
+    }
     if (auth.isAuthenticated) {
       console.log("Authenticated: " + auth.userID);
     } else {
