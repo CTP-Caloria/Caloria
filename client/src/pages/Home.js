@@ -5,7 +5,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="background">
-        <div className="container">
+        <div className="container mt-5">
           <div className="row justify-content-center">
             <h1 className="display-2 heading mt-5">Caloría</h1>
             <p className="lead text-shadow-2 text-light">Your calorie counter and recipe finder for a healthier lifestyle. </p>
@@ -25,12 +25,12 @@ class Home extends React.Component {
             </div>
           </div>
           
-          <div className="row my-5 w-100 justify-content-center">
-            <Carousel>
+          <div className="row my-5 justify-content-center">
+            <Carousel className="w-100">
               <Carousel.Item interval={6000}>
                 <img 
                   src="images/sample_1.png" 
-                  className="d-block w-100 carousel-img" 
+                  className="d-block carousel-img" 
                   alt="Caloria's calorie journal example" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Keep track of your own calorie intake</h3>
@@ -39,7 +39,7 @@ class Home extends React.Component {
               <Carousel.Item interval={6000}>
                 <img 
                   src="images/sample_2.png" 
-                  className="d-block w-100 carousel-img" 
+                  className="d-block carousel-img" 
                   alt="Cookbook" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Create your very own recipe</h3>
@@ -48,7 +48,7 @@ class Home extends React.Component {
               <Carousel.Item interval={6000}>
                 <img 
                   src="images/sample_3.png" 
-                  className="d-block w-100 carousel-img" 
+                  className="d-block carousel-img" 
                   alt="Caloria: searching recipes" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Look for new recipes</h3>

@@ -143,8 +143,15 @@ light green: #A3C4BC
 
 .add-ingred-btn {
   color: #ccffcc;
-  
 }
+
+/* .btn-invis {
+  display: none;
+}
+
+div:hover + .btn-invis {
+  display: inline-block;
+} */
 
 .wrapper {
   display: flex;

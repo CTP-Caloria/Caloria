@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import auth from '../services/auth';
 
-const classes = "btn btn-outline-secondary";
+const classes = "btn btn-light";
 
 const AuthButton = withRouter(({ history }) => {
   if(!auth.isAuthenticated) {
