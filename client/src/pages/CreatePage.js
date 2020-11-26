@@ -48,7 +48,7 @@ class CreatePage extends React.Component {
     let input;
     return this.state.instructions.map((x, i) => (
       <div className="row align-items-center" key={i}>
-        <div className="form-group col">
+        <div className="form-group col ml-4">
           <input
             type="text"
             className="form-control mt-1"
@@ -59,9 +59,9 @@ class CreatePage extends React.Component {
           //{this.handleInstructionsChange.bind(i, this)}
           />
         </div>
-        <button className="btn btn-info mb-3" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instructions</button> 
+        <button className="btn btn-info mb-3" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instruction</button> 
         {/* <button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button>  */}
-        <button className="btn btn-outline-danger mb-3 mx-2" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
+        <button className="btn btn-outline-danger mb-3 ml-2 mr-4" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
         {/* <span className="col" type="button" value="remove" onClick={this.removeInstruction.bind(this, i)}><BsX /></span> */}
       </div>
     ))
@@ -111,10 +111,10 @@ class CreatePage extends React.Component {
     return this.state.ingredients.map((x, i) => (
       <div className="row align-items-center" key={i}>
         <div className="form-group col">
-          <label className="form-label text-shadow-3" htmlFor="food">Food</label>
+          <label className="form-label text-light text-shadow-3 ml-4" htmlFor="food">Food</label>
           <input 
             type="text" 
-            className="form-control mt-1" 
+            className="form-control mt-1 ml-4" 
             id="food" 
             // value={x.food}
             onChange={this.ingredientChange.bind(this)}
@@ -122,17 +122,17 @@ class CreatePage extends React.Component {
           />
         </div>
         <div className="form-group col">
-          <label className="form-label text-shadow-3" htmlFor="servingSize">Serving Size</label>
+          <label className="form-label text-shadow-3 text-light pl-2" htmlFor="servingSize">Serving Size</label>
           <input 
             type="number" 
             min="0" 
-            className="form-control mt-1" 
+            className="form-control mt-1 ml-2" 
             id="servingSize"
             // value={x.servingSize} 
             onChange={this.ingredientChange.bind(this)} />
         </div>
         <div className="form-group col">
-          <label className="form-label text-shadow-3" htmlFor="unit">Unit</label>
+          <label className="form-label text-shadow-3 text-light" htmlFor="unit">Unit</label>
           <select 
             className="form-control mt-1" 
             // value={x.units}
@@ -147,8 +147,8 @@ class CreatePage extends React.Component {
             <option>Tablespoons</option>
           </select>
         </div>
-          <button className="btn btn-info mt-2" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add Ingredient</button> 
-          <button className="btn btn-outline-danger mt-2 mx-2" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button>       
+          <button className="btn btn-info mt-2" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add ingredient</button> 
+          <button className="btn btn-outline-danger mt-2 ml-2 mr-4" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button>       
         {/* <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX /></span> */}
       </div>
     ))
@@ -314,10 +314,10 @@ class CreatePage extends React.Component {
     }
 
     return (
-      <div className="form w-50 form-wrapper">
-        <h5 className="display-4 mt-5 mb-4 text-center text-shadow-1">Create Recipe</h5>
-        <div className="form-group row mb-4">
-          <label className="form-label h6 text-shadow-3" htmlFor="recipeName">Recipe Name</label>
+      <div className="container form w-75 transparent-bg">
+        <h5 className="display-4 mt-5 mb-4 text-center text-light text-shadow-1">Create Recipe</h5>
+        <div className="form-group row mb-4 mx-4">
+          <label className="form-label h6 text-shadow-3 text-light" htmlFor="recipeName">Recipe Name</label>
           <input 
             type="text" 
             className="form-control mt-1" 
@@ -326,19 +326,19 @@ class CreatePage extends React.Component {
             onChange={this.handleChangeName} />
         </div>
 
-        <div className="row h6 text-shadow-3">Ingredients</div>
+        <div className="row h6 text-light text-shadow-3 mx-4">Ingredients</div>
         {this.ingredientInput()}
-        <button className="btn add-ingred-btn mb-4 w-100" value="add" onClick={this.addIngredient.bind(this)}><b>+</b></button>
+        <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addIngredient.bind(this)}><b>+</b></button>
           
-        <div className="form-group row h6 text-shadow-3">Instructions</div>
+        <div className="form-group row h6 text-light text-shadow-3 mx-4">Instructions</div>
         {this.instructionInput()}
-        <button className="btn btn-secondary mb-4 w-100" value="add" onClick={this.addInstruction.bind(this)}>+</button>
+        <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addInstruction.bind(this)}>+</button>
         <div className="form-group row text-light">
-          <Button className="col-2 ml-auto" variant="secondary" onClick={() => this.props.history.goBack()}>
+          <Button className="col-2 ml-auto mb-4 mr-3" variant="secondary" onClick={() => this.props.history.goBack()}>
             Cancel
           </Button>
 
-          <Button className="col-2 ml-2" variant="primary" type="submit" onClick={this.handleSubmit}>
+          <Button className="col-2 ml-2 mr-4 mb-4" variant="primary" type="submit" onClick={this.handleSubmit}>
             Submit
           </Button>
         </div>

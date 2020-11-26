@@ -356,10 +356,11 @@ class CalorieJournalPage extends React.Component {
                         <div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
-                                <span>
+                                <span className="ml-auto mr-5 mt-4">
+                                    ADD ENTRY {'   '}
                                     <BsPlusSquare
                                         type="button"
-                                        className="col-auto ml-auto mr-3 mt-4"
+                                        className="ml-2"
                                         onClick={this.handleShow}
                                     />
                                 </span>

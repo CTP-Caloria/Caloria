@@ -1,29 +1,6 @@
-/*.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-*/
-
 html {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -69,13 +46,11 @@ body {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   display: inline-block;
-  float: left;
 }
 
 #ingredients {
   margin-top: 60px;
   display: inline-block;
-  float: left;
 }
 
 #ingredients ul {
@@ -142,7 +117,9 @@ light green: #A3C4BC
 }
 
 .add-ingred-btn {
-  color: #ccffcc;
+  background: #ccffcc;
+  color: white;
+  width: 75%;
 }
 
 /* .btn-invis {
@@ -158,13 +135,13 @@ div:hover + .btn-invis {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(
-    to left bottom,
-  #0066ff,
-  #0096ff, 
-  #00b3e7, 
-  #00c8bc,
-  #8cd6a6);
+}
+
+.transparent-bg {
+  background: rgba(204, 204, 204, 0.5);
+  /* opacity: 0.4; */
+  border-radius: .75rem;
+  margin-top: 125px;
 }
 
 .meal {
