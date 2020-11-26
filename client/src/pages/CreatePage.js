@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import auth from '../services/auth';
 import { Redirect } from 'react-router-dom';
-// import { BsX } from 'react-icons/bs';
+import { BsX } from 'react-icons/bs';
 
 const axios = require('axios');
 
@@ -58,9 +58,9 @@ class CreatePage extends React.Component {
             //{this.handleInstructionsChange.bind(i, this)}
             />
         </div>
-        <button className="btn btn-primary mb-4" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instructions</button> 
+        <button className="btn btn-info mb-3" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instructions</button> 
         {/* <button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button>  */}
-        <button className="btn btn-danger mb-4" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
+        <button className="btn btn-danger mb-3 mx-2" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
         {/* <span className="col" type="button" value="remove" onClick={this.removeInstruction.bind(this, i)}><BsX /></span> */}
       </div>
     ))
@@ -110,7 +110,7 @@ class CreatePage extends React.Component {
     return this.state.ingredients.map((x, i) => (
       <div className="row align-items-center" key={i}>
         <div className="form-group col">
-          <label className="form-label" htmlFor="food">Food</label>
+          <label className="form-label text-light text-shadow-3" htmlFor="food">Food</label>
           <input 
             type="text" 
             className="form-control mt-1" 
@@ -121,7 +121,7 @@ class CreatePage extends React.Component {
             />
         </div>
         <div className="form-group col">
-          <label className="form-label" htmlFor="servingSize">Serving Size</label>
+          <label className="form-label text-light text-shadow-3" htmlFor="servingSize">Serving Size</label>
           <input 
             type="number" 
             min="0" 
@@ -131,7 +131,7 @@ class CreatePage extends React.Component {
             onChange={this.ingredientChange.bind(this)}/>
         </div>
         <div className="form-group col">
-          <label className="form-label" htmlFor="unit">Unit</label>
+          <label className="form-label text-light text-shadow-3" htmlFor="unit">Unit</label>
           <select 
             className="form-control mt-1" 
             // value={x.units}
@@ -145,9 +145,9 @@ class CreatePage extends React.Component {
             <option>Tablespoons</option>
           </select>
         </div>
-        <button className="btn btn-primary mb-4" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add Ingredient</button> 
-        <button className="btn btn-danger mb-4" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button> 
-        {/* <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX />X</span> */}
+          <button className="btn btn-info mt-2" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add Ingredient</button> 
+          <button className="btn btn-danger mt-2 mx-2" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button>       
+        {/* <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX /></span> */}
       </div>
     ))
   }
@@ -222,9 +222,6 @@ class CreatePage extends React.Component {
       }))
       console.log(instructions);
         if (formValid(this.state)) {
-     
- 
-
             axios({
                 method: 'post',
                 url: 'http://localhost:8080/api/myRecipes/create',
@@ -276,9 +273,9 @@ class CreatePage extends React.Component {
 
     return (
       <div className="form w-50">
-        <h5 className="display-4 mt-3 mb-4 text-center">Create your recipe</h5>
+        <h5 className="display-4 mt-5 mb-4 text-center text-light text-shadow-1">Create Recipe</h5>
         <div className="form-group row mb-4">
-          <label className="form-label h6" htmlFor="recipeName">Recipe Name</label>
+          <label className="form-label h6 text-light text-shadow-3" htmlFor="recipeName">Recipe Name</label>
           <input 
             type="text" 
             className="form-control mt-1" 
@@ -287,24 +284,14 @@ class CreatePage extends React.Component {
             onChange={this.handleChangeName}/>
         </div>
 
-        <div className="row h6">Ingredients</div>
+        <div className="row h6 text-light text-shadow-3">Ingredients</div>
         {this.ingredientInput()}
-        <button className="btn btn-secondary mb-4" value="add" onClick={this.addIngredient.bind(this)}>+</button>
+        <button className="btn add-ingred-btn mb-4 w-100" value="add" onClick={this.addIngredient.bind(this)}><b>+</b></button>
           
-        <div className="form-group row h6">Instructions</div>
+        <div className="form-group row h6 text-light text-shadow-3">Instructions</div>
         {this.instructionInput()}
-        <inline><button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button></inline>
-          
-        <div className="form-group row">
-          <label className="form-label h6" htmlFor="recipe-pic">Choose a picture for your recipe: </label>
-          <input
-            className="form-control mt-1 border-0" 
-            type="file"
-            id="recipe-pic" name="recipe-pic"
-            accept="image/png, image/jpeg" />
-        </div>
-
-        <div className="form-group row">
+        <button className="btn btn-secondary mb-4 w-100" value="add" onClick={this.addInstruction.bind(this)}>+</button>
+        <div className="form-group row text-light">
           <Button className="col-2 ml-auto" variant="secondary" onClick={() => this.props.history.goBack()}>
             Cancel
           </Button>

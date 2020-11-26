@@ -9,7 +9,7 @@ function DisplayIngredient(props) {
 
     <div className="Meal">
       {/* <a href="google.com\" onClick="this.href+'?food='"></a> */}
-      <h6>{props.ingredient.amount} of {props.ingredient.name}</h6>
+      <h6>{props.ingredient.amount} {props.ingredient.name}</h6>
     </div>
 
   );
@@ -32,14 +32,12 @@ class RecipePage extends React.Component {
     
   }
 
-
   componentDidMount() {
     // let key = l709xMAGCu1echcVzR8bHNUcpffRk9vSwLs3jge5;
    
     const { id } = this.props.match.params;
-
     
-   console.log(id);
+    console.log(id);
     fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="+id)
       .then(res => res.json())
       .then(post => {
@@ -52,13 +50,10 @@ class RecipePage extends React.Component {
           ing.push({ name: meal["strIngredient" + i], amount: meal["strMeasure" + i] });
           i++;
         }
-   
-
-        
+    
         console.log(post.meals[0]);
         console.log(post);
-
-    
+ 
         console.log(this.state.mealName);
         //console.log(this.state.ingredients);
         let c=0;
@@ -120,57 +115,45 @@ class RecipePage extends React.Component {
           notFound: true,
         });
       });
-
-
-   
   }
 
 
   render() {
     if(this.state.notFound) return <Redirect to="/" />;
     if(this.state.loading) return <Loading />;
-    // return <h1>HELLO</h1>
+
     return(
       
-      <div className="meal">
-        <div className="food-wrapper">
-
-      
-        <div id=""> 
-            <div id="">
-              <h1><b>{this.state.mealName}</b></h1>
-              <img id="image" src={this.state.image} alt="food"></img>
-            </div>
-
-
-        <div id="">
-          <h2>Ingredients</h2>
-          <ul>
-            {this.state.ingredients.map((ingredient) => {
-
-              return <li><DisplayIngredient ingredient={ingredient} /></li>
-
-            })}
-          </ul>
-
-          
-        </div>
+      <div className="background">
+        <div className="food-wrapper my-5">   
+          <div> 
             
-            <div id="">
-              <h3>Nutrtition Facts</h3>
+            <div className="my-4">
+              <h1 className="display-4"><b>{this.state.mealName}</b></h1>
+              <img id="image" src={this.state.image} alt="food" className="mt-4"></img>
+            </div>
+            
+            <div className="my-4">
+              <h2>Ingredients</h2>
               <ul>
-                <li>Total Calories: {this.state.calories}</li>
-                <li>Total Fat: {this.state.fat}</li>
-                <li>Total Protien: {this.state.protien}</li>
-                <li>Total Sugar: {this.state.sugar}</li>
-                <li>Total Cholesterol: {this.state.cholesterol}</li>
+                {this.state.ingredients.map((ingredient) => {
+                  return <li><DisplayIngredient ingredient={ingredient} /></li>
+                })}
+              </ul>     
+            </div>
+            
+            <div className="my-4">
+              <h3>Nutrition Facts</h3>
+              <ul>
+                <li>Calories: {this.state.calories}</li>
+                <li>Fat: {this.state.fat}</li>
+                <li>Protein: {this.state.protien}</li>
+                <li>Sugar: {this.state.sugar}</li>
+                <li>Cholesterol: {this.state.cholesterol}</li>
               </ul>
             </div>
           
-        
-       
-
-            <div >
+            <div className="my-4">
               <h3>Instructions</h3>
               <ol>
                   {this.state.instructions.map((instruction) => {
@@ -182,7 +165,7 @@ class RecipePage extends React.Component {
               </ol>
             </div>
             
-        </div>
+          </div>
         </div>
       </div>
 

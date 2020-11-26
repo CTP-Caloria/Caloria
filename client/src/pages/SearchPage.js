@@ -1,34 +1,21 @@
 import React from 'react';
-// import { Redirect } from 'react-router-dom';
-
-// function Post(props) {
-//     return (
-//       <div className="col-10 col-md-8 col-lg-7">
-//         <div className="card mb-4 shadow">
-//           <div className="card-header">
-//             { props.meal.strMeal }
-//           </div>
-//           <div className="card-body card-text">
-//             { props.meal.strInstructions }
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
+import { Link } from 'react-router-dom';
 
 function SearchField(props) {
     return (
-      <div className="text-center my-4">
-        <input type="text" onChange={ props.changed } value={ props.value } placeholder="Search..." />
-        {/* <p>You entered: { props.value }</p> */}
-      </div>);
+        <div className="mt-5 mb-4">
+            <input className="form-control" type="text" onChange={ props.changed } value={ props.value } placeholder="Search..." />
+        </div>
+        
+      );
   }
 
 function DisplayMeal(props){
     return (
         <div className="card my-3 box col-sm-3 mx-3">
             <div className="card-header">
-                <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a>
+                {/* <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a> */}
+                <Link to={`/recipe/${props.meal.strMeal}`}>{props.meal.strMeal}</Link>
             </div>
             <div className="card-body">
                 <img className="rounded float-left w-50 mr-3" src={ props.meal.strMealThumb } alt={ props.meal.strMeal }/>
@@ -50,16 +37,7 @@ class SearchPage extends React.Component {
         content: []
 
     }
-    // contentChanged = (e) => {
-    //     this.setState({
-    //         content: e.target.value
-    //     });
-    //     console.log(this.state.content);
-    // }
-
-       SearchPost =(e) => {
-
-        
+       SearchPost =(e) => {  
         this.setState({
             userInput: e.target.value
         })
@@ -81,52 +59,21 @@ class SearchPage extends React.Component {
             }
         })
         .catch(error => {console.log(error)
-            // this.setState({
-            //     content: []
-            // })
         });
-
-     
     }
 
-
     render() {
-        // if(this.state.success) return <Redirect to="/" />;
-
-        // const content = this.state.content;
-        // const recipeInfo = [];
-
-        // for (let i=0; i < content.length; i++) {
-        //     const isRecipe = content[i];
-
-        //     recipeInfo.push (
-        //         <Post
-        //             key = {i}
-        //             meal = {isRecipe['strMeal']}
-        //             instructions = {isRecipe['strInstructions']}
-        //         /> 
-        //     )
-        // }
-
         return (
-            <div >
+            <div className="container">
                 <SearchField changed={ (e) => this.SearchPost(e) } value={ this.state.userInput } />
-                {/* <input
-                    type="text"
-                    placeholder="Search..."
-                    value={this.state.content}
-                    className="form-control mr-3 rounded"
-                    changed={ (e) => this.SearchPost(e) }
-                    
-                /> */}
                 <div className="row justify-content-center">
                     {this.state.content.map((meal)=>{
                         return <DisplayMeal meal={meal}/>
                     })}
                 </div>
             </div>
-
         );
     }
 }
+
 export default SearchPage;

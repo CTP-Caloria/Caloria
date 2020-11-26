@@ -229,7 +229,7 @@ class CalorieJournalPage extends React.Component {
 
             axios({
                 method: 'get',
-                url: `http://localhost:8080/api/entries/getEntry/${id}/${dateOnly}`,
+                url: `/api/entries/getEntry/${id}/${dateOnly}`,
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 },
