@@ -245,7 +245,7 @@ class CalorieJournalPage extends React.Component {
 
             axios({
                 method: 'get',
-                url: `http://localhost:8080/api/entries/getEntry/${id}/${dateOnly}`,
+                url: `/api/entries/getEntry/${id}/${dateOnly}`,
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }
@@ -338,10 +338,10 @@ class CalorieJournalPage extends React.Component {
 
         return (
             <div>
-                <h1 className="display-2 mt-5 mb-3">Hello, {todayInString()}!</h1>
+                <h1 className="display-2 mt-5 mb-3 heading">Hello, {todayInString()}!</h1>
 
                 <div className="container my-5">
-                    <div className="card">
+                    <div className="card box">
                         <div className="card-header">
                             <div className="row">
                                 <div className="col-auto mr-auto">
@@ -381,7 +381,7 @@ class CalorieJournalPage extends React.Component {
 
                 <div className="row row-cols-1 row-cols-md-2">
                     <div className="col mb-4">
-                        <div className="card" id="breakfast" value="1">
+                        <div className="card box" id="breakfast" value="1">
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
@@ -394,7 +394,7 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card" id="lunch" value="2">
+                        <div className="card box" id="lunch" value="2">
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Lunch</h5>
                                 {this.state.lunchArray.map((item) =>
@@ -407,7 +407,7 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card" id="dinner" value="3">
+                        <div className="card box" id="dinner" value="3">
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Dinner</h5>
                                 {this.state.dinnerArray.map((item) =>
@@ -420,7 +420,7 @@ class CalorieJournalPage extends React.Component {
                         </div>
                     </div>
                     <div className="col mb-4">
-                        <div className="card" id="snack" value="4">
+                        <div className="card box" id="snack" value="4">
                             <div className="card-body">
                                 <h5 className="card-title" id="mealType">Snack</h5>
                                 {this.state.snackArray.map((item) =>
@@ -452,7 +452,7 @@ class CalorieJournalPage extends React.Component {
                                     name="mealType"
                                     onChange={this.handleChange.bind(this)}
                                 >
-                                    <option value="0" selected disabled hidden>Choose one</option>
+                                    <option selected disabled hidden>Choose one</option>
                                     <option value="1">Breakfast</option>
                                     <option value="2">Lunch</option>
                                     <option value="3">Dinner</option>
