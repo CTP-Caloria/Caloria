@@ -14,9 +14,26 @@ import {
 //import Image from 'react-bootstrap/Image'
 
 export default class Navigation extends React.Component {
+    state = {
+        bg: "transparent",
+        variant: "dark"
+    }
+
+    listenScrollEvent = e => {
+        if (window.scrollY > 50) {
+          this.setState({ bg: "light", variant: "light" });
+        } else {
+          this.setState({ bg: "transparent", variant: "dark" });
+        }
+    };
+    
+    componentDidMount() {
+        window.addEventListener("scroll", this.listenScrollEvent);
+    }
+
     render() {
         return (
-            <Navbar collapseOnSelect expand="sm" bg="light" variant="light">
+            <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
                 <Navbar.Brand href="/">
                     <img 
                         alt="logo"
