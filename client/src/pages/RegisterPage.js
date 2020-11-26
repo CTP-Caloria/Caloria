@@ -1,5 +1,7 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 const axios = require('axios');
+
 
 // email check char
 const emailRegex = RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -36,13 +38,15 @@ class RegisterPage extends React.Component {
                  email: "",
                  password: "",
                  password2: "",
-             }
+             },
+             redirect: false,
          }
 
      }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({redirect: true});
        
 
         if(formValid(this.state)){
@@ -75,6 +79,7 @@ class RegisterPage extends React.Component {
             console.error( `FROM INVALID -DISPLAY ERROR MESSAGE`);
         }
     }
+
 
     handleChange = e =>{
         e.preventDefault();
@@ -114,7 +119,7 @@ class RegisterPage extends React.Component {
 
         }
         this.setState({
-            formErrors,[name]:value
+            formErrors,[name]:value,
         },()=>console.log(this.state));
         
         // console.log(this.state);
@@ -122,6 +127,11 @@ class RegisterPage extends React.Component {
 
     render() {
         const {formErrors}=this.state;
+        const {from} = this.props.location.state || {from: {pathname: '/login'}};
+        const {redirect} = this.state;
+        if(redirect) {
+            return <Redirect to = {from} />
+        }
         return (
 
             <div className="wrapper">
