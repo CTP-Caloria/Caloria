@@ -59,9 +59,9 @@ export default class Navigation extends React.Component {
                             Calorie Journal
                         </NavLink>
 
-                        <NavLink className="nav-link" exact to="/recipe-box">
+                        {/* <NavLink className="nav-link" exact to="/recipe-box">
                             Recipe Box
-                        </NavLink>
+                        </NavLink> */}
 
                         <NavLink className="nav-link" exact to="/create-recipe">
                             Create Recipe
