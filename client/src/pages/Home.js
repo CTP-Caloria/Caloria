@@ -27,28 +27,28 @@ class Home extends React.Component {
           
           <div className="row my-5 justify-content-center">
             <Carousel className="w-100">
-              <Carousel.Item interval={6000}>
+              <Carousel.Item interval={2000}>
                 <img 
                   src="images/sample_1.png" 
-                  className="d-block carousel-img" 
+                  className="d-block carousel-img box" 
                   alt="Caloria's calorie journal example" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Keep track of your own calorie intake</h3>
                 </Carousel.Caption>
               </Carousel.Item>
-              <Carousel.Item interval={6000}>
+              <Carousel.Item interval={2000}>
                 <img 
                   src="images/sample_2.png" 
-                  className="d-block carousel-img" 
+                  className="d-block carousel-img box" 
                   alt="Cookbook" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Create your very own recipe</h3>
                 </Carousel.Caption>
               </Carousel.Item>
-              <Carousel.Item interval={6000}>
+              <Carousel.Item interval={2000}>
                 <img 
                   src="images/sample_3.png" 
-                  className="d-block carousel-img" 
+                  className="d-block carousel-img box" 
                   alt="Caloria: searching recipes" />
                 <Carousel.Caption>
                   <h3 className="text-shadow-2">Look for new recipes</h3>
