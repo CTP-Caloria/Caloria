@@ -5,13 +5,15 @@
 // in the backend api. It was also modified to return promises instead
 // of using callbacks `cb`.
 
+import { initialize } from "passport";
+
   
 
 
 
 const auth = {
-    userID:null,
-    isAuthenticated: false,
+   
+    
 
     authenticate(email, password) {
       return fetch('/api/auth/login', { 
@@ -53,6 +55,32 @@ const auth = {
           this.userID = null;
           return body;
         });
+    },
+
+    initialize(){
+     
+      return fetch('/api/auth/whoami')
+      .then(res =>{
+        console.log(res);
+        if(res.ok){
+         
+          
+          return res.json();
+        
+        }
+        else{
+          this.isAuthenticated = false;
+        }
+      }).then((body)=>{
+        this.isAuthenticated = true;
+        // console.log(body);
+        this.userID=body.id;
+      })
+      .catch(err=>{
+        this.isAuthenticated=false;
+      })
+       
+      
     }
   }
   

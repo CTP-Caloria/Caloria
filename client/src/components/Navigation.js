@@ -34,7 +34,7 @@ export default class Navigation extends React.Component {
     render() {
         return (
             <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
-                <Navbar.Brand href="/">
+                <NavLink className="nav-link" exact to="/">
                     <img 
                         alt="logo"
                         src="icon-transparent.png"
@@ -42,7 +42,7 @@ export default class Navigation extends React.Component {
                         height="30"
                         className="d-inline-block align-top"
                     />{' '}
-                    Caloría</Navbar.Brand>
+                    Caloría</NavLink>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">

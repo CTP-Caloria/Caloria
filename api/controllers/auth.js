@@ -2,7 +2,14 @@ const router = require('express').Router();
 const { User } = require('../models');
 const passport = require('../middlewares/authentication');
 
-
+router.get('/whoami',
+  passport.isAuthenticated(),
+  (req,res)=>{
+    let user = req.user;
+  res.json(req.user);
+    // { msg: "you're logged in", userID: req.user }
+  // req.user
+});
 
 router.post('/signup', (req, res) => {
 
