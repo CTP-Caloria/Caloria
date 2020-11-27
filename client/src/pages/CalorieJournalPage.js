@@ -84,7 +84,7 @@ class CalorieJournalPage extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         //   this.calculateCalories();
-        if (auth.isAuthenticated) {
+        // if (auth.isAuthenticated) {
 
 
             if (formValid(this.state)) {
@@ -221,9 +221,9 @@ class CalorieJournalPage extends React.Component {
             }
             this.setState({ show: false });
             // window.location.reload();
-        } else {
-            alert("Please log in to use this feature!");
-        }
+        // } else {
+        //     alert("Please log in to use this feature!");
+        // }
     }
 
     // handleCalendar(day) {
@@ -231,7 +231,7 @@ class CalorieJournalPage extends React.Component {
     // }    
 
     componentDidMount() {
-        if (auth.isAuthenticated) {
+        // if (auth.isAuthenticated) {
             let id = auth.userID;
             let calories = 0;
 
@@ -326,15 +326,15 @@ class CalorieJournalPage extends React.Component {
 
 
                 })
-        }
+        // }
     }
 
     render() {
-        if (auth.isAuthenticated) {
-            console.log("Authenticated: " + auth.userID);
-        } else {
-            console.log("Not logged in");
-        }
+        // if (auth.isAuthenticated) {
+            console.log("Authenticated: " + auth.userID+"HELLO");
+        // } else {
+        //     console.log("Not logged in");
+        // }
 
         return (
             <div>

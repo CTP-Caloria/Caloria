@@ -3,8 +3,10 @@ const router = express.Router();
 const db = require('../models');
 const myRecipes = require('../models/myRecipes');
 const {MyRecipes} =db;
+const passport = require('../middlewares/authentication');
 
-router.post('/create', (req,res) => {
+router.post('/create', 
+(req,res) => {
     let {name} = req.body;
     let {totalCalories} = req.body;
     let {servingSize} = req.body;
@@ -22,7 +24,9 @@ router.post('/create', (req,res) => {
         });
 });
 
-router.get('/getRecipe/:requesterID', (req,res) => {
+router.get('/getRecipe/:requesterID', 
+    
+     (req,res) => {
     const id = req.params.requesterID;
     return MyRecipes.findAll({where: {requesterID:id }})
         .then(entry =>

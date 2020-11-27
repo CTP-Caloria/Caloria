@@ -7,6 +7,7 @@ import {
   // Link
 } from 'react-router-dom';
 import RecipePage from './pages/RecipePage';
+import DisplayMyRecipePage from './pages/DisplayMyRecipePage';
 import AboutUsPage from './pages/AboutUsPage';
 import CalorieJournalPage from './pages/CalorieJournalPage';
 import SearchPage from './pages/SearchPage';
@@ -21,19 +22,40 @@ import RegisterPage from './pages/RegisterPage';
 // import jwt_decode from "jwt-decode";
 // import API from "./utils/api";
 // import AuthButton from './components/AuthButton';
-
+import auth from './services/auth'
 import './App.css';
 
+
+
+
+
+
 class App extends React.Component {
+state ={
+  isAuthenticated:false,
+}
+
+componentDidMount(){
+  auth.initialize()
+    .then((req)=>{
+      console.log(req);
+      this.setState({
+        isAuthenticated:true,
+      })
+
+    })
+}
+
   render() {
     return (
       <Router>
         <Navigation />
-        <div>
+        <div className="container-fluid mt-4">
           <div className="row justify-content-center">
             <Switch>
               <Route path="/create-recipe" component={CreatePage} />
               <Route path="/recipe/:id" component={RecipePage} />
+              <Route path="/displaymyrecipe/:id" component={DisplayMyRecipePage} />
               <Route path="/about-us" component={AboutUsPage} />
               <Route path="/calorie-journal" component={CalorieJournalPage} />
               <Route path="/search" component={SearchPage} />

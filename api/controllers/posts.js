@@ -24,7 +24,7 @@ router.get('/', (req,res) => {
 
 router.post('/', (req, res) => {
   let { content } = req.body;
-  
+  passport.isAuthenticated()
   Post.create({ content })
     .then(post => {
       res.status(201).json(post);

@@ -2,7 +2,29 @@ import React from 'react';
 // import { Button, Container, Card } from 'react-bootstrap';
 // import { get } from '../../../api/controllers';
 import auth from '../services/auth';
+import { Link } from 'react-router-dom';
 const axios = require('axios');
+
+function DisplayMeal(props) {
+  return (
+    <div className="card my-3 box col-sm-3 mx-3">
+      <div className="card-header">
+        {/* <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a> */}
+        <Link to={`/displaymyrecipe/${props.meal.id}`}>{props.meal.name}</Link>
+        
+      </div>
+      <div className="card-body">
+        
+        {/* <img className="rounded float-left w-50 mr-3" src={props.meal.name} alt={props.meal.name} /> */}
+        <ul className="list-unstyled text-left">
+          <li><strong>Meal Name:</strong> {props.meal.name}</li>
+          <li><strong>Total Calories:</strong> {props.meal.totalCalories}</li>
+          {/* <li><strong>Tags:</strong> {props.meal.strTags}</li> */}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 class Profile extends React.Component {
   state={ 
@@ -13,7 +35,8 @@ class Profile extends React.Component {
     lastName: "",
     email: "",
     name:"",
-    description:""
+    description:"",
+    content:[]
   }
 
   componentDidMount(){
@@ -57,6 +80,10 @@ class Profile extends React.Component {
         })
         .then(getReq => {
           console.log(getReq.data);
+          console.log(getReq);
+          this.setState({
+            content: getReq.data,
+          })
         })
       })
 
@@ -85,6 +112,9 @@ class Profile extends React.Component {
         </div>
 
         <div className="row">
+          {this.state.content.map((meal) => {
+            return <DisplayMeal meal={meal} />
+          })}
 
         </div>
 
