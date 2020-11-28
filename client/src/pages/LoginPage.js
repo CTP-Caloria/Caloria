@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
     const { redirectToReferrer, failed } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to={from} />;
+      return <Redirect to={from}/>
     }
 
     let err = "";
@@ -73,7 +73,6 @@ class LoginPage extends React.Component {
       
           <button 
               type="submit"
-              // className="btn btn-primary ml-auto"
             className="btn btn-success"
           >Login</button>
         </form>

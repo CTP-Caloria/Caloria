@@ -7,8 +7,6 @@ router.get('/whoami',
   (req,res)=>{
     let user = req.user;
   res.json(req.user);
-    // { msg: "you're logged in", userID: req.user }
-  // req.user
 });
 
 router.post('/signup', (req, res) => {
@@ -35,6 +33,7 @@ router.post('/login',
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.json(req.user);
+  
    
   });
 

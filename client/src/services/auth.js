@@ -32,9 +32,15 @@ const auth = {
         })
         .then((body) => {
           this.isAuthenticated = true;
-          this.userID = body.id
+          this.userID = body.id;
+        
           return body;
-        });
+
+        })
+        .then(()=> {
+          window.location.replace('/');
+        })
+        
     },
     signout(cb) {
       return fetch('/api/auth/logout', { 
@@ -54,7 +60,13 @@ const auth = {
           this.isAuthenticated = false;
           this.userID = null;
           return body;
-        });
+
+
+        })
+        .then(()=> {
+          window.location.replace('/');
+        })
+
     },
 
     initialize(){
@@ -73,7 +85,6 @@ const auth = {
         }
       }).then((body)=>{
         this.isAuthenticated = true;
-        // console.log(body);
         this.userID=body.id;
       })
       .catch(err=>{
