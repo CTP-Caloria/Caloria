@@ -24,6 +24,7 @@ import RegisterPage from './pages/RegisterPage';
 // import AuthButton from './components/AuthButton';
 import auth from './services/auth'
 import './App.css';
+import NavigationLogout from './components/NavigationLogout';
 
 
 
@@ -31,9 +32,11 @@ import './App.css';
 
 
 class App extends React.Component {
-state ={
+  state ={
   isAuthenticated:false,
 }
+
+
 
 componentDidMount(){
   auth.initialize()
@@ -42,14 +45,43 @@ componentDidMount(){
       this.setState({
         isAuthenticated:true,
       })
-
     })
+    
+    
 }
 
   render() {
-    return (
-      <Router>
-        <Navigation />
+    if(auth.isAuthenticated) {
+      return (
+        <Router>
+          
+          <Navigation />
+          <div className="container-fluid mt-4">
+            <div className="row justify-content-center">
+              <Switch>
+                <Route path="/create-recipe" component={CreatePage} />
+                <Route path="/recipe/:id" component={RecipePage} />
+                <Route path="/displaymyrecipe/:id" component={DisplayMyRecipePage} />
+                <Route path="/about-us" component={AboutUsPage} />
+                <Route path="/calorie-journal" component={CalorieJournalPage}/>
+                <Route path="/search" component={SearchPage} />
+                <Route path="/" exact={true} component={Home} />
+                <Route path="/recipe-box" component={RecipeBoxPage}/>
+                <Route path="/posts/:id" component={FoodPage}/>
+                <Route path="/profile" component={Profile} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/signup" component={RegisterPage} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      );
+    }
+    else{
+      return(
+        <Router>
+        
+        <NavigationLogout/>
         <div className="container-fluid mt-4">
           <div className="row justify-content-center">
             <Switch>
@@ -57,7 +89,7 @@ componentDidMount(){
               <Route path="/recipe/:id" component={RecipePage} />
               <Route path="/displaymyrecipe/:id" component={DisplayMyRecipePage} />
               <Route path="/about-us" component={AboutUsPage} />
-              <Route path="/calorie-journal" component={CalorieJournalPage} />
+              <Route path="/calorie-journal" component={CalorieJournalPage}/>
               <Route path="/search" component={SearchPage} />
               <Route path="/" exact={true} component={Home} />
               <Route path="/recipe-box" component={RecipeBoxPage}/>
@@ -70,6 +102,8 @@ componentDidMount(){
         </div>
       </Router>
     );
+      
+    }
   }
 }
 
