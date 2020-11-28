@@ -1,18 +1,12 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { Navbar, Nav } from 'react-bootstrap';
 import AuthButton from '../components/AuthButton';
-import {NavLink} from 'react-router-dom';
-import auth from '../services/auth';
-
-
-
+import { NavLink, Link } from 'react-router-dom';
 
 export default class Navigation extends React.Component {
     state = {
         bg: "transparent",
-        variant: "dark",
-        
+        variant: "dark",    
     }
 
     listenScrollEvent = e => {
@@ -25,16 +19,13 @@ export default class Navigation extends React.Component {
 
     componentDidMount() {
         window.addEventListener("scroll", this.listenScrollEvent);
-
     }
 
-
-
-
     render() {
-            return (
-                <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
-                    <NavLink className="nav-link" exact to="/">
+        return (
+            <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
+                <Navbar.Brand>
+                    <Link to="/" style={{ textDecoration: 'none'}} className="text-light">
                         <img
                             alt="logo"
                             src="icon-transparent.png"
@@ -42,40 +33,41 @@ export default class Navigation extends React.Component {
                             height="30"
                             className="d-inline-block align-top"
                         />{' '}
-                    Caloría</NavLink>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mr-auto">
-                            <NavLink className="nav-link" exact to="/search">
-                                Search
-                        </NavLink>
+                        Caloría
+                    </Link>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        <NavLink className="nav-link" exact to="/search">
+                            Search
+                    </NavLink>
 
-                            <NavLink className="nav-link" exact to="/about-us">
-                                About Us
-                        </NavLink>
-                        </Nav>
-                        <Nav>
-                            <NavLink className="nav-link" exact to="/calorie-journal">
-                                Calorie Journal
-                        </NavLink>
+                        <NavLink className="nav-link" exact to="/about-us">
+                            About Us
+                    </NavLink>
+                    </Nav>
+                    <Nav>
+                        <NavLink className="nav-link" exact to="/calorie-journal">
+                            Calorie Journal
+                    </NavLink>
 
-                            <NavLink className="nav-link" exact to="/create-recipe">
-                                Create Recipe
-                        </NavLink>
+                        <NavLink className="nav-link" exact to="/create-recipe">
+                            Create Recipe
+                    </NavLink>
 
-                            <NavLink className="nav-link" exact to="/profile">
-                                Profile
-                        </NavLink>
+                        <NavLink className="nav-link" exact to="/profile">
+                            Profile
+                    </NavLink>
 
-                            <AuthButton />
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            )
-        }
-
-        
+                        <AuthButton />
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
     }
+        
+}
 
 
 
