@@ -12,14 +12,16 @@ function DisplayMeal(props) {
   return (
     <div className="card my-3 box col-sm-3 mx-3">
       <div className="card-header">
-        {/* <a href={"http://localhost:3000/recipe/" + props.meal.strMeal}>{props.meal.strMeal}</a> */}
-        <Link to={`/displaymyrecipe/${props.meal.id}`}>{props.meal.name}</Link>
-        <BsPlusSquare
-          type="button"
-          className="ml-2"
-          onClick={props.display}
-        />
+          
+          <h6>{props.meal.name.toUpperCase()}    
+          
+          <BsPlusSquare
+            type="button"
+            className="ml-2"
+            onClick={e => props.display(props.index)}
+          />
 
+          </h6>
 
       </div>
       <div className="card-body">
@@ -36,6 +38,7 @@ function DisplayMeal(props) {
 }
 
 class Profile extends React.Component {
+
   state = {
     title: "",
     info: "",
@@ -47,7 +50,15 @@ class Profile extends React.Component {
     description: "",
     content: [],
     show: false,
+    servingSize:0,
+    foodName: "",
+    calories: 0,
+    instructions: [],
+    ingredients: [],
+
+
   }
+
 
 
   handleClose = () => {
@@ -56,10 +67,26 @@ class Profile extends React.Component {
     })
   }
 
-  handleShow = () => {
+  handleShow = (index) => {
+
+    let foodName = this.state.content[index].name;
+    let instructions = this.state.content[index].instructions.split(",");
+    let ingredients = this.state.content[index].ingredients.split(",");
+    let calories = this.state.content[index].totalCalories;
+    let servingSize = this.state.content[index].servingSize;
+ 
+    
     this.setState({
-      show: true
+      
+      foodName: foodName,
+      instructions: instructions,
+      ingredients: ingredients,
+      calories: calories,
+      servingSize: servingSize,
+      show: true,
+
     })
+    console.log(this.state.index);
   }
   componentDidMount() {
     if (auth.isAuthenticated) {
@@ -134,24 +161,54 @@ class Profile extends React.Component {
         </div>
 
         <div className="row">
-          {this.state.content.map((meal) => {
-            return <DisplayMeal display={this.handleShow} meal={meal} />
+          {this.state.content.map((meal, index) => {
+            return <DisplayMeal display={this.handleShow} meal={meal} index={index} />
           })}
 
         </div>
+
+
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Entry</Modal.Title>
+
+            <Modal.Title>
+              Meal Name:  {this.state.foodName.toUpperCase()}
+              <br></br>
+              Total Servings: X Servings
+              {/* {this.state.servingSize} */}
+            </Modal.Title>
+
           </Modal.Header>
+
           <Modal.Body>
+
+            Ingredients:
+            <br/>
+            {this.state.ingredients.map((ingredients) => {
+            if (ingredients !== "")
+              return <li>{ingredients.trim()}</li>
+
+          })}
+
+            Instructions:
+            <br/>
+              {this.state.instructions.map((instruction) => {
+                if (instruction !== "")
+                  return <li>{instruction.trim()}</li>
+
+              })}
+            Total Calories: {this.state.calories}
+
           </Modal.Body>
+
           <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                    Close
-                  </Button>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
 
           </Modal.Footer>
         </Modal>
+
       </div>
     )
   }
