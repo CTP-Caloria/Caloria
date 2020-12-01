@@ -93,7 +93,7 @@ class Profile extends React.Component {
       let id = auth.userID;
       axios({
         method: 'get',
-        url: `http://localhost:8080/api/profiles/${id}`,
+        url: `/api/profiles/${id}`,
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
@@ -118,7 +118,7 @@ class Profile extends React.Component {
         .then(() => {
           axios({
             method: 'get',
-            url: `http://localhost:8080/api/myRecipes/getRecipe/${id}`,
+            url: `/api/myRecipes/getRecipe/${id}`,
             hearder: {
               "Access-Control-Allow-Origin": "*"
             },

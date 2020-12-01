@@ -54,7 +54,7 @@ class RegisterPage extends React.Component {
             axios({
                 method: 'post',
                 credentials: 'include',
-                url: 'http://localhost:8080/api/auth/signup',
+                url: '/api/auth/signup',
                 headers: { "Access-Control-Allow-Origin": "*"
 
              },
