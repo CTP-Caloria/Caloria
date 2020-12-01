@@ -259,7 +259,7 @@ class CreatePage extends React.Component {
 
         axios({
           method: 'post',
-          url: 'http://localhost:8080/api/myRecipes/create',
+          url: '/api/myRecipes/create',
           headers: {
             "Access-Control-Allow-Origin": "*"
           },

@@ -124,7 +124,7 @@ class CalorieJournalPage extends React.Component {
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8080/api/entries/create',
+                        url: '/api/entries/create',
                         headers: {
                             "Access-Control-Allow-Origin": "*"
                         },
@@ -178,7 +178,7 @@ class CalorieJournalPage extends React.Component {
 
                             axios({
                                 method: 'put',
-                                url: `http://localhost:8080/api/journals/update/${auth.userID}/${dateOnly}`,
+                                url: `/api/journals/update/${auth.userID}/${dateOnly}`,
                                 headers: {
                                     "Access-Control-Allow-Origin": "*"
                                 },
@@ -192,7 +192,7 @@ class CalorieJournalPage extends React.Component {
 
                                 axios({
                                     method: 'get',
-                                    url: `http://localhost:8080/api/journals/getCalories/${auth.userID}/${dateOnly}`,
+                                    url: `/api/journals/getCalories/${auth.userID}/${dateOnly}`,
                                     headers: {
                                         "Access-Control-Allow-Origin": "*"
                                     }
@@ -295,7 +295,7 @@ class CalorieJournalPage extends React.Component {
 
                     axios({
                         method: 'post',
-                        url: `http://localhost:8080/api/journals/create`,
+                        url: `/api/journals/create`,
                         headers: {
                             "Access-Control-Allow-Origin": "*"
                         },
@@ -308,7 +308,7 @@ class CalorieJournalPage extends React.Component {
                         .then(()=> {
                             axios({
                                 method: 'get',
-                                url:`http://localhost:8080/api/journals/getCalories/${id}/${dateOnly}`,
+                                url:`/api/journals/getCalories/${id}/${dateOnly}`,
                                 headers: {
                                     "Access-Control-Allow-Origin": "*"
                                 },
