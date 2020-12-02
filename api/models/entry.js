@@ -18,6 +18,10 @@ Entry.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    servingSize: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     dateOnly:{
         type: DataTypes.DATEONLY,
         allowNull: false,

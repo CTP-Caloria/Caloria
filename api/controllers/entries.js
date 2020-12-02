@@ -12,8 +12,9 @@ router.post('/create', (req, res) => {
     let {dateOnly} = req.body;
     let {requesterID} = req.body;
     let {mealID} = req.body;
+    let {servingSize}= req.body;
 
-    Entry.create({ food, totalCalories,dateOnly, requesterID, mealID})
+    Entry.create({ food, totalCalories,servingSize,dateOnly, requesterID, mealID})
         .then(entry => {
             res.status(201).json(entry);
         })
