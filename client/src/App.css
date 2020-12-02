@@ -122,13 +122,9 @@ light green: #A3C4BC
   width: 75%;
 }
 
-/* .btn-invis {
-  display: none;
+.footer {
+  background-color: #FFFFFF;
 }
-
-div:hover + .btn-invis {
-  display: inline-block;
-} */
 
 .wrapper {
   display: flex;

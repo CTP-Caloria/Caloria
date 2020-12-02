@@ -17,37 +17,26 @@ import RecipeBoxPage from './pages/RecipeBoxPage';
 import FoodPage from './pages/FoodPage';
 import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
+import NavigationLogout from './components/NavigationLogout';
+import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-// import jwt_decode from "jwt-decode";
-// import API from "./utils/api";
-// import AuthButton from './components/AuthButton';
 import auth from './services/auth'
 import './App.css';
-import NavigationLogout from './components/NavigationLogout';
-
-
-
-
-
 
 class App extends React.Component {
-  state ={
-  isAuthenticated:false,
+  state = {
+  isAuthenticated: false,
 }
 
-
-
-componentDidMount(){
+componentDidMount() {
   auth.initialize()
-    .then((req)=>{
+    .then((req) => {
       console.log(req);
       this.setState({
-        isAuthenticated:true,
+        isAuthenticated: true,
       })
-    })
-    
-    
+    })   
 }
 
   render() {
@@ -74,6 +63,7 @@ componentDidMount(){
               </Switch>
             </div>
           </div>
+          {/* <Footer /> */}
         </Router>
       );
     }
@@ -100,6 +90,7 @@ componentDidMount(){
             </Switch>
           </div>
         </div>
+        {/* <Footer /> */}
       </Router>
     );
       
