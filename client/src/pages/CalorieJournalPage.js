@@ -11,7 +11,7 @@ import 'react-day-picker/lib/style.css';
 import auth from '../services/auth';
 // import { get } from '../../../api/controllers/entries';
 //import Redirect from 'react-router-dom';
-const CAL_APP_ID = process.env.CAL_APP_ID;
+
 const axios = require('axios');
 
 
@@ -104,11 +104,10 @@ class CalorieJournalPage extends React.Component {
 
                 let amount = this.state.servingSize + " " + this.state.units
                 let food = this.state.food
-                console.log(CAL_APP_ID);
 
                 axios({
                     method: 'get',
-                    url: `https://api.edamam.com/api/nutrition-data?app_id=${CAL_APP_ID}&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
+                    url: `https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
                     headers: {
                         "Access-Control-Allow-Origin": "*"
                     },
