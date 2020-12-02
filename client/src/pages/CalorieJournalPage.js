@@ -11,7 +11,7 @@ import 'react-day-picker/lib/style.css';
 import auth from '../services/auth';
 // import { get } from '../../../api/controllers/entries';
 //import Redirect from 'react-router-dom';
-
+const CAL_APP_ID = process.env.CAL_APP_ID;
 const axios = require('axios');
 
 
@@ -104,10 +104,11 @@ class CalorieJournalPage extends React.Component {
 
                 let amount = this.state.servingSize + " " + this.state.units
                 let food = this.state.food
+                console.log(CAL_APP_ID);
 
                 axios({
                     method: 'get',
-                    url: `https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
+                    url: `https://api.edamam.com/api/nutrition-data?app_id=${CAL_APP_ID}&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
                     headers: {
                         "Access-Control-Allow-Origin": "*"
                     },
@@ -124,7 +125,7 @@ class CalorieJournalPage extends React.Component {
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8080/api/entries/create',
+                        url: '/api/entries/create',
                         headers: {
                             "Access-Control-Allow-Origin": "*"
                         },
@@ -134,7 +135,8 @@ class CalorieJournalPage extends React.Component {
                             totalCalories: this.state.foodCalories,
                             dateOnly: dateOnly,
                             requesterID: auth.userID,
-                            mealID: this.state.mealType
+                            mealID: this.state.mealType,
+                            servingSize: amount
                         }
                     })
                         .then(getData => {
@@ -178,7 +180,7 @@ class CalorieJournalPage extends React.Component {
 
                             axios({
                                 method: 'put',
-                                url: `http://localhost:8080/api/journals/update/${auth.userID}/${dateOnly}`,
+                                url: `/api/journals/update/${auth.userID}/${dateOnly}`,
                                 headers: {
                                     "Access-Control-Allow-Origin": "*"
                                 },
@@ -192,7 +194,7 @@ class CalorieJournalPage extends React.Component {
 
                                 axios({
                                     method: 'get',
-                                    url: `http://localhost:8080/api/journals/getCalories/${auth.userID}/${dateOnly}`,
+                                    url: `/api/journals/getCalories/${auth.userID}/${dateOnly}`,
                                     headers: {
                                         "Access-Control-Allow-Origin": "*"
                                     }
@@ -262,7 +264,7 @@ class CalorieJournalPage extends React.Component {
                     
                     todayEntry.forEach((item) => {
 
-                        // console.log(item.mealID);
+                        console.log(item);
                         // let mealID=item.mealID
                         calories += parseInt(item.totalCalories);
                         switch (item.mealID) {
@@ -295,7 +297,7 @@ class CalorieJournalPage extends React.Component {
 
                     axios({
                         method: 'post',
-                        url: `http://localhost:8080/api/journals/create`,
+                        url: `/api/journals/create`,
                         headers: {
                             "Access-Control-Allow-Origin": "*"
                         },
@@ -308,7 +310,7 @@ class CalorieJournalPage extends React.Component {
                         .then(()=> {
                             axios({
                                 method: 'get',
-                                url:`http://localhost:8080/api/journals/getCalories/${id}/${dateOnly}`,
+                                url:`/api/journals/getCalories/${id}/${dateOnly}`,
                                 headers: {
                                     "Access-Control-Allow-Origin": "*"
                                 },
@@ -387,7 +389,8 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-auto mr-auto">{item.food}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
                                         <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
@@ -400,7 +403,8 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Lunch</h5>
                                 {this.state.lunchArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-auto mr-auto">{item.food}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
                                         <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
@@ -413,7 +417,8 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Dinner</h5>
                                 {this.state.dinnerArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-auto mr-auto">{item.food}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
                                         <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
@@ -426,7 +431,8 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Snack</h5>
                                 {this.state.snackArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-auto mr-auto">{item.food}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
                                         <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
