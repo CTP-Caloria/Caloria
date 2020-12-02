@@ -1,13 +1,12 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { Navbar, Nav } from 'react-bootstrap';
 import AuthButton from '../components/AuthButton';
-import {NavLink} from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 
 export default class NavigationLogout extends React.Component {
 
-    state= {
+    state = {
         bg:"transparent",
         variant: "dark"
     }
@@ -23,18 +22,22 @@ export default class NavigationLogout extends React.Component {
     componentDidMount() {
         window.addEventListener("scroll", this.listenScrollEvent);
     }
+
     render() {
         return (
             <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
-                <NavLink className="nav-link" exact to="/">
-                    <img 
-                        alt="logo"
-                        src="icon-transparent.png"
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                    />{' '}
-                    Caloría</NavLink>
+                <Navbar.Brand>
+                    <Link to="/" style={{ textDecoration: 'none'}} className="text-light">
+                        <img
+                            alt="logo"
+                            src="icon-transparent.png"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                        />{' '}
+                        Caloría
+                    </Link>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
