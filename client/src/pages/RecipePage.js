@@ -64,7 +64,7 @@ class RecipePage extends React.Component {
 
         ing.forEach((ingredient) => {
 
-          fetch("https://api.edamam.com/api/nutrition-data?app_id=6bf9067c&app_key= 528f8228f03c5cf1e9d0e338baa2f1b1&ingr=" + ingredient.amount + " " + ingredient.name)
+          fetch("https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ingredient.amount + " " + ingredient.name)
             .then(res => res.json())
             .then(post => {
               console.log(post);

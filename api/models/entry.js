@@ -23,7 +23,7 @@ Entry.init({
         allowNull: false
     },
     dateOnly:{
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false,
 
     }
