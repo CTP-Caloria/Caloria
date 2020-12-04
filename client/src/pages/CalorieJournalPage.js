@@ -245,25 +245,6 @@ class CalorieJournalPage extends React.Component {
         }).then(res=>{
             console.log(res.status);
          
-            // if(res.ok){
-
-            //     console.log(res);
-            //     this.setState({
-            //         caloriesSoFar: 0,
-            //         breakfastArray: [],
-            //         lunchArray: [],
-            //         dinnerArray: [],
-            //         snackArray: [],
-            //     })
-            
-            
-                
-            // }else{
-
-
-                // this.setState({
-                //     caloriesSoFar: res.data.totalCalories
-                // })
 
                 axios({
                     method: 'get',
