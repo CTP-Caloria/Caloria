@@ -93,7 +93,7 @@ light green: #A3C4BC
 }
 
 .logo-fill {
-  animation: fill 0.5s ease forwards 1.5s
+  animation: fill 0.5s ease forwards .5s
 }
 
 @keyframes dash {
