@@ -86,6 +86,32 @@ medium green: #7EB09B
 light green: #A3C4BC
 */
 
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+.logo-fill {
+  animation: fill 0.5s ease forwards 1.5s
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    fill: transparent
+  }
+
+  to {
+    fill: white;
+  }
+}
+
 .heading {
   color: white;
   /* text-shadow: 2px 3px 5px rgba(0,0,0,0.5); */
