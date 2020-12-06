@@ -4,7 +4,8 @@ import { Carousel } from 'react-bootstrap';
 class Home extends React.Component {
   render() {
     return (
-      <div className="background">
+      <div>
+        <div id="background"></div>
         <div className="container mt-5">
           <div className="row justify-content-center">
             <h1 className="display-2 heading mt-5 mb-4">
@@ -17,23 +18,23 @@ class Home extends React.Component {
             <p className="lead text-shadow-2 text-light">Your calorie counter and recipe finder for a healthier lifestyle.</p>
           </div>
 
-          <div className="row my-5">
+          <div className="row mt-5 mb-1">
             <div className="d-flex justify-content-center col-md my-4">
-              <img 
-                alt="logo"
-                src="images/food_1.jpg"
-                className="box w-100"
-              />
-            </div>
-            <div className="col-md my-4 text-light text-shadow-1 text-left">
+                <img 
+                  alt="logo"
+                  src="images/food_1.jpg"
+                  className="box w-100"
+                />
+              </div>
+            <div className="col-md mt-4 mb-1 text-light text-shadow-1 text-left">
               <h3>OUR MISSION</h3>
-              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+              <p>We aim to create a platform for individuals to make smarter decisions on their diets by providing a convenient place to track their food.</p>
             </div>
           </div>
           
           <div className="row my-5 justify-content-center">
             <Carousel className="w-100">
-              <Carousel.Item interval={3000}>
+              <Carousel.Item interval={4000}>
                 <img 
                   src="images/sample_1.png" 
                   className="d-block carousel-img box" 
@@ -42,7 +43,7 @@ class Home extends React.Component {
                   <h3 className="text-shadow-2">Keep track of your own calorie intake</h3>
                 </Carousel.Caption>
               </Carousel.Item>
-              <Carousel.Item interval={3000}>
+              <Carousel.Item interval={4000}>
                 <img 
                   src="images/sample_2.png" 
                   className="d-block carousel-img box" 
@@ -51,7 +52,7 @@ class Home extends React.Component {
                   <h3 className="text-shadow-2">Create your very own recipe</h3>
                 </Carousel.Caption>
               </Carousel.Item>
-              <Carousel.Item interval={3000}>
+              <Carousel.Item interval={4000}>
                 <img 
                   src="images/sample_3.png" 
                   className="d-block carousel-img box" 
@@ -65,8 +66,12 @@ class Home extends React.Component {
           
           <div className="row my-5">
             <div className="col-md my-4 text-light text-shadow-1 text-left">
-              <h3>KEY FEATURES</h3>
-              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+              <h3 className="mb-3">KEY FEATURES</h3>
+              <ul>
+                <li className="my-2">Take a step forward in leading a healthier life by logging your daily food intake.</li>
+                <li className="my-2">Create your own recipes and we'll calculate the calories for you.</li>
+                <li className="my-2">Search already existing recipes and learn something new every day!</li>
+              </ul>
             </div>
             <div className="d-flex justify-content-center col-md my-4">
               <img 

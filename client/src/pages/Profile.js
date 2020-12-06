@@ -1,37 +1,28 @@
 import React from 'react';
-// import { Button, Container, Card } from 'react-bootstrap';
-// import { get } from '../../../api/controllers';
 import auth from '../services/auth';
-import { Link } from 'react-router-dom';
 import { BsPlusSquare } from 'react-icons/bs';
-import { Button, Modal, FormControl, Form } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 const axios = require('axios');
 
 
 function DisplayMeal(props) {
   return (
     <div className="card my-3 box col-sm-3 mx-3">
-      <div className="card-header">
-          
-          <h6>{props.meal.name.toUpperCase()}    
-          
-          <BsPlusSquare
-            type="button"
-            className="ml-2"
-            onClick={e => props.display(props.index)}
-          />
-
-          </h6>
-
-      </div>
       <div className="card-body">
+        <div className="row">
+          <h5 className="card-title"><strong>{props.meal.name}</strong></h5>
+          <p><strong>Calories:</strong> {props.meal.totalCalories}</p>
+        </div>
+        <div className="row">
+          <button 
+            type="button" 
+            className="btn btn-link text-dark col"
+            onClick={ e => props.display(props.index) }  
+          >
+            View
+          </button>
+        </div>
 
-        {/* <img className="rounded float-left w-50 mr-3" src={props.meal.name} alt={props.meal.name} /> */}
-        <ul className="list-unstyled text-left">
-          <li><strong>Meal Name:</strong> {props.meal.name}</li>
-          <li><strong>Total Calories:</strong> {props.meal.totalCalories}</li>
-          {/* <li><strong>Tags:</strong> {props.meal.strTags}</li> */}
-        </ul>
       </div>
     </div>
   );
@@ -88,6 +79,7 @@ class Profile extends React.Component {
     })
     console.log(this.state.index);
   }
+
   componentDidMount() {
     if (auth.isAuthenticated) {
       let id = auth.userID;
@@ -141,75 +133,68 @@ class Profile extends React.Component {
 
   render() {
     return (
+      <div>
+        <div id="background" />
+        <div className="container my-5">
+          <h2 className="text-center text-light text-shadow-2 display-4"><b>{this.state.firstName} {this.state.lastName}</b></h2>
 
-      <div className="container my-5">
-        <h2 className="text-center text-light text-shadow-2 display-4"><b>{this.state.firstName} {this.state.lastName}</b></h2>
+          <div className="row justify-content-center my-3">
+            <div className="col text-center">
+              <img
+                src="images/profile.png"
+                className="box" alt="profile"
+                width="250"
+                height="250"
+              />
+            </div>
+          </div>  
+        </div>
 
-        <div className="row justify-content-center my-3">
-          <div className="col text-center">
-            <img
-              src="images/profile.png"
-              className="box" alt="profile"
-              width="250"
-              height="250"
-            />
+        <div className="container">
+          <div className="row justify-content-center mt-5 mb-2 text-light text-shadow-3">
+            <h2 className="text-center"><b>My Recipes</b></h2>
+          </div>
+          
+          <div className="row input-large">
+            {this.state.content.map((meal, index) => {
+              return <DisplayMeal display={this.handleShow} meal={meal} index={index} />
+            })}
+
           </div>
         </div>
-
-        <div className="row justify-content-center my-5 text-light text-shadow-3">
-          <h2><b>My Recipes</b></h2>
-        </div>
-
-        <div className="row">
-          {this.state.content.map((meal, index) => {
-            return <DisplayMeal display={this.handleShow} meal={meal} index={index} />
-          })}
-
-        </div>
-
-
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-
+ 
+        <Modal show={this.state.show} onHide={this.handleClose} backdrop="static" centered>
+          <Modal.Header closeButton className="mx-3 mt-2">
             <Modal.Title>
-              Meal Name:  {this.state.foodName.toUpperCase()}
-              <br></br>
-              Total Servings: X Servings
+              <h4><strong>{this.state.foodName}</strong></h4>
+              <h5 className="mb-0">Calories: { this.state.calories }</h5>
+              {/* <br></br>
+              Total Servings: X Servings */}
               {/* {this.state.servingSize} */}
             </Modal.Title>
-
           </Modal.Header>
 
-          <Modal.Body>
-
-            Ingredients:
+          <Modal.Body className="mx-3 mb-2">
+            <strong>Ingredients</strong>
             <br/>
             {this.state.ingredients.map((ingredients) => {
             if (ingredients !== "")
-              return <li>{ingredients.trim()}</li>
+              return <li>{ingredients.trim().toLowerCase()}</li>
+            })}
 
-          })}
-
-            Instructions:
+            <br />
+            
+            <strong>Instructions</strong>
             <br/>
-              {this.state.instructions.map((instruction) => {
-                if (instruction !== "")
-                  return <li>{instruction.trim()}</li>
+            {this.state.instructions.map((instruction) => {
+              if (instruction !== "")
+                return <li>{instruction.trim()}</li>
 
-              })}
-            Total Calories: {this.state.calories}
-
+            })}
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Close
-            </Button>
-
-          </Modal.Footer>
         </Modal>
 
-      </div>
+      </div>  
     )
   }
 

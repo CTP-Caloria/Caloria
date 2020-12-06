@@ -124,7 +124,8 @@ class RecipePage extends React.Component {
 
     return(
       
-      <div className="background">
+      <div>
+        <div id="background" />
         <div className="food-wrapper my-5">   
           <div> 
             

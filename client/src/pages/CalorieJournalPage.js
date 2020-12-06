@@ -344,6 +344,7 @@ class CalorieJournalPage extends React.Component {
 
         return (
             <div>
+                <div id="background" />
                 <h1 className="display-2 mt-5 mb-3 heading">Hello, {todayInString()}!</h1>
 
                 <div className="container my-5">
@@ -364,27 +365,20 @@ class CalorieJournalPage extends React.Component {
                         </div>
                         <div>
                             <div className="row">
-                                <div className="col-auto mr-auto ml-3 mt-3">Today's goal: </div>
-                                <span className="ml-auto mr-5 mt-4">
-                                    ADD ENTRY {'   '}
+                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: {this.state.caloriesSoFar}</div>
+
+                                <span className="ml-auto mr-5 my-3">
+                                    ADD ENTRY
                                     <BsPlusSquare
+                                        id="svg-btn"
                                         type="button"
-                                        className="ml-2"
+                                        className="ml-3 mb-1"
                                         onClick={this.handleShow}
                                     />
                                 </span>
 
                             </div>
-                            <div className="row">
-                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: {this.state.caloriesSoFar}</div>
 
-
-                                {/* <BsCalendar
-                                    type="button"
-                                    className="col-auto ml-auto mr-3 mt-3"
-                                    // onClick={  } 
-                                /> */}
-                            </div>
                         </div>
                     </div>
                 </div>
