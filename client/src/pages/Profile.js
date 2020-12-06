@@ -15,7 +15,7 @@ function DisplayMeal(props) {
         <div className="row">
           <button 
             type="button" 
-            className="btn btn-link text-dark col"
+            className="btn btn-secondary text-light col"
             onClick={ e => props.display(props.index) }  
           >
             View
@@ -45,11 +45,7 @@ class Profile extends React.Component {
     calories: 0,
     instructions: [],
     ingredients: [],
-
-
   }
-
-
 
   handleClose = () => {
     this.setState({
