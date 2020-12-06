@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // NavLink,
-  // Link
 } from 'react-router-dom';
 import RecipePage from './pages/RecipePage';
 import DisplayMyRecipePage from './pages/DisplayMyRecipePage';
@@ -18,7 +16,6 @@ import FoodPage from './pages/FoodPage';
 import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
 import NavigationLogout from './components/NavigationLogout';
-import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import auth from './services/auth'
@@ -63,7 +60,6 @@ componentDidMount() {
               </Switch>
             </div>
           </div>
-          {/* <Footer /> */}
         </Router>
       );
     }
@@ -90,7 +86,6 @@ componentDidMount() {
             </Switch>
           </div>
         </div>
-        {/* <Footer /> */}
       </Router>
     );
       

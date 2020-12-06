@@ -1,11 +1,12 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
+import Footer from '../components/Footer';
 
 class Home extends React.Component {
   render() {
     return (
       <div>
-        <div id="background"></div>
+        <div id="background" />
         <div className="container mt-5">
           <div className="row justify-content-center">
             <h1 className="display-2 heading mt-5 mb-4">
@@ -83,7 +84,7 @@ class Home extends React.Component {
           </div>
 
         </div>
-        
+        <Footer />
       </div>
     )
   }
