@@ -1,7 +1,6 @@
 import React from 'react';
 import auth from '../services/auth';
-import { BsPlusSquare } from 'react-icons/bs';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 const axios = require('axios');
 
 
