@@ -4,18 +4,18 @@ import AuthButton from '../components/AuthButton';
 import { NavLink, Link } from 'react-router-dom';
 
 export default class Navigation extends React.Component {
-    state = {
-        bg: "transparent",
-        variant: "dark",    
-    }
+    // state = {
+    //     bg: "transparent",
+    //     variant: "light",    
+    // }
 
-    listenScrollEvent = e => {
-        if (window.scrollY > 50) {
-            this.setState({ bg: "light", variant: "light" });
-        } else {
-            this.setState({ bg: "transparent", variant: "dark" });
-        }
-    };
+    // listenScrollEvent = e => {
+    //     if (window.scrollY > 50) {
+    //         this.setState({ bg: "light", variant: "light" });
+    //     } else {
+    //         this.setState({ bg: "transparent", variant: "light" });
+    //     }
+    // };
 
     componentDidMount() {
         window.addEventListener("scroll", this.listenScrollEvent);
@@ -23,9 +23,9 @@ export default class Navigation extends React.Component {
 
     render() {
         return (
-            <Navbar collapseOnSelect expand="sm" bg={this.state.bg} variant={this.state.variant} sticky="top">
+            <Navbar collapseOnSelect expand="sm" bg="light" variant="light" sticky="top">
                 <Navbar.Brand>
-                    <Link to="/" style={{ textDecoration: 'none'}} className="text-light">
+                    <Link to="/" style={{ textDecoration: 'none'}} className="text-dark">
                         <img
                             alt="logo"
                             src="icon-transparent.png"
