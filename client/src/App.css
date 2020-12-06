@@ -5,17 +5,73 @@ html {
 
 body {
   font-family: Nunito, sans-serif;
-  background-image: linear-gradient(
+  /* background-image: url("images/food_1.jpg"); */
+  /* background-image: linear-gradient(
     to left bottom,
   #0066ff,
   #0096ff, 
   #00b3e7, 
   #00c8bc,
-  #8cd6a6);
+  #8cd6a6); */
+  /* height: 100%;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-attachment: fixed; */
+  background: #000;
+}
+
+/* #bg-dark img {
+  background: rgba(0, 0, 0, 0.6);
+  display: inline;
+  float: left;
+} */
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  margin: 0;
+  background-image: url('images/food_1_dark.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: 100%;
+  z-index: -1;
+  /* opacity: .8;
+  filter: alpha(opacity=40); */
+}
+
+.background-blur {
+  background-color: rgba(255, 255, 255, 0.6); 
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  border-radius: .75rem;
+
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .background-blur {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.6);  
+  }
+}
+
+#svg-btn {
+  height: 18px;
+  width: 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+#svg-btn:hover {
+  transform: scale(1.1);
+}
+
+.input-large {
+  width: 690px;
+  margin: 0 auto;
 }
 
 #Recipe {
@@ -160,11 +216,18 @@ light green: #A3C4BC
 }
 
 .transparent-bg {
-  background: rgba(204, 204, 204, 0.5);
+  background: rgba(204, 204, 204, 0.7);
   /* opacity: 0.4; */
   border-radius: .75rem;
   margin-top: 125px;
 }
+
+/* .transparent-bg-1 {
+  background: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  margin: 0 auto;
+  background-size: cover;
+} */
 
 .meal {
   width: 100%;
