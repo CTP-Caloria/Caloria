@@ -43,7 +43,6 @@ class CalorieJournalPage extends React.Component {
         food: "",
         servingSize: "",
         units: "",
-        selectedDay: null,
         show: false,
         breakfastArray: [],
         lunchArray: [],
@@ -52,6 +51,7 @@ class CalorieJournalPage extends React.Component {
         totalCalories: 0,
         foodCalories: 0,
         caloriesSoFar: 0,
+
     }
 
     handleClose = () => {
@@ -99,6 +99,7 @@ class CalorieJournalPage extends React.Component {
                 let year = today.getFullYear();
                 let month = (today.getMonth() + 1);
                 let date = (today.getDate());
+                console.log(date);
                 let dateOnly = `${year}-${month}-${date}`
 
                 let amount = this.state.servingSize + " " + this.state.units
@@ -226,15 +227,95 @@ class CalorieJournalPage extends React.Component {
         // }
     }
 
-    // handleDayClick(day, { selected }) {
+    handleDayChange(selectedDay, modifiers, dayPickerInput) {
+        let calories=0;
+        const input = dayPickerInput.getInput();
+        console.log(input.value);
+        let date = input.value;
+        console.log(date);
+        // this.setState({
+        //     selectedDay: 
+        // });
+        axios({
+            method: 'get',
+            url: `/api/journals/getCalories/${auth.userID}/${date}`,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        }).then(res=>{
+            console.log(res.status);
+         
 
-    //     this.setState({ 
-    //         selectedDay: selected ? undefined : day, 
-    //     });
+                axios({
+                    method: 'get',
+                    url: `/api/entries/getEntry/${auth.userID}/${date}`,
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                })
+                    .then(getReq => {
+                        console.log(getReq.data);
 
-    //     console.log(day);
-    //     console.log(this.state.selectedDay);
-    // }    
+                        let todayEntry = getReq.data;
+
+                        let lunch = [];
+                        let dinner = [];
+                        let snack = [];
+                        let breakfast = [];
+
+                        todayEntry.forEach((item) => {
+
+                            console.log(item);
+                            // let mealID=item.mealID
+                            calories += parseInt(item.totalCalories);
+                            switch (item.mealID) {
+                                case 1:
+                                    breakfast.push(item);
+                                    break;
+                                case 2:
+                                    lunch.push(item);
+                                    break;
+                                case 3:
+                                    dinner.push(item);
+                                    break;
+                                case 4:
+                                    snack.push(item);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        })
+
+                        this.setState({
+                            caloriesSoFar: res.data.totalCalories,
+                            breakfastArray: breakfast,
+                            lunchArray: lunch,
+                            dinnerArray: dinner,
+                            snackArray: snack,
+
+                        })
+                    })
+
+
+            // }
+        }).catch(err =>{
+            console.log(err)
+            this.setState({
+                caloriesSoFar: 0,
+                breakfastArray: [],
+                lunchArray: [],
+                dinnerArray: [],
+                snackArray: [],
+            })
+        
+        });
+        
+
+   
+    }
+    handleDayChange = this.handleDayChange.bind(this);
+
 
     componentDidMount() {
         // if (auth.isAuthenticated) {
@@ -334,6 +415,7 @@ class CalorieJournalPage extends React.Component {
                 })
         // }
     }
+  
 
     render() {
         // if (auth.isAuthenticated) {
@@ -345,189 +427,192 @@ class CalorieJournalPage extends React.Component {
         return (
             <div>
                 <div id="background" />
-                <h1 className="display-2 mt-5 mb-3 heading">Hello, {todayInString()}!</h1>
+                <div>
+                    <h1 className="display-2 mt-5 mb-3 heading">Hello, {todayInString()}!</h1>
 
-                <div className="container my-5">
-                    <div className="card box">
-                        <div className="card-header">
-                            <div className="row">
-                                <div className="col-auto mr-auto">
-                                    <h5>Summary</h5>
+                    <div className="container my-5">
+                        <div className="card box">
+                            <div className="card-header">
+                                <div className="row">
+                                    <div className="col-auto mr-auto">
+                                        <h5>Summary</h5>
+                                    </div>
+                                    <div className="col-auto ml-auto">
+                                        <DayPickerInput
+                                            selectedDays={ this.state.selectedDay } 
+                                            onDayClick={ this.handleDayClick } 
+                                        />
+                                        <p>{this.state.selectedDay}</p>
+                                    </div>
                                 </div>
-                                <div className="col-auto ml-auto">
-                                    <DayPickerInput
-                                        selectedDays={ this.state.selectedDay } 
-                                        onDayClick={ this.handleDayClick } 
-                                    />
-                                    <p>{this.state.selectedDay}</p>
+                            </div>
+                            <div>
+                                <div className="row">
+                                    <div className="col-auto mr-auto ml-3 my-3">Calories so far: {this.state.caloriesSoFar}</div>
+
+                                    <span className="ml-auto mr-5 my-3">
+                                        ADD ENTRY
+                                        <BsPlusSquare
+                                            id="svg-btn"
+                                            type="button"
+                                            className="ml-3 mb-1"
+                                            onClick={this.handleShow}
+                                        />
+                                    </span>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row row-cols-1 row-cols-md-2">
+                        <div className="col mb-4">
+                            <div className="card box" id="breakfast" value="1">
+                                <div className="card-body">
+                                    <h5 className="card-title" id="mealType">Breakfast</h5>
+                                    {this.state.breakfastArray.map((item) =>
+                                        <div className="row" key={item.id}>
+                                            <div className="col-4 mr-auto">{item.food}</div>
+                                            <div className="col-4 mx-auto">{item.servingSize}</div>
+                                            <div className="col-4 mr-auto">{item.totalCalories}</div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="row">
-                                <div className="col-auto mr-auto ml-3 my-3">Calories so far: {this.state.caloriesSoFar}</div>
-
-                                <span className="ml-auto mr-5 my-3">
-                                    ADD ENTRY
-                                    <BsPlusSquare
-                                        id="svg-btn"
-                                        type="button"
-                                        className="ml-3 mb-1"
-                                        onClick={this.handleShow}
-                                    />
-                                </span>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div className="row row-cols-1 row-cols-md-2">
-                    <div className="col mb-4">
-                        <div className="card box" id="breakfast" value="1">
-                            <div className="card-body">
-                                <h5 className="card-title" id="mealType">Breakfast</h5>
-                                {this.state.breakfastArray.map((item) =>
-                                    <div className="row" key={item.id}>
-                                        <div className="col-6 mr-auto">{item.food}</div>
-                                        <div className="col-4 mr-auto">{item.servingSize}</div>
-                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
-                                    </div>
-                                )}
+                        <div className="col mb-4">
+                            <div className="card box" id="lunch" value="2">
+                                <div className="card-body">
+                                    <h5 className="card-title" id="mealType">Lunch</h5>
+                                    {this.state.lunchArray.map((item) =>
+                                        <div className="row" key={item.id}>
+                                            <div className="col-4 mr-auto">{item.food}</div>
+                                            <div className="col-4 mx-auto">{item.servingSize}</div>
+                                            <div className="col-4 mr-auto">{item.totalCalories}</div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col mb-4">
-                        <div className="card box" id="lunch" value="2">
-                            <div className="card-body">
-                                <h5 className="card-title" id="mealType">Lunch</h5>
-                                {this.state.lunchArray.map((item) =>
-                                    <div className="row" key={item.id}>
-                                        <div className="col-6 mr-auto">{item.food}</div>
-                                        <div className="col-4 mr-auto">{item.servingSize}</div>
-                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
-                                    </div>
-                                )}
+                        <div className="col mb-4">
+                            <div className="card box" id="dinner" value="3">
+                                <div className="card-body">
+                                    <h5 className="card-title" id="mealType">Dinner</h5>
+                                    {this.state.dinnerArray.map((item) =>
+                                        <div className="row" key={item.id}>
+                                            <div className="col-4 mr-auto">{item.food}</div>
+                                            <div className="col-4 mx-auto">{item.servingSize}</div>
+                                            <div className="col-4 ml-auto">{item.totalCalories}</div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col mb-4">
+                            <div className="card box" id="snack" value="4">
+                                <div className="card-body">
+                                    <h5 className="card-title" id="mealType">Snack</h5>
+                                    {this.state.snackArray.map((item) =>
+                                        <div className="row" key={item.id}>
+                                            <div className="col-4 mr-auto">{item.food}</div>
+                                            <div className="col-4 mx-auto">{item.servingSize}</div>
+                                            <div className="col-4 ml-auto">{item.totalCalories}</div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col mb-4">
-                        <div className="card box" id="dinner" value="3">
-                            <div className="card-body">
-                                <h5 className="card-title" id="mealType">Dinner</h5>
-                                {this.state.dinnerArray.map((item) =>
-                                    <div className="row" key={item.id}>
-                                        <div className="col-6 mr-auto">{item.food}</div>
-                                        <div className="col-4 mr-auto">{item.servingSize}</div>
-                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col mb-4">
-                        <div className="card box" id="snack" value="4">
-                            <div className="card-body">
-                                <h5 className="card-title" id="mealType">Snack</h5>
-                                {this.state.snackArray.map((item) =>
-                                    <div className="row" key={item.id}>
-                                        <div className="col-6 mr-auto">{item.food}</div>
-                                        <div className="col-4 mr-auto">{item.servingSize}</div>
-                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Add Entry</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Group className="col-12">
-                                <Form.Label htmlFor="mealType">
-                                    Meal
-                                </Form.Label>
-                                <Form.Control
-                                    as="select"
-                                    className="ml-2 w-auto"
-                                    id="mealType"
-                                    custom
-                                    name="mealType"
-                                    onChange={this.handleChange.bind(this)}
-                                >
-                                    <option selected disabled hidden>Choose one</option>
-                                    <option value="1">Breakfast</option>
-                                    <option value="2">Lunch</option>
-                                    <option value="3">Dinner</option>
-                                    <option value="4">Snack</option>
-
-                                </Form.Control>
-                            </Form.Group>
-
-                            <Form.Group className="col-12">
-                                <Form.Label>Food</Form.Label>
-
-                                <FormControl
-                                    aria-label="Default"
-                                    aria-describedby="inputGroup-sizing-default"
-                                    name="food"
-                                    onChange={this.handleChange}
-                                />
-
-                            </Form.Group>
-
-                            <div className="row ml-0">
-                                <Form.Group className="col-4">
-                                    <Form.Label>Serving Size</Form.Label>
-                                    <FormControl
-                                        type="number"
-                                        min="0"
-                                        aria-label="Default"
-                                        aria-describedby="inputGroup-sizing-default"
-                                        name="servingSize"
-                                        onChange={this.handleChange}
-                                    />
-                                </Form.Group>
-
-                                <Form.Group className="col-4">
-                                    <Form.Label htmlFor="unit">
-                                        Unit
+                    <Modal show={this.state.show} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add Entry</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group className="col-12">
+                                    <Form.Label htmlFor="mealType">
+                                        Meal
                                     </Form.Label>
                                     <Form.Control
                                         as="select"
-                                        id="unit"
+                                        className="ml-2 w-auto"
+                                        id="mealType"
                                         custom
-                                        name="units"
+                                        name="mealType"
                                         onChange={this.handleChange.bind(this)}
                                     >
-                                        <option selected disabled hidden>Choose...</option>
-                                        <option value="Serving" >Serving</option>
-                                        <option value="Cups" >Cups</option>
-                                        <option value="Grams">Grams</option>
-                                        <option value="Ounces">Ounces</option>
-                                        <option value="Teaspoons">Teaspoons</option>
-                                        <option value="Tablespoons">Tablespoons</option>
+                                        <option selected disabled hidden>Choose one</option>
+                                        <option value="1">Breakfast</option>
+                                        <option value="2">Lunch</option>
+                                        <option value="3">Dinner</option>
+                                        <option value="4">Snack</option>
 
                                     </Form.Control>
                                 </Form.Group>
-                            </div>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Close
+
+                                <Form.Group className="col-12">
+                                    <Form.Label>Food</Form.Label>
+
+                                    <FormControl
+                                        aria-label="Default"
+                                        aria-describedby="inputGroup-sizing-default"
+                                        name="food"
+                                        onChange={this.handleChange}
+                                    />
+
+                                </Form.Group>
+
+                                <div className="row ml-0">
+                                    <Form.Group className="col-4">
+                                        <Form.Label>Serving Size</Form.Label>
+                                        <FormControl
+                                            type="number"
+                                            min="0"
+                                            aria-label="Default"
+                                            aria-describedby="inputGroup-sizing-default"
+                                            name="servingSize"
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="col-4">
+                                        <Form.Label htmlFor="unit">
+                                            Unit
+                                        </Form.Label>
+                                        <Form.Control
+                                            as="select"
+                                            id="unit"
+                                            custom
+                                            name="units"
+                                            onChange={this.handleChange.bind(this)}
+                                        >
+                                            <option selected disabled hidden>Choose...</option>
+                                            <option value="Serving" >Serving</option>
+                                            <option value="Cups" >Cups</option>
+                                            <option value="Grams">Grams</option>
+                                            <option value="Ounces">Ounces</option>
+                                            <option value="Teaspoons">Teaspoons</option>
+                                            <option value="Tablespoons">Tablespoons</option>
+
+                                        </Form.Control>
+                                    </Form.Group>
+                                </div>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.handleClose}>
+                                Close
+                                </Button>
+                            <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                                Submit
                             </Button>
-                        <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                            Submit
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
             </div>
+            
         )
     }
 }
