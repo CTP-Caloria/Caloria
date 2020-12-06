@@ -27,11 +27,15 @@ class RecipeBoxPage extends React.Component {
     }
 
     return (
-      <div className="container-fluid text-center">
-        <div className="row justify-content-center">
-          { this.state.posts }
+      <div>
+        <div id="background" />
+        <div className="container-fluid text-center">
+          <div className="row justify-content-center">
+            { this.state.posts }
+          </div>
         </div>
       </div>
+      
     );
   }
 }

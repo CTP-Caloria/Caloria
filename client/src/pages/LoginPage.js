@@ -45,38 +45,42 @@ class LoginPage extends React.Component {
     }
 
     return (
-      <div className="wrapper">
+      <div>
+        <div id="background" />
+        <div className="wrapper">
         
-        <form onSubmit={this.login} className="form-wrapper p-5">
-          { err }
-          <h2 className="text-center">Login</h2>
-          <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input 
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  value={this.state.email} 
-                  onChange={this.fieldChanged('email')} 
-              />
-          </div>
-          <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input 
-                  type="password"
-                  className="form-control"
-                  name="password" 
-                  value={this.state.password} 
-                  onChange={this.fieldChanged('password')} 
-              />
-          </div>
-      
-          <button 
-              type="submit"
-            className="btn btn-success"
-          >Login</button>
-        </form>
+          <form onSubmit={this.login} className="form-wrapper p-5">
+            { err }
+            <h2 className="text-center">Login</h2>
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input 
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    value={this.state.email} 
+                    onChange={this.fieldChanged('email')} 
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input 
+                    type="password"
+                    className="form-control"
+                    name="password" 
+                    value={this.state.password} 
+                    onChange={this.fieldChanged('password')} 
+                />
+            </div>
+        
+            <button 
+                type="submit"
+              className="btn btn-success"
+            >Login</button>
+          </form>
+        </div>
       </div>
+      
     );
   }
 }

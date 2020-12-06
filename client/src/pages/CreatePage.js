@@ -314,35 +314,38 @@ class CreatePage extends React.Component {
     }
 
     return (
-      <div className="container form w-75 transparent-bg">
-        <h5 className="display-4 mt-5 mb-4 text-center text-light text-shadow-1">Create Recipe</h5>
-        <div className="form-group row mb-4 mx-4">
-          <label className="form-label h6 text-shadow-3 text-light" htmlFor="recipeName">Recipe Name</label>
-          <input 
-            type="text" 
-            className="form-control mt-1" 
-            id="recipeName" 
-            placeholder="e.g. Banana bread"
-            onChange={this.handleChangeName} />
-        </div>
+      <div>
+        <div id="background" />
+        <div className="container form w-75 transparent-bg">
+          <h5 className="display-4 mt-5 mb-4 text-center text-light text-shadow-1 pt-5">Create Recipe</h5>
+          <div className="form-group row mb-4 mx-4">
+            <label className="form-label h6 text-shadow-3 text-light" htmlFor="recipeName">Recipe Name</label>
+            <input 
+              type="text" 
+              className="form-control mt-1" 
+              placeholder="e.g. Banana bread"
+              onChange={this.handleChangeName} />
+          </div>
 
-        <div className="row h6 text-light text-shadow-3 mx-4">Ingredients</div>
-        {this.ingredientInput()}
-        <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addIngredient.bind(this)}><b>+</b></button>
-          
-        <div className="form-group row h6 text-light text-shadow-3 mx-4">Instructions</div>
-        {this.instructionInput()}
-        <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addInstruction.bind(this)}>+</button>
-        <div className="form-group row text-light">
-          <Button className="col-2 ml-auto mb-4 mr-3" variant="secondary" onClick={() => this.props.history.goBack()}>
-            Cancel
-          </Button>
+          <div className="row h6 text-light text-shadow-3 mx-4">Ingredients</div>
+          {this.ingredientInput()}
+          <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addIngredient.bind(this)}><b>+</b></button>
+            
+          <div className="form-group row h6 text-light text-shadow-3 mx-4">Instructions</div>
+          {this.instructionInput()}
+          <button className="btn add-ingred-btn mb-4 w-100 mt-2" value="add" onClick={this.addInstruction.bind(this)}>+</button>
+          <div className="form-group row text-light">
+            <Button className="col-2 ml-auto mb-4 mr-3" variant="secondary" onClick={() => this.props.history.goBack()}>
+              Cancel
+            </Button>
 
-          <Button className="col-2 ml-2 mr-4 mb-4" variant="primary" type="submit" onClick={this.handleSubmit}>
-            Submit
-          </Button>
+            <Button className="col-2 ml-2 mr-4 mb-4" variant="primary" type="submit" onClick={this.handleSubmit}>
+              Submit
+            </Button>
+          </div>
         </div>
       </div>
+      
     );
   }
 }

@@ -43,6 +43,7 @@ class CalorieJournalPage extends React.Component {
         food: "",
         servingSize: "",
         units: "",
+        selectedDay: null,
         show: false,
         breakfastArray: [],
         lunchArray: [],
@@ -51,7 +52,6 @@ class CalorieJournalPage extends React.Component {
         totalCalories: 0,
         foodCalories: 0,
         caloriesSoFar: 0,
-
     }
 
     handleClose = () => {
@@ -99,7 +99,6 @@ class CalorieJournalPage extends React.Component {
                 let year = today.getFullYear();
                 let month = (today.getMonth() + 1);
                 let date = (today.getDate());
-                console.log(date);
                 let dateOnly = `${year}-${month}-${date}`
 
                 let amount = this.state.servingSize + " " + this.state.units
@@ -227,95 +226,15 @@ class CalorieJournalPage extends React.Component {
         // }
     }
 
-    handleDayChange(selectedDay, modifiers, dayPickerInput) {
-        let calories=0;
-        const input = dayPickerInput.getInput();
-        console.log(input.value);
-        let date = input.value;
-        console.log(date);
-        // this.setState({
-        //     selectedDay: 
-        // });
-        axios({
-            method: 'get',
-            url: `/api/journals/getCalories/${auth.userID}/${date}`,
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
-        }).then(res=>{
-            console.log(res.status);
-         
+    // handleDayClick(day, { selected }) {
 
-                axios({
-                    method: 'get',
-                    url: `/api/entries/getEntry/${auth.userID}/${date}`,
-                    headers: {
-                        "Access-Control-Allow-Origin": "*"
-                    }
-                })
-                    .then(getReq => {
-                        console.log(getReq.data);
+    //     this.setState({ 
+    //         selectedDay: selected ? undefined : day, 
+    //     });
 
-                        let todayEntry = getReq.data;
-
-                        let lunch = [];
-                        let dinner = [];
-                        let snack = [];
-                        let breakfast = [];
-
-                        todayEntry.forEach((item) => {
-
-                            console.log(item);
-                            // let mealID=item.mealID
-                            calories += parseInt(item.totalCalories);
-                            switch (item.mealID) {
-                                case 1:
-                                    breakfast.push(item);
-                                    break;
-                                case 2:
-                                    lunch.push(item);
-                                    break;
-                                case 3:
-                                    dinner.push(item);
-                                    break;
-                                case 4:
-                                    snack.push(item);
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                        })
-
-                        this.setState({
-                            caloriesSoFar: res.data.totalCalories,
-                            breakfastArray: breakfast,
-                            lunchArray: lunch,
-                            dinnerArray: dinner,
-                            snackArray: snack,
-
-                        })
-                    })
-
-
-            // }
-        }).catch(err =>{
-            console.log(err)
-            this.setState({
-                caloriesSoFar: 0,
-                breakfastArray: [],
-                lunchArray: [],
-                dinnerArray: [],
-                snackArray: [],
-            })
-        
-        });
-        
-
-   
-    }
-    handleDayChange = this.handleDayChange.bind(this);
-
+    //     console.log(day);
+    //     console.log(this.state.selectedDay);
+    // }    
 
     componentDidMount() {
         // if (auth.isAuthenticated) {
@@ -415,7 +334,6 @@ class CalorieJournalPage extends React.Component {
                 })
         // }
     }
-  
 
     render() {
         // if (auth.isAuthenticated) {
@@ -426,6 +344,7 @@ class CalorieJournalPage extends React.Component {
 
         return (
             <div>
+                <div id="background" />
                 <h1 className="display-2 mt-5 mb-3 heading">Hello, {todayInString()}!</h1>
 
                 <div className="container my-5">
@@ -437,26 +356,29 @@ class CalorieJournalPage extends React.Component {
                                 </div>
                                 <div className="col-auto ml-auto">
                                     <DayPickerInput
-                                        
-                                        onDayChange={this.handleDayChange}
+                                        selectedDays={ this.state.selectedDay } 
+                                        onDayClick={ this.handleDayClick } 
                                     />
-                                    {/* onDayChange={() => this.handleCalendar()} */}
+                                    <p>{this.state.selectedDay}</p>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="row">
                                 <div className="col-auto mr-auto ml-3 my-3">Calories so far: {this.state.caloriesSoFar}</div>
-                                <span className="ml-auto mr-5 mt-4">
-                                    ADD ENTRY {'   '}
+
+                                <span className="ml-auto mr-5 my-3">
+                                    ADD ENTRY
                                     <BsPlusSquare
+                                        id="svg-btn"
                                         type="button"
-                                        className="ml-2"
+                                        className="ml-3 mb-1"
                                         onClick={this.handleShow}
                                     />
                                 </span>
 
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -468,9 +390,9 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Breakfast</h5>
                                 {this.state.breakfastArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-4 mr-auto">{item.food}</div>
-                                        <div className="col-4 mx-auto">{item.servingSize}</div>
-                                        <div className="col-4 mr-auto">{item.totalCalories}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
@@ -482,9 +404,9 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Lunch</h5>
                                 {this.state.lunchArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-4 mr-auto">{item.food}</div>
-                                        <div className="col-4 mx-auto">{item.servingSize}</div>
-                                        <div className="col-4 mr-auto">{item.totalCalories}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
@@ -496,9 +418,9 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Dinner</h5>
                                 {this.state.dinnerArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-4 mr-auto">{item.food}</div>
-                                        <div className="col-4 mx-auto">{item.servingSize}</div>
-                                        <div className="col-4 ml-auto">{item.totalCalories}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>
@@ -510,9 +432,9 @@ class CalorieJournalPage extends React.Component {
                                 <h5 className="card-title" id="mealType">Snack</h5>
                                 {this.state.snackArray.map((item) =>
                                     <div className="row" key={item.id}>
-                                        <div className="col-4 mr-auto">{item.food}</div>
-                                        <div className="col-4 mx-auto">{item.servingSize}</div>
-                                        <div className="col-4 ml-auto">{item.totalCalories}</div>
+                                        <div className="col-6 mr-auto">{item.food}</div>
+                                        <div className="col-4 mr-auto">{item.servingSize}</div>
+                                        <div className="col-auto ml-auto">{item.totalCalories}</div>
                                     </div>
                                 )}
                             </div>

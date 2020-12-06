@@ -124,13 +124,14 @@ class RecipePage extends React.Component {
 
     return(
       
-      <div className="background">
+      <div>
+        <div id="background" />
         <div className="food-wrapper my-5">   
           <div> 
             
             <div className="my-4">
               <h1 className="display-4"><b>{this.state.mealName}</b></h1>
-              <img id="image" src={this.state.image} alt="food" className="mt-4"></img>
+              <img id="image" src={this.state.image} alt="food" className="mt-4 rounded"></img>
             </div>
             
             <div className="my-4">

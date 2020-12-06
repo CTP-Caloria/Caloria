@@ -134,87 +134,91 @@ class RegisterPage extends React.Component {
         }
         return (
 
-            <div className="wrapper">
-                <div className="form-wrapper p-5">
-                    <h1 className="mb-3">Register</h1>
-                    <form onSubmit={this.handleSubmit}>
-                        {/* { err } */}
-                        <div className="firstName">
-                            <label htmlFor="firstName">First name</label>
-                            <input
-                                type="text"
-                                className={formErrors.firstName.length > 0 ? "error" : null}
-                                name="firstName"
-                                placeholder="First name"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.firstName.length > 0 && (
-                                <span className="errorMessage">{formErrors.firstName}</span>
-                            )}
-                        </div>
-                        <div className="lastName">
-                            <label htmlFor="lastName">Last name</label>
-                            <input
-                                type="text"
-                                className={formErrors.lastName.length > 0 ? "error" : null}
-                                name="lastName"
-                                placeholder="Last name"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.lastName.length > 0 && (
-                                <span className="errorMessage">{formErrors.lastName}</span>
-                            )}
+            <div>
+                <div id="background" />
+                <div className="wrapper">
+                    <div className="form-wrapper p-5">
+                        <h1 className="mb-3">Register</h1>
+                        <form onSubmit={this.handleSubmit}>
+                            {/* { err } */}
+                            <div className="firstName">
+                                <label htmlFor="firstName">First name</label>
+                                <input
+                                    type="text"
+                                    className={formErrors.firstName.length > 0 ? "error" : null}
+                                    name="firstName"
+                                    placeholder="First name"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.firstName.length > 0 && (
+                                    <span className="errorMessage">{formErrors.firstName}</span>
+                                )}
+                            </div>
+                            <div className="lastName">
+                                <label htmlFor="lastName">Last name</label>
+                                <input
+                                    type="text"
+                                    className={formErrors.lastName.length > 0 ? "error" : null}
+                                    name="lastName"
+                                    placeholder="Last name"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.lastName.length > 0 && (
+                                    <span className="errorMessage">{formErrors.lastName}</span>
+                                )}
 
-                        </div>
-                        <div className="email">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                type="email"
-                                className={formErrors.email.length > 0 ? "error" : null} name="email"
-                                placeholder="Email"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.email.length > 0 && (
-                                <span className="errorMessage">{formErrors.email}</span>
-                            )}
-                        </div>
-                        <div className="password">
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                className={formErrors.password.length > 0 ? "error" : null} name="password"
-                                placeholder="Password"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.password.length > 0 && (
-                                <span className="errorMessage">{formErrors.password}</span>
-                            )}
-                        </div>
+                            </div>
+                            <div className="email">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="email"
+                                    className={formErrors.email.length > 0 ? "error" : null} name="email"
+                                    placeholder="Email"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.email.length > 0 && (
+                                    <span className="errorMessage">{formErrors.email}</span>
+                                )}
+                            </div>
+                            <div className="password">
+                                <label htmlFor="password">Password</label>
+                                <input
+                                    type="password"
+                                    className={formErrors.password.length > 0 ? "error" : null} name="password"
+                                    placeholder="Password"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.password.length > 0 && (
+                                    <span className="errorMessage">{formErrors.password}</span>
+                                )}
+                            </div>
 
-                        <div className="password">
-                            <label htmlFor="password2">Confirm password</label>
-                            <input
-                                type="password"
-                                className={formErrors.password.length > 0 ? "error" : null} name="password2"
-                                placeholder="Password"
-                                noValidate
-                                onChange={this.handleChange}
-                            />
-                            {formErrors.password.length > 0 && (
-                                <span className="errorMessage">{formErrors.password2}</span>
-                            )}
-                        </div>
-                        
-                        <button className="btn btn-success btn-block mt-2" type="submit">Register</button>
-                        
-                    </form>
+                            <div className="password">
+                                <label htmlFor="password2">Confirm password</label>
+                                <input
+                                    type="password"
+                                    className={formErrors.password.length > 0 ? "error" : null} name="password2"
+                                    placeholder="Password"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.password.length > 0 && (
+                                    <span className="errorMessage">{formErrors.password2}</span>
+                                )}
+                            </div>
+                            
+                            <button className="btn btn-success btn-block mt-2" type="submit">Register</button>
+                            
+                        </form>
 
+                    </div>
                 </div>
             </div>
+           
     
         );
     }
