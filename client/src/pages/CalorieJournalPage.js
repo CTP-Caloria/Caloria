@@ -439,10 +439,8 @@ class CalorieJournalPage extends React.Component {
                                     </div>
                                     <div className="col-auto ml-auto">
                                         <DayPickerInput
-                                            selectedDays={ this.state.selectedDay } 
-                                            onDayClick={ this.handleDayClick } 
+                                            onDayChange={this.handleDayChange}
                                         />
-                                        <p>{this.state.selectedDay}</p>
                                     </div>
                                 </div>
                             </div>
