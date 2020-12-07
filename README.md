@@ -1,9 +1,26 @@
 # Caloría
-Calorie counter and recipe finder for alternatives to healthy eating.
+
+Caloría is a calorie counter and recipe finder for alternatives to healthy eating.
+Our app is deployed [here](https://caloria-ctp.herokuapp.com/).
+
+## Design
 
 Wireframe and prototype [here](https://www.figma.com/file/jSym1J7RTKrEVnEE3KCx2X/Wireframe).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
+
+Install dependencies using the [npm package manager](https://docs.npmjs.com/cli/v6/commands/npm-install) in the _main_ folder and _client_ folder:
+
+```bash
+npm install
+```
+
+```bash
+cd client
+npm install
+```
+
+Our app uses [PostgreSQL](https://www.postgresql.org/download/).
 
 ## Available Scripts
 
@@ -55,113 +72,20 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Bootstrap 4.x added to `/client/public/index.html`
 - React Router
 
-*Project Structure*
-
-<pre>
-.
-├── README.md
-├── <strong>api</strong>
-│   ├── app.js
-│   ├── <strong>config</strong>
-│   │   └── config.json
-│   ├── <strong>controllers</strong>
-│   │   ├── appConfig.js
-│   │   ├── index.js
-│   │   └── posts.js
-│   └── <strong>models</strong>
-│       ├── index.js
-│       └── post.js
-├── <strong>client</strong>
-│   ├── README.md
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── <strong>public</strong>
-│   │   ├── favicon.ico
-│   │   ├── index.html
-│   │   ├── logo192.png
-│   │   ├── logo512.png
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   └── <strong>src</strong>
-│       ├── App.css
-│       ├── App.js
-│       ├── App.test.js
-│       ├── <strong>components</strong>
-│       │   ├── Loading.js
-│       │   └── Post.js
-│       ├── index.css
-│       ├── index.js
-│       ├── logo.svg
-│       ├── <strong>pages</strong>
-│       │   ├── AboutUsPage.js
-│       │   ├── PostFormPage.js
-│       │   ├── PostsListPage.js
-│       │   └── ShowPostPage.js
-│       └── serviceWorker.js
-├── package-lock.json
-└── package.json
-</pre>
-
-### Running the app
-
-For local development you will need two terminals open, one for the api-backend and another for the react-client.
-
-*Clone* this app, then:
+## Usage
+For **local development** you will need two terminals open, one for the API-backend and another for the react-client.
 
 ```bash
-# api-backend terminal 1
-cp .env.example .env
-npm install
-npm run dev
+cd client
+npm start
 ```
 
 ```bash
-# react-client terminal 2
-cd client
-npm install
-npm start
+cd api
+npm run dev
 ```
 
 - api-backend will launch at: http://localhost:8080
 - react-client will launch at: http://localhost:3000
 
 > In production you will only deploy a single app. The react client will build into static files that will be served from the backend.
-
-## Deployment
-
-### Setting up Heroku
-
-Install the Heroku CLI if you don't already have it. 
-
-> You will also need a Heroku account
-> And this will only be done once on your machine
-
-```bash
-# on mac
-brew install heroku/brew/heroku
-heroku login
-```
-
-### Create a Heroku project
-
-Next, `cd` into this project directory and create a project:
-
-```bash
-heroku create cool-appname
-heroku addons:create heroku-postgresql:hobby-dev
-```
-
-> This will deploy your apps to https://cool-appname.herokuapp.com, assuming that it is not taken already.
-
-> You only need to do this once per app
-
-### Deploying the app
-
-Whenever you want to update the app run this command.
-
-```bash
-git push heroku master
-```
-
-> This command deploys your master branch. You can change that and deploy a different branch such as: `git push heroku development`
-
