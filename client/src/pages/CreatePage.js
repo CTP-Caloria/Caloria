@@ -60,9 +60,9 @@ class CreatePage extends React.Component {
           />
         </div>
         <button className="btn btn-info mb-3" value="add" onClick={this.handleInstructionsChange.bind(this,i, this.state.tempInstruction)}>Add instruction</button> 
-        {/* <button className="btn btn-secondary mb-4" value="add" onClick={this.addInstruction.bind(this)}>+</button>  */}
+        
         <button className="btn btn-outline-danger mb-3 ml-2 mr-4" value="remove" onClick={this.removeInstruction.bind(this, i)}>X</button> 
-        {/* <span className="col" type="button" value="remove" onClick={this.removeInstruction.bind(this, i)}><BsX /></span> */}
+        
       </div>
     ))
   }
@@ -76,8 +76,6 @@ class CreatePage extends React.Component {
 
   handleInstructionsChange = (i, input) => {
 
-    // const { name, value } = e.target;
-    //  const value=input;
     console.log(i);
     console.log(input);
 
@@ -88,7 +86,7 @@ class CreatePage extends React.Component {
 
     this.setState({
       instructions,
-      // tempInstruction: "",
+      
     }, () => console.log(this.state));
 
     console.log(this.state);
@@ -116,9 +114,9 @@ class CreatePage extends React.Component {
             type="text" 
             className="form-control mt-1 ml-4" 
             id="food" 
-            // value={x.food}
+            
             onChange={this.ingredientChange.bind(this)}
-          // {this.handleIngredientsChange.bind(this, i)}
+          
           />
         </div>
         <div className="form-group col">
@@ -135,7 +133,7 @@ class CreatePage extends React.Component {
           <label className="form-label text-shadow-3 text-light" htmlFor="unit">Unit</label>
           <select 
             className="form-control mt-1" 
-            // value={x.units}
+            
             onChange={this.ingredientChange.bind(this)}
           >
             <option selected disabled hidden>Choose one</option>
@@ -149,12 +147,12 @@ class CreatePage extends React.Component {
         </div>
           <button className="btn btn-info mt-2" value="add" onClick={this.handleIngredientsChange.bind(this, i)}>Add ingredient</button> 
           <button className="btn btn-outline-danger mt-2 ml-2 mr-4" value="remove" onClick={this.removeIngredient.bind(this, i)}>X</button>       
-        {/* <span className="col" type="button" value="remove" onClick={this.removeIngredient.bind(this, i)}><BsX /></span> */}
+       
       </div>
     ))
   }
   ingredientChange = (e) => {
-    //console.log(e.target.id);
+    
     let tempIngredient = this.state.tempIngredient;
     let tempServingSize = this.state.tempServingSize;
     let tempUnits = this.state.tempUnits;
@@ -187,8 +185,7 @@ class CreatePage extends React.Component {
   }
   handleIngredientsChange = (i, e) => {
     e.preventDefault();
-    // console.log(i);
-    // console.log(this.state.tempIngredient);
+  
     let food = this.state.tempIngredient;
     let servingSize = this.state.tempServingSize;
     let units = this.state.tempUnits;
@@ -202,7 +199,7 @@ class CreatePage extends React.Component {
 
     axios({
       method: 'get',
-      url: `https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
+      url: `https://api.edamam.com/api/nutrition-data?app_id=686cd754&app_key=9360e258a72baefd30a206644f0bcac6&ingr=" + ${amount} + " " + ${food}`,
       headers: {
         "Access-Control-Allow-Origin": "*"
       },
@@ -218,9 +215,7 @@ class CreatePage extends React.Component {
 
     this.setState({
       ingredients,
-      // tempIngredient:"",
-      // tempServingSize: "",
-      // tempUnits: "",
+
     }, () => console.log(this.state));
 
     console.log(this.state);
@@ -244,7 +239,7 @@ class CreatePage extends React.Component {
       let food = ""
       let totalCalories = 0;
       this.state.ingredients.forEach((ingredient => {
-        // console.log(ingredient.food);
+        
         food = ingredient.food;
         amount = ingredient.servingSize + " " + ingredient.units;
         ingredients += (amount + " of " + food + ",")
@@ -270,16 +265,11 @@ class CreatePage extends React.Component {
             servingSize: 1.0,
             unit: "Serving",
             instructions: instructions,
-            // this.state.instructions,
+         
             ingredients: ingredients,
-            // "ingredients",
-            //this.state.ingredients,
+           
             requesterID: auth.userID,
-            // name: ,
-            // totalCalories
-            // ingredients: this.state.ingredients,
-            // servingSize: this.state.servingSize,
-            // units: this.state.units
+        
           }
         })
 
