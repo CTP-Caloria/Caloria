@@ -1,16 +1,10 @@
 import React from 'react';
 import { Button, Modal, FormControl, Form } from 'react-bootstrap';
-import {
-    // BsCalendar, 
-    // BsCalendarFill, 
-    BsPlusSquare,
-    // BsPlusSquareFill 
-} from 'react-icons/bs';
+import {BsPlusSquare} from 'react-icons/bs';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import auth from '../services/auth';
-// import { get } from '../../../api/controllers/entries';
-//import Redirect from 'react-router-dom';
+
 
 const axios = require('axios');
 
@@ -76,13 +70,12 @@ class CalorieJournalPage extends React.Component {
             [name]: value
         }, () => console.log(this.state));
 
-        // console.log(this.state);
     }
 
 
     handleSubmit = (e) => {
         e.preventDefault();
-        //   this.calculateCalories();
+        
         // if (auth.isAuthenticated) {
 
 
@@ -107,7 +100,7 @@ class CalorieJournalPage extends React.Component {
 
                 axios({
                     method: 'get',
-                    url: `https://api.edamam.com/api/nutrition-data?app_id=a13b07cb&app_key=16baabeb65d884657c730df6ce3a525f&ingr=" + ${amount} + " " + ${food}`,
+                    url: `https://api.edamam.com/api/nutrition-data?app_id=686cd754&app_key=9360e258a72baefd30a206644f0bcac6&ingr=" + ${amount} + " " + ${food}`,
                     headers: {
                         "Access-Control-Allow-Origin": "*"
                     },
@@ -185,9 +178,9 @@ class CalorieJournalPage extends React.Component {
                                 },
 
                                 data: {
-                                    // dateOnly: dateOnly,
+                                    
                                     totalCalories: this.state.totalCalories,
-                                    // requesterID: auth.userID,
+                                    
                                 }
                             }).then(() => {
 
@@ -222,8 +215,6 @@ class CalorieJournalPage extends React.Component {
             }
             this.setState({ show: false });
             // window.location.reload();
-        // } else {
-        //     alert("Please log in to use this feature!");
         // }
     }
 
@@ -233,9 +224,7 @@ class CalorieJournalPage extends React.Component {
         console.log(input.value);
         let date = input.value;
         console.log(date);
-        // this.setState({
-        //     selectedDay: 
-        // });
+   
         axios({
             method: 'get',
             url: `/api/journals/getCalories/${auth.userID}/${date}`,
@@ -245,25 +234,6 @@ class CalorieJournalPage extends React.Component {
         }).then(res=>{
             console.log(res.status);
          
-            // if(res.ok){
-
-            //     console.log(res);
-            //     this.setState({
-            //         caloriesSoFar: 0,
-            //         breakfastArray: [],
-            //         lunchArray: [],
-            //         dinnerArray: [],
-            //         snackArray: [],
-            //     })
-            
-            
-                
-            // }else{
-
-
-                // this.setState({
-                //     caloriesSoFar: res.data.totalCalories
-                // })
 
                 axios({
                     method: 'get',
@@ -285,7 +255,7 @@ class CalorieJournalPage extends React.Component {
                         todayEntry.forEach((item) => {
 
                             console.log(item);
-                            // let mealID=item.mealID
+                            
                             calories += parseInt(item.totalCalories);
                             switch (item.mealID) {
                                 case 1:
@@ -369,7 +339,7 @@ class CalorieJournalPage extends React.Component {
                     todayEntry.forEach((item) => {
 
                         console.log(item);
-                        // let mealID=item.mealID
+                        
                         calories += parseInt(item.totalCalories);
                         switch (item.mealID) {
                             case 1:
@@ -437,11 +407,6 @@ class CalorieJournalPage extends React.Component {
   
 
     render() {
-        // if (auth.isAuthenticated) {
-            console.log("Authenticated: " + auth.userID+"HELLO");
-        // } else {
-        //     console.log("Not logged in");
-        // }
 
         return (
             <div>
